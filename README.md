@@ -1,5 +1,4 @@
-.. image:: https://travis-ci.org/jericks/well-known-geometry.svg?branch=master
-    :target: https://travis-ci.org/jericks/well-known-geometry
+[![Build Status](https://travis-ci.org/jericks/wkg.svg?branch=master)](https://travis-ci.org/jericks/wkg)
 
 Well Known Geometry
 ===================
