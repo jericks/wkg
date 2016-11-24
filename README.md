@@ -10,9 +10,9 @@ It can parse EWKT or WKT with a spatial reference system identifier.
 
 It can parse Geometry with XY, XYZ, XYM, or XYZM coordinates.
 
-It can read and write WKB and `EWKB <http://lists.osgeo.org/pipermail/postgis-devel/2004-December/000710.html>`_.
+It can read and write WKB and [EWKB](http://lists.osgeo.org/pipermail/postgis-devel/2004-December/000710.html).
 
-Example Geometries in WKT::
+Example Geometries in WKT:
 
     POINT (1 1)
 
@@ -56,49 +56,54 @@ Example Geometries in WKT::
 
 Use
 ---
-You can use the **org.cugos.wkg.WTKReader** to read Geometry from a WKT string::
+You can use the **org.cugos.wkg.WTKReader** to read Geometry from a WKT string.
 
-    import org.cugos.wkg.WKTReader;
-    import org.cugos.wkg.Point;
+```groovy
+import org.cugos.wkg.WKTReader;
+import org.cugos.wkg.Point;
 
-    String wkt = "POINT (1.0 2.0)";
-    WKTReader reader = new WKTReader();
-    Point point = (Point) reader.read(wkt);
+String wkt = "POINT (1.0 2.0)";
+WKTReader reader = new WKTReader();
+Point point = (Point) reader.read(wkt);
+```
 
-Once you have parse a WKT String into a **org.cugos.wkg.Geometry** you can write it back to WKT using the **org.cugos.wkg.WKTWriter**::
+Once you have parse a WKT String into a **org.cugos.wkg.Geometry** you can write it back to WKT using the **org.cugos.wkg.WKTWriter**.
 
-    import org.cugos.wkg.WKTWriter;
-    import org.cugos.wkg.Coordinate;
-    import org.cugos.wkg.Dimension;
-    import org.cugos.wkg.CircularString;
+```groovy
+import org.cugos.wkg.WKTWriter;
+import org.cugos.wkg.Coordinate;
+import org.cugos.wkg.Dimension;
+import org.cugos.wkg.CircularString;
 
-    WKTWriter writer = new WKTWriter();
-    CircularString cs = new CircularString(Arrays.asList(
-        Coordinate.create2D(1, 1),
-        Coordinate.create2D(5, 5),
-        Coordinate.create2D(2, 2)),
-        Dimension.Two)
-    )
-    String wkt = writer.write(cs);
+WKTWriter writer = new WKTWriter();
+CircularString cs = new CircularString(Arrays.asList(
+    Coordinate.create2D(1, 1),
+    Coordinate.create2D(5, 5),
+    Coordinate.create2D(2, 2)),
+    Dimension.Two)
+)
+String wkt = writer.write(cs);
+```
+You can also read and write WKB and EWKB.
 
-You can also read and write WKB and EWKB::
+```groovy
+import org.cugos.wkg.WKTReader;
+import org.cugos.wkg.Geometry;
 
-    import org.cugos.wkg.WKTReader;
-    import org.cugos.wkg.Geometry;
+import org.cugos.parboiledwkb.WKBWriter;
+import org.cugos.parboiledwkb.WKBReader;
+import org.cugos.wkg.WKB.Endian;
+import org.cugos.wkg.WKB.Type;
 
-    import org.cugos.parboiledwkb.WKBWriter;
-    import org.cugos.parboiledwkb.WKBReader;
-    import org.cugos.wkg.WKB.Endian;
-    import org.cugos.wkg.WKB.Type;
+WKTReader reader = new WKTReader();
+Geometry geometry = reader.read("POINT (2 4)");
 
-    WKTReader reader = new WKTReader();
-    Geometry geometry = reader.read("POINT (2 4)");
+WKBWriter writer = new WKBWriter(Type.WKB, Endian.Big);
+byte[] wkb = wkb.write(geometry);
 
-    WKBWriter writer = new WKBWriter(Type.WKB, Endian.Big);
-    byte[] wkb = wkb.write(geometry);
-
-    WKBReader wkbReader = new WKBReader();
-    Geometry point = wkb.read(wkb);
+WKBReader wkbReader = new WKBReader();
+Geometry point = wkb.read(wkb);
+```
 
 Licene
 ------
