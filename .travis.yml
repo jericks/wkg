@@ -1,4 +1,8 @@
 language: java
-
 jdk:
-    - openjdk7
+- openjdk7
+env:
+  global:
+    secure: Gc9qRhpvIi6GDYXunrbEMjK5bes/e1U4Owcr4SDS/URrZPBhI/GDyo+XduJMopiEZJSiI7uRWun2J9f4tn0H0wWQNoTwaiXqkO4t32ApS55dCf76Du2AiQ3bdt8oxA/zdJmD5EvcrBPND2WqRrlRbHDq0Qt2AdMEJI4qb4CRefEbf1f6LygOGmZGiW5Vkyc6zaUhaNg3dvQ+NjyXCTyQopc/OkqiPrv2t+FtcaCz2Af3/9d+DajlGDif4VrxkNxcK9fPHDw3/IOJW1g7xJWuSBhTCRLNPjjJ9+PvLP4lN/Nn5bUK6mvHN29BOPYpUBbalBXIPy/1tsXpxsbIMvFAosC6bFErTrklvRDdru6KADI5TeGLK3A9Ymc4j/Bmzs+UhQc4YDUVwfCnQt2z9HIgnbkv7D0/TYWirCGmH8ynbwelA6lumhDkcYFWKJWJzM8evL4ywfbqM++ZkpbvXsPsinThsVttB7Qf4Zpdsr5Yu2Eqm0uM1xQGlCqk6lv6+K/m9aSYLTusDBOQqOisHgB8dgTWZ9cg52mzWliYY1Dl7OkKo2lQXa6jsvns2wXWO1PlTsIhTTNdaIWQcHam0xvzes3A/XJyypphuzT2h9+SRvB/xLfkqFYHvXp+osOy4H6a/VmJmkfdWZcx+RuMFsosRgv7Nf9Nu5mgVPyNmrZgRtk=
+after_success:
+  - mvn site -X
