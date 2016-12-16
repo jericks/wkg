@@ -1,5 +1,5 @@
 -classpath
-'/home/travis/build/jericks/wkg/target/classes:/home/travis/.m2/repository/org/antlr/antlr4-runtime/4.5.3/antlr4-runtime-4.5.3.jar'
+'/home/travis/build/jericks/wkg/target/classes:/home/travis/.m2/repository/org/antlr/antlr4-runtime/4.6/antlr4-runtime-4.6.jar'
 -encoding
 'UTF-8'
 -protected
