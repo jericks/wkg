@@ -39,7 +39,7 @@ public class WKBReader {
      * @param buffer The ByteBuffer
      * @return A Geometry or null
      */
-    private Geometry read(ByteBuffer buffer) {
+    protected Geometry read(ByteBuffer buffer) {
 
         // Determine byte order
         Endian endian = Endian.get(buffer.get());

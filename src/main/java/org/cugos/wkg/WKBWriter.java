@@ -99,7 +99,7 @@ public class WKBWriter {
      * @param g The Geometry
      * @return The number of bytes necessary for the given Geometry
      */
-    private int calculateNumberOfBytes(Geometry g) {
+    protected int calculateNumberOfBytes(Geometry g) {
         if (g instanceof Point) {
             return calculateNumberOfBytes((Point) g);
         } else if (g instanceof LineString) {
@@ -142,7 +142,7 @@ public class WKBWriter {
      * @param buffer The ByteBuffer
      * @param g The Geometry
      */
-    private void putGeometry(ByteBuffer buffer, Geometry g) {
+    protected void putGeometry(ByteBuffer buffer, Geometry g) {
         if (g instanceof Point) {
             putPoint(buffer, (Point) g);
         } else if (g instanceof LineString) {
