@@ -57,6 +57,15 @@ public class CompoundCurve extends Curve {
         return numberOfCoordinates;
     }
 
+    @Override
+    public List<Coordinate> getCoordinates() {
+        List<Coordinate> coordinates = new ArrayList<Coordinate>();
+        for(Curve curve : curves) {
+            coordinates.addAll(curve.getCoordinates());
+        }
+        return Collections.unmodifiableList(coordinates);
+    }
+
     /**
      * Create an empty CompoundCurve
      * @return An empty CompoundCurve

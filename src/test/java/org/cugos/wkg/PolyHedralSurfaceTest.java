@@ -41,6 +41,7 @@ public class PolyHedralSurfaceTest {
         assertNull(phs.getSrid());
         assertEquals(Dimension.Two, phs.getDimension());
         assertEquals(14, phs.getNumberOfCoordinates());
+        assertEquals(14, phs.getCoordinates().size());
         assertEquals(2, phs.getPolygons().size());
         // 0
         Polygon polygon = phs.getPolygons().get(0);

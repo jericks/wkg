@@ -39,6 +39,7 @@ public class CurvePolygonTest {
         assertFalse(cp.getOuterCurve().isEmpty());
         assertEquals(1, cp.getInnerCurves().size());
         assertEquals(9, cp.getNumberOfCoordinates());
+        assertEquals(9, cp.getCoordinates().size());
         assertNull(cp.getSrid());
         assertEquals(Dimension.Two, cp.getDimension());
         // Outer

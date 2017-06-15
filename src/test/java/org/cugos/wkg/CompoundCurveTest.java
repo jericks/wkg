@@ -15,6 +15,7 @@ public class CompoundCurveTest {
         assertFalse(cc.isEmpty());
         assertEquals(2, cc.getCurves().size());
         assertEquals(5, cc.getNumberOfCoordinates());
+        assertEquals(5, cc.getCoordinates().size());
         assertNull(cc.getSrid());
         assertEquals(Dimension.Two, cc.getDimension());
         // 0

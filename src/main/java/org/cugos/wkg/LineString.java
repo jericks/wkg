@@ -39,6 +39,7 @@ public class LineString extends Curve {
      * Get the List of Coordinates
      * @return The List of Coordinates
      */
+    @Override
     public List<Coordinate> getCoordinates() {
         return coordinates;
     }

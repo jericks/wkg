@@ -1,6 +1,7 @@
 package org.cugos.wkg;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,21 +35,6 @@ public class GeometryCollection extends AbstractGeometryCollection<Geometry> {
      */
     public List<Geometry> getGeometries() {
         return geometries;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return this.geometries.isEmpty();
-
-    }
-
-    @Override
-    public int getNumberOfCoordinates() {
-        int numberOfCoordinates = 0;
-        for(Geometry geometry : geometries) {
-            numberOfCoordinates += geometry.getNumberOfCoordinates();
-        }
-        return numberOfCoordinates;
     }
 
     /**
