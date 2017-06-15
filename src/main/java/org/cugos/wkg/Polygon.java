@@ -73,6 +73,16 @@ public class Polygon extends Surface {
         return numberOfCoordinates;
     }
 
+    @Override
+    public List<Coordinate> getCoordinates() {
+        List<Coordinate> coordinates = new ArrayList<Coordinate>();
+        coordinates.addAll(outerLinearRing.getCoordinates());
+        for(LinearRing linearRing : innerLinearRings) {
+            coordinates.addAll(linearRing.getCoordinates());
+        }
+        return Collections.unmodifiableList(coordinates);
+    }
+
     /**
      * Create an empty Polygon
      * @return An empty Polygon

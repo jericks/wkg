@@ -86,6 +86,7 @@ public class TinTest {
         assertNull(t.getSrid());
         assertEquals(Dimension.Two, t.getDimension());
         assertEquals(8, t.getNumberOfCoordinates());
+        assertEquals(8, t.getCoordinates().size());
         assertEquals(2, t.getTriangles().size());
         // 0
         Triangle triangle = t.getTriangles().get(0);

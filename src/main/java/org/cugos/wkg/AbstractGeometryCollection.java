@@ -1,5 +1,6 @@
 package org.cugos.wkg;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,5 +43,14 @@ public abstract class AbstractGeometryCollection<T extends Geometry> extends Geo
             numberOfCoordinates += geometry.getNumberOfCoordinates();
         }
         return numberOfCoordinates;
+    }
+
+    @Override
+    public List<Coordinate> getCoordinates() {
+        List<Coordinate> coordinates = new ArrayList<Coordinate>();
+        for(Geometry geometry : geometries) {
+            coordinates.addAll(geometry.getCoordinates());
+        }
+        return Collections.unmodifiableList(coordinates);
     }
 }

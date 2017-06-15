@@ -73,6 +73,16 @@ public class CurvePolygon extends Surface {
         return numberOfCoordinates;
     }
 
+    @Override
+    public List<Coordinate> getCoordinates() {
+        List<Coordinate> coordinates = new ArrayList<Coordinate>();
+        coordinates.addAll(outerCurve.getCoordinates());
+        for(Curve curve : innerCurves) {
+            coordinates.addAll(curve.getCoordinates());
+        }
+        return Collections.unmodifiableList(coordinates);
+    }
+
     /**
      * Create an empty CurvePolygon
      * @return An empty CurvePolygon

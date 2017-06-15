@@ -57,6 +57,15 @@ public class Tin extends Surface {
         return numberOfCoordinates;
     }
 
+    @Override
+    public List<Coordinate> getCoordinates() {
+        List<Coordinate> coordinates = new ArrayList<Coordinate>();
+        for(Triangle triangle : this.triangles) {
+            coordinates.addAll(triangle.getCoordinates());
+        }
+        return Collections.unmodifiableList(coordinates);
+    }
+
     /**
      * Create an empty Tin
      * @return An empty Tin

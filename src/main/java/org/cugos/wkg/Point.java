@@ -1,5 +1,8 @@
 package org.cugos.wkg;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * A Point is made up of a single Coordinate
  * @author Jared Erickson
@@ -47,6 +50,11 @@ public class Point extends Geometry {
     @Override
     public int getNumberOfCoordinates() {
         return isEmpty() ? 0 : 1;
+    }
+
+    @Override
+    public List<Coordinate> getCoordinates() {
+        return Arrays.asList(coordinate);
     }
 
     /**

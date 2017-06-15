@@ -43,6 +43,7 @@ public class PolygonTest {
         assertEquals(9, p.getNumberOfCoordinates());
         assertEquals(5, p.getOuterLinearRing().getCoordinates().size());
         assertEquals(1, p.getInnerLinearRings().size());
+        assertEquals(Envelope.create2D(10.0, 10.0, 45.0, 45.0), p.getEnvelope());
         // Outer Ring
         assertEquals(Coordinate.create2D(35, 10), p.getOuterLinearRing().getCoordinates().get(0));
         assertEquals(Coordinate.create2D(45, 45), p.getOuterLinearRing().getCoordinates().get(1));

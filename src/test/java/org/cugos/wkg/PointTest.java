@@ -20,6 +20,7 @@ public class PointTest {
         assertEquals(Dimension.Two, point.getDimension());
         assertTrue(point.isEmpty());
         assertTrue(point.getCoordinate().isEmpty());
+        assertEquals(1, point.getCoordinates().size());
         assertTrue(point.getCoordinate().getDimension() == Dimension.Two);
         assertTrue(Double.isNaN(point.getCoordinate().getX()));
         assertTrue(Double.isNaN(point.getCoordinate().getY()));

@@ -48,6 +48,15 @@ public class PolyHedralSurface extends Surface {
         return numberOfCoordinates;
     }
 
+    @Override
+    public List<Coordinate> getCoordinates() {
+        List<Coordinate> coordinates = new ArrayList<Coordinate>();
+        for(Polygon polygon : this.polygons) {
+            coordinates.addAll(polygon.getCoordinates());
+        }
+        return Collections.unmodifiableList(coordinates);
+    }
+
     /**
      * Create an empty PolyHedralSurface
      * @return An empty PolyHedralSurface
