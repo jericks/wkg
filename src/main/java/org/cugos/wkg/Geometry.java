@@ -11,7 +11,7 @@ public abstract class Geometry {
     /**
      * The SRID
      */
-    protected final String srid;
+    protected String srid;
 
     /**
      * The Dimension
@@ -40,8 +40,16 @@ public abstract class Geometry {
      */
     public abstract int getNumberOfCoordinates();
 
+    /**
+     * Get a List of all coordinates
+     * @return A List of all coordinates
+     */ 
     public abstract List<Coordinate> getCoordinates();
 
+    /**
+     * Get the bounding Envelope
+     * @return The bounding Envelope
+     */
     public Envelope getEnvelope() {
         double minX = Double.NaN;
         double minY = Double.NaN;
@@ -106,6 +114,14 @@ public abstract class Geometry {
     public String getSrid() {
         return srid;
     }
+    
+    /**
+     * Set the SRID for this GeometryType
+     * @param srid The SRID
+     */ 
+    public void setSrid(String srid) {
+        this.srid = srid;
+    }
 
     /**
      * Get the Dimension
@@ -123,4 +139,6 @@ public abstract class Geometry {
     public String toString() {
         return new WKTWriter().write(this);
     }
+
+
 }

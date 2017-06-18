@@ -1,12 +1,26 @@
 package org.cugos.wkg;
 
+/**
+ * A holder to GeoPackage enums used in the GeoPackageReader and Writer
+ */
 public class GeoPackage {
+    
+    public static enum Flag {
+        BinaryType((byte) 0x20),
+        GeometryEmpty((byte) 0x10),
+        EnvelopeIndicator((byte) 0x0e),
+        Endianess((byte) 0x01);
 
-    public static final byte FLAG_GEOPACKGE_BINARY_TYPE = (byte) 0x20;
-    public static final byte FLAG_GEOMETRY_EMPTY = (byte) 0x10;
-    public static final byte FLAG_ENVELOPE_INDICATOR = (byte) 0x0e;
-    public static final byte FLAG_ENDIANSESS = (byte) 0x01;
+        private final byte value;
 
+        Flag(byte value) {
+            this.value = value;
+        }
+
+        public byte getValue() {
+            return this.value;
+        }
+    }
 
     public static enum BinaryType {
         Standard(0),

@@ -2,9 +2,14 @@ package org.cugos.wkg;
 
 import java.nio.ByteBuffer;
 
+/**
+ * Read GeoPackage encoded Geometry
+ */
 public class GeoPackageReader {
 
-
+    /**
+     * The WKBReader
+     */
     private final WKBReader wkbReader = new WKBReader();
 
     /**
@@ -14,7 +19,7 @@ public class GeoPackageReader {
      */
     public Geometry read(byte[] bytes) {
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
-        return read(buffer);
+        return read(buffer, true).getGeometry();
     }
 
     /**
@@ -31,70 +36,72 @@ public class GeoPackageReader {
      * @param buffer The ByteBuffer
      * @return A Geometry or null
      */
-    private Geometry read(ByteBuffer buffer) {
+    private GeoPackageGeometry read(ByteBuffer buffer, boolean shouldReadGeometry) {
+
+        GeoPackageGeometry geoPackageGeometry = new GeoPackageGeometry();
 
         // Magic
         byte[] magic = new byte[2];
         buffer.get(magic);
-        System.out.println("Magic = " + new String(magic));
 
         // Version
         int version = buffer.get();
-        System.out.println("Version = " + version);
+        geoPackageGeometry.setVersion(version);
 
         // Flags
         byte flags = buffer.get();
 
-        int geoPackageBinaryType = flags & GeoPackage.FLAG_GEOPACKGE_BINARY_TYPE;
+        int geoPackageBinaryType = flags & GeoPackage.Flag.BinaryType.getValue();
         GeoPackage.BinaryType binaryType = GeoPackage.BinaryType.get(geoPackageBinaryType);
-        System.out.println("GeoPackage Binary Type = " + geoPackageBinaryType);
+        geoPackageGeometry.setBinaryType(binaryType);
 
-        int emptyGeometryFlag = flags & GeoPackage.FLAG_GEOMETRY_EMPTY;
-        System.out.println("Geometry Flag = " + emptyGeometryFlag);
+        int emptyGeometryFlag = flags & GeoPackage.Flag.GeometryEmpty.getValue();
         GeoPackage.GeometryEmptyType geometryEmptyType = GeoPackage.GeometryEmptyType.get(emptyGeometryFlag);
+        geoPackageGeometry.setGeometryEmptyType(geometryEmptyType);
 
-        int envelopeTypeFlag = (flags & GeoPackage.FLAG_ENVELOPE_INDICATOR) >> 1;
-        System.out.println("Envelope Flag = " + envelopeTypeFlag);
+        int envelopeTypeFlag = (flags & GeoPackage.Flag.EnvelopeIndicator.getValue()) >> 1;
         GeoPackage.EnvelopeType envelopeType = GeoPackage.EnvelopeType.get(envelopeTypeFlag);
+        geoPackageGeometry.setEnvelopeType(envelopeType);
 
-        int byteOrder = flags & GeoPackage.FLAG_ENDIANSESS;
+        int byteOrder = flags & GeoPackage.Flag.Endianess.getValue();
         WKB.Endian endian = WKB.Endian.get(byteOrder);
-        System.out.println("Byte Order = " + byteOrder);
+        geoPackageGeometry.setEndian(endian);
 
         // SRS ID
         int srsId = buffer.getInt();
-        System.out.println("SRS ID = " + srsId);
+        geoPackageGeometry.setSrsId(srsId);
 
         //Envelope
+        Envelope envelope = null;
         if (envelopeType != GeoPackage.EnvelopeType.NoEnvelope) {
             double minX = buffer.getDouble();
-            double minY = buffer.getDouble();
             double maxX = buffer.getDouble();
+            double minY = buffer.getDouble();
             double maxY = buffer.getDouble();
-            System.out.println("Envelope = " + minX + ", " + minY + ", " + maxX + ", " + maxY);
-            if (envelopeType == GeoPackage.EnvelopeType.EnvelopeZ) {
-                double minZ = buffer.getDouble();
-                double maxZ = buffer.getDouble();
-                System.out.println("   Z = " + minX + ", " + maxZ);
-            } else if (envelopeType == GeoPackage.EnvelopeType.EnvelopeM) {
-                double minM = buffer.getDouble();
-                double maxM = buffer.getDouble();
-                System.out.println("   M = " + minM + ", " + maxM);
-            } else if (envelopeType == GeoPackage.EnvelopeType.EnvelopeZM) {
-                double minZ = buffer.getDouble();
-                double maxZ = buffer.getDouble();
-                double minM = buffer.getDouble();
-                double maxM = buffer.getDouble();
-                System.out.println("   Z = " + minX + ", " + maxZ);
-                System.out.println("   M = " + minM + ", " + maxM);
+            double minZ = Double.NaN;
+            double maxZ = Double.NaN;
+            double minM = Double.NaN;
+            double maxM = Double.NaN;
+            if (envelopeType == GeoPackage.EnvelopeType.EnvelopeZ || envelopeType == GeoPackage.EnvelopeType.EnvelopeZM) {
+                minZ = buffer.getDouble();
+                maxZ = buffer.getDouble();
             }
+            if (envelopeType == GeoPackage.EnvelopeType.EnvelopeM || envelopeType == GeoPackage.EnvelopeType.EnvelopeZM) {
+                minM = buffer.getDouble();
+                maxM = buffer.getDouble();
+            }
+            envelope = Envelope.create3DM(minX, minY, minZ, minM, maxX, maxY, maxZ, maxM);
         }
+        geoPackageGeometry.setEnvelope(envelope);
 
         // WKBGeometry
-        Geometry geometry = wkbReader.read(buffer);
-        System.out.println("Geometry = " + geometry);
+        if (shouldReadGeometry) {
+            Geometry geometry = wkbReader.read(buffer);
+            geometry.setSrid(String.valueOf(srsId));
+            geoPackageGeometry.setGeometry(geometry);
+        }
 
-        return geometry;
+        return geoPackageGeometry;
     }
 
     /**
@@ -112,9 +119,90 @@ public class GeoPackageReader {
         return data;
     }
 
-    public static void main(String[] args) {
-        GeoPackageReader reader = new GeoPackageReader();
-        reader.read("47500002000010e6403f333302b582c0403f333302b582c0c03a777784cc9dc0c03a777784cc9dc00000000001403f333302b582c0c03a777784cc9dc0");
+    /**
+     * A GeoPackageGeometry holds the GeoPackage header information plus a Geometry
+     */
+    private static class GeoPackageGeometry {
+
+        private int version;
+
+        private GeoPackage.BinaryType binaryType;
+
+        private GeoPackage.GeometryEmptyType geometryEmptyType;
+
+        private GeoPackage.EnvelopeType envelopeType;
+
+        private WKB.Endian endian;
+
+        private int srsId;
+
+        private Envelope envelope;
+
+        private Geometry geometry;
+
+        public int getVersion() {
+            return version;
+        }
+
+        public void setVersion(int version) {
+            this.version = version;
+        }
+
+        public GeoPackage.BinaryType getBinaryType() {
+            return binaryType;
+        }
+
+        public void setBinaryType(GeoPackage.BinaryType binaryType) {
+            this.binaryType = binaryType;
+        }
+
+        public GeoPackage.GeometryEmptyType getGeometryEmptyType() {
+            return geometryEmptyType;
+        }
+
+        public void setGeometryEmptyType(GeoPackage.GeometryEmptyType geometryEmptyType) {
+            this.geometryEmptyType = geometryEmptyType;
+        }
+
+        public GeoPackage.EnvelopeType getEnvelopeType() {
+            return envelopeType;
+        }
+
+        public void setEnvelopeType(GeoPackage.EnvelopeType envelopeType) {
+            this.envelopeType = envelopeType;
+        }
+
+        public WKB.Endian getEndian() {
+            return endian;
+        }
+
+        public void setEndian(WKB.Endian endian) {
+            this.endian = endian;
+        }
+
+        public int getSrsId() {
+            return srsId;
+        }
+
+        public void setSrsId(int srsId) {
+            this.srsId = srsId;
+        }
+
+        public Envelope getEnvelope() {
+            return envelope;
+        }
+
+        public void setEnvelope(Envelope envelope) {
+            this.envelope = envelope;
+        }
+
+        public Geometry getGeometry() {
+            return geometry;
+        }
+
+        public void setGeometry(Geometry geometry) {
+            this.geometry = geometry;
+        }
     }
 
 }
