@@ -107,6 +107,13 @@ public class JTSCompatibilityTest {
         for(com.vividsolutions.jts.geom.Geometry jtsGeometry : jtsGeometries) {
             // Convert the JTS Geometry to a WKG Geometry
             Geometry geometry = fromJTS(jtsGeometry);
+            // Compare Envelopes
+            Envelope wkgEnvelope = geometry.getEnvelope();
+            com.vividsolutions.jts.geom.Envelope jtsEnvelope = jtsGeometry.getEnvelopeInternal();
+            assertEquals(jtsEnvelope.getMinX(), wkgEnvelope.getMinX(), 0.001);
+            assertEquals(jtsEnvelope.getMinY(), wkgEnvelope.getMinY(), 0.001);
+            assertEquals(jtsEnvelope.getMaxX(), wkgEnvelope.getMaxX(), 0.001);
+            assertEquals(jtsEnvelope.getMaxY(), wkgEnvelope.getMaxY(), 0.001);
             // Write the JTS Geometry to WKT and WKB
             String jtsWkt = jtsWKTWriter.write(jtsGeometry);
             byte[] jtsWkb = jtsWKBWriter.write(jtsGeometry);
