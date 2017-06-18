@@ -1,7 +1,9 @@
 language: java
 jdk:
 - openjdk7
+script:
+- mvn clean package
 after_success:
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-    mvn site -X;
+    travis_wait 40 mvn site;
   fi
