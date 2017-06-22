@@ -57,8 +57,8 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;20</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> WKTWriter() {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;21</td>  <td class="nbHitsCovered">&nbsp;349</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>(<span class="keyword">false</span>);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;22</td>  <td class="nbHitsCovered">&nbsp;349</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;21</td>  <td class="nbHitsCovered">&nbsp;352</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>(<span class="keyword">false</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;22</td>  <td class="nbHitsCovered">&nbsp;352</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;23</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;24</td>  <td class="nbHits">&nbsp;</td>
@@ -69,9 +69,9 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">     * @param useInnerParensForMultiPoints The flag to determine is we should use inner parens for MultiPoint WKT.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;27</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;28</td>  <td class="nbHitsCovered">&nbsp;349</td>  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> WKTWriter(<span class="keyword">boolean</span> useInnerParensForMultiPoints) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;29</td>  <td class="nbHitsCovered">&nbsp;349</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.useInnerParensForMultiPoints = useInnerParensForMultiPoints;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;30</td>  <td class="nbHitsCovered">&nbsp;349</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;28</td>  <td class="nbHitsCovered">&nbsp;352</td>  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> WKTWriter(<span class="keyword">boolean</span> useInnerParensForMultiPoints) {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;29</td>  <td class="nbHitsCovered">&nbsp;352</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.useInnerParensForMultiPoints = useInnerParensForMultiPoints;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;30</td>  <td class="nbHitsCovered">&nbsp;352</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;31</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;32</td>  <td class="nbHits">&nbsp;</td>
@@ -86,7 +86,7 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;37</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> String write(Geometry g) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;38</td>  <td class="nbHitsCovered">&nbsp;469</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> write(g, <span class="keyword">true</span>, <span class="keyword">true</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;38</td>  <td class="nbHitsCovered">&nbsp;472</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> write(g, <span class="keyword">true</span>, <span class="keyword">true</span>);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;39</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;40</td>  <td class="nbHits">&nbsp;</td>
@@ -107,16 +107,16 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;48</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> String write(Geometry g, <span class="keyword">boolean</span> includeSrid, <span class="keyword">boolean</span> includeDimension) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;49</td>  <td class="nbHitsCovered"><a title="Line 49: Conditional coverage 100% (2/2).">&nbsp;618</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 49: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (g <span class="keyword">instanceof</span> Point) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;49</td>  <td class="nbHitsCovered"><a title="Line 49: Conditional coverage 100% (2/2).">&nbsp;621</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 49: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (g <span class="keyword">instanceof</span> Point) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;50</td>  <td class="nbHitsCovered">&nbsp;102</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">return</span> write((Point) g, includeSrid, includeDimension);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;51</td>  <td class="nbHitsCovered"><a title="Line 51: Conditional coverage 100% (2/2).">&nbsp;516</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 51: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g <span class="keyword">instanceof</span> LineString) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;51</td>  <td class="nbHitsCovered"><a title="Line 51: Conditional coverage 100% (2/2).">&nbsp;519</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 51: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g <span class="keyword">instanceof</span> LineString) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;52</td>  <td class="nbHitsCovered">&nbsp;68</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">return</span> write((LineString) g, includeSrid, includeDimension);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;53</td>  <td class="nbHitsUncovered"><a title="Line 53: Conditional coverage 50% (1/2).">&nbsp;448</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 53: Conditional coverage 50% (1/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g <span class="keyword">instanceof</span> LinearRing) {</a></span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;53</td>  <td class="nbHitsUncovered"><a title="Line 53: Conditional coverage 50% (1/2).">&nbsp;451</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 53: Conditional coverage 50% (1/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g <span class="keyword">instanceof</span> LinearRing) {</a></span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;54</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;            <span class="keyword">return</span> write((LinearRing) g, includeSrid, includeDimension);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;55</td>  <td class="nbHitsCovered"><a title="Line 55: Conditional coverage 100% (2/2).">&nbsp;448</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 55: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g <span class="keyword">instanceof</span> Triangle) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;55</td>  <td class="nbHitsCovered"><a title="Line 55: Conditional coverage 100% (2/2).">&nbsp;451</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 55: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g <span class="keyword">instanceof</span> Triangle) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;56</td>  <td class="nbHitsCovered">&nbsp;31</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">return</span> write((Triangle) g, includeSrid, includeDimension);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;57</td>  <td class="nbHitsCovered"><a title="Line 57: Conditional coverage 100% (2/2).">&nbsp;417</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 57: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g <span class="keyword">instanceof</span> Polygon) {</a></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;58</td>  <td class="nbHitsCovered">&nbsp;42</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">return</span> write((Polygon) g, includeSrid, includeDimension);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;57</td>  <td class="nbHitsCovered"><a title="Line 57: Conditional coverage 100% (2/2).">&nbsp;420</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 57: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g <span class="keyword">instanceof</span> Polygon) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;58</td>  <td class="nbHitsCovered">&nbsp;45</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">return</span> write((Polygon) g, includeSrid, includeDimension);</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;59</td>  <td class="nbHitsCovered"><a title="Line 59: Conditional coverage 100% (2/2).">&nbsp;375</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 59: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g <span class="keyword">instanceof</span> MultiPoint) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;60</td>  <td class="nbHitsCovered">&nbsp;36</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">return</span> write((MultiPoint) g, includeSrid, includeDimension);</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;61</td>  <td class="nbHitsCovered"><a title="Line 61: Conditional coverage 100% (2/2).">&nbsp;339</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 61: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g <span class="keyword">instanceof</span> MultiLineString) {</a></pre></td></tr>
@@ -299,36 +299,36 @@
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;191</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> String write(Polygon p, <span class="keyword">boolean</span> includeSrid, <span class="keyword">boolean</span> includeDimension) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;192</td>  <td class="nbHitsCovered">&nbsp;43</td>  <td class="src"><pre class="src">&nbsp;        StringBuilder builder = <span class="keyword">new</span> StringBuilder();</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;193</td>  <td class="nbHitsCovered"><a title="Line 193: Conditional coverage 100% (2/2).">&nbsp;43</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 193: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (includeSrid) {</a></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;194</td>  <td class="nbHitsCovered">&nbsp;34</td>  <td class="src"><pre class="src">&nbsp;            addSrid(p, builder);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;192</td>  <td class="nbHitsCovered">&nbsp;46</td>  <td class="src"><pre class="src">&nbsp;        StringBuilder builder = <span class="keyword">new</span> StringBuilder();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;193</td>  <td class="nbHitsCovered"><a title="Line 193: Conditional coverage 100% (2/2).">&nbsp;46</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 193: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (includeSrid) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;194</td>  <td class="nbHitsCovered">&nbsp;37</td>  <td class="src"><pre class="src">&nbsp;            addSrid(p, builder);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;195</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;196</td>  <td class="nbHitsCovered">&nbsp;43</td>  <td class="src"><pre class="src">&nbsp;        builder.append(<span class="string">"POLYGON"</span>);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;197</td>  <td class="nbHitsUncovered"><a title="Line 197: Conditional coverage 75% (3/4) [each condition: 50%, 100%].">&nbsp;43</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 197: Conditional coverage 75% (3/4) [each condition: 50%, 100%].">        <span class="keyword">if</span> (p.getOuterLinearRing() == <span class="keyword">null</span> || p.getOuterLinearRing().getCoordinates().isEmpty()) {</a></span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;198</td>  <td class="nbHitsCovered">&nbsp;2</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">" EMPTY"</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;196</td>  <td class="nbHitsCovered">&nbsp;46</td>  <td class="src"><pre class="src">&nbsp;        builder.append(<span class="string">"POLYGON"</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;197</td>  <td class="nbHitsUncovered"><a title="Line 197: Conditional coverage 75% (3/4) [each condition: 50%, 100%].">&nbsp;46</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 197: Conditional coverage 75% (3/4) [each condition: 50%, 100%].">        <span class="keyword">if</span> (p.getOuterLinearRing() == <span class="keyword">null</span> || p.getOuterLinearRing().getCoordinates().isEmpty()) {</a></span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;198</td>  <td class="nbHitsCovered">&nbsp;4</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">" EMPTY"</span>);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;199</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        } <span class="keyword">else</span> {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;200</td>  <td class="nbHitsCovered"><a title="Line 200: Conditional coverage 100% (2/2).">&nbsp;41</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 200: Conditional coverage 100% (2/2).">            <span class="keyword">if</span> (includeDimension) {</a></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;201</td>  <td class="nbHitsCovered">&nbsp;32</td>  <td class="src"><pre class="src">&nbsp;                addDimension(p, builder);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;200</td>  <td class="nbHitsCovered"><a title="Line 200: Conditional coverage 100% (2/2).">&nbsp;42</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 200: Conditional coverage 100% (2/2).">            <span class="keyword">if</span> (includeDimension) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;201</td>  <td class="nbHitsCovered">&nbsp;33</td>  <td class="src"><pre class="src">&nbsp;                addDimension(p, builder);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;202</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;203</td>  <td class="nbHitsCovered">&nbsp;41</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">" (("</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;203</td>  <td class="nbHitsCovered">&nbsp;42</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">" (("</span>);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;204</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            <span class="comment">// Outer ring</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;205</td>  <td class="nbHitsCovered">&nbsp;41</td>  <td class="src"><pre class="src">&nbsp;            addCoordinates(p.getOuterLinearRing().getCoordinates(), builder);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;206</td>  <td class="nbHitsCovered">&nbsp;41</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">")"</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;205</td>  <td class="nbHitsCovered">&nbsp;42</td>  <td class="src"><pre class="src">&nbsp;            addCoordinates(p.getOuterLinearRing().getCoordinates(), builder);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;206</td>  <td class="nbHitsCovered">&nbsp;42</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">")"</span>);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;207</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            <span class="comment">// Inner rings</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;208</td>  <td class="nbHitsCovered"><a title="Line 208: Conditional coverage 100% (2/2).">&nbsp;41</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 208: Conditional coverage 100% (2/2).">            <span class="keyword">for</span> (LinearRing ring : p.getInnerLinearRings()) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;208</td>  <td class="nbHitsCovered"><a title="Line 208: Conditional coverage 100% (2/2).">&nbsp;42</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 208: Conditional coverage 100% (2/2).">            <span class="keyword">for</span> (LinearRing ring : p.getInnerLinearRings()) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;209</td>  <td class="nbHitsCovered">&nbsp;23</td>  <td class="src"><pre class="src">&nbsp;                builder.append(<span class="string">", ("</span>);</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;210</td>  <td class="nbHitsCovered">&nbsp;23</td>  <td class="src"><pre class="src">&nbsp;                addCoordinates(ring.getCoordinates(), builder);</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;211</td>  <td class="nbHitsCovered">&nbsp;23</td>  <td class="src"><pre class="src">&nbsp;                builder.append(<span class="string">")"</span>);</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;212</td>  <td class="nbHitsCovered">&nbsp;23</td>  <td class="src"><pre class="src">&nbsp;            }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;213</td>  <td class="nbHitsCovered">&nbsp;41</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">")"</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;213</td>  <td class="nbHitsCovered">&nbsp;42</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">")"</span>);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;214</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;215</td>  <td class="nbHitsCovered">&nbsp;43</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> builder.toString();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;215</td>  <td class="nbHitsCovered">&nbsp;46</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> builder.toString();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;216</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;217</td>  <td class="nbHits">&nbsp;</td>
@@ -878,32 +878,32 @@
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;620</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">void</span> addCoordinates(List&lt;Coordinate&gt; coordinates, StringBuilder builder) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;621</td>  <td class="nbHitsCovered">&nbsp;806</td>  <td class="src"><pre class="src">&nbsp;        addCoordinates(coordinates, <span class="keyword">false</span>, builder);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;622</td>  <td class="nbHitsCovered">&nbsp;806</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;621</td>  <td class="nbHitsCovered">&nbsp;807</td>  <td class="src"><pre class="src">&nbsp;        addCoordinates(coordinates, <span class="keyword">false</span>, builder);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;622</td>  <td class="nbHitsCovered">&nbsp;807</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;623</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;624</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">void</span> addCoordinates(List&lt;Coordinate&gt; coordinates, <span class="keyword">boolean</span> innerParens, StringBuilder builder) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;625</td>  <td class="nbHitsCovered">&nbsp;840</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">boolean</span> first = <span class="keyword">true</span>;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;626</td>  <td class="nbHitsCovered"><a title="Line 626: Conditional coverage 100% (2/2).">&nbsp;840</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 626: Conditional coverage 100% (2/2).">        <span class="keyword">for</span> (Coordinate coordinate : coordinates) {</a></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;627</td>  <td class="nbHitsCovered"><a title="Line 627: Conditional coverage 100% (2/2).">&nbsp;4693</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 627: Conditional coverage 100% (2/2).">            <span class="keyword">if</span> (!first) {</a></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;628</td>  <td class="nbHitsCovered">&nbsp;3853</td>  <td class="src"><pre class="src">&nbsp;                builder.append(<span class="string">", "</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;625</td>  <td class="nbHitsCovered">&nbsp;841</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">boolean</span> first = <span class="keyword">true</span>;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;626</td>  <td class="nbHitsCovered"><a title="Line 626: Conditional coverage 100% (2/2).">&nbsp;841</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 626: Conditional coverage 100% (2/2).">        <span class="keyword">for</span> (Coordinate coordinate : coordinates) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;627</td>  <td class="nbHitsCovered"><a title="Line 627: Conditional coverage 100% (2/2).">&nbsp;4697</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 627: Conditional coverage 100% (2/2).">            <span class="keyword">if</span> (!first) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;628</td>  <td class="nbHitsCovered">&nbsp;3856</td>  <td class="src"><pre class="src">&nbsp;                builder.append(<span class="string">", "</span>);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;629</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            } <span class="keyword">else</span> {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;630</td>  <td class="nbHitsCovered">&nbsp;840</td>  <td class="src"><pre class="src">&nbsp;                first = <span class="keyword">false</span>;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;630</td>  <td class="nbHitsCovered">&nbsp;841</td>  <td class="src"><pre class="src">&nbsp;                first = <span class="keyword">false</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;631</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;632</td>  <td class="nbHitsUncovered"><a title="Line 632: Conditional coverage 50% (1/2).">&nbsp;4693</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 632: Conditional coverage 50% (1/2).">            <span class="keyword">if</span> (innerParens) {</a></span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;632</td>  <td class="nbHitsUncovered"><a title="Line 632: Conditional coverage 50% (1/2).">&nbsp;4697</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 632: Conditional coverage 50% (1/2).">            <span class="keyword">if</span> (innerParens) {</a></span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;633</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                builder.append(<span class="string">"("</span>);</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;634</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;635</td>  <td class="nbHitsCovered">&nbsp;4693</td>  <td class="src"><pre class="src">&nbsp;            addCoordinate(coordinate, builder);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;636</td>  <td class="nbHitsUncovered"><a title="Line 636: Conditional coverage 50% (1/2).">&nbsp;4693</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 636: Conditional coverage 50% (1/2).">            <span class="keyword">if</span> (innerParens) {</a></span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;635</td>  <td class="nbHitsCovered">&nbsp;4697</td>  <td class="src"><pre class="src">&nbsp;            addCoordinate(coordinate, builder);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;636</td>  <td class="nbHitsUncovered"><a title="Line 636: Conditional coverage 50% (1/2).">&nbsp;4697</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 636: Conditional coverage 50% (1/2).">            <span class="keyword">if</span> (innerParens) {</a></span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;637</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                builder.append(<span class="string">")"</span>);</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;638</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;639</td>  <td class="nbHitsCovered">&nbsp;4693</td>  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;640</td>  <td class="nbHitsCovered">&nbsp;840</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;639</td>  <td class="nbHitsCovered">&nbsp;4697</td>  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;640</td>  <td class="nbHitsCovered">&nbsp;841</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;641</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;642</td>  <td class="nbHits">&nbsp;</td>
@@ -918,19 +918,19 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;647</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">void</span> addCoordinate(Coordinate coordinate, StringBuilder builder) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;648</td>  <td class="nbHitsCovered">&nbsp;4795</td>  <td class="src"><pre class="src">&nbsp;        builder.append(coordinate.getX());</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;649</td>  <td class="nbHitsCovered">&nbsp;4795</td>  <td class="src"><pre class="src">&nbsp;        builder.append(<span class="string">" "</span>);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;650</td>  <td class="nbHitsCovered">&nbsp;4795</td>  <td class="src"><pre class="src">&nbsp;        builder.append(coordinate.getY());</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;651</td>  <td class="nbHitsCovered"><a title="Line 651: Conditional coverage 100% (2/2).">&nbsp;4795</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 651: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (coordinate.getDimension() == Dimension.TwoMeasured) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;648</td>  <td class="nbHitsCovered">&nbsp;4799</td>  <td class="src"><pre class="src">&nbsp;        builder.append(coordinate.getX());</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;649</td>  <td class="nbHitsCovered">&nbsp;4799</td>  <td class="src"><pre class="src">&nbsp;        builder.append(<span class="string">" "</span>);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;650</td>  <td class="nbHitsCovered">&nbsp;4799</td>  <td class="src"><pre class="src">&nbsp;        builder.append(coordinate.getY());</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;651</td>  <td class="nbHitsCovered"><a title="Line 651: Conditional coverage 100% (2/2).">&nbsp;4799</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 651: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (coordinate.getDimension() == Dimension.TwoMeasured) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;652</td>  <td class="nbHitsCovered">&nbsp;506</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">" "</span>).append(coordinate.getM());</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;653</td>  <td class="nbHitsCovered"><a title="Line 653: Conditional coverage 100% (2/2).">&nbsp;4289</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 653: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (coordinate.getDimension() == Dimension.Three) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;653</td>  <td class="nbHitsCovered"><a title="Line 653: Conditional coverage 100% (2/2).">&nbsp;4293</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 653: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (coordinate.getDimension() == Dimension.Three) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;654</td>  <td class="nbHitsCovered">&nbsp;519</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">" "</span>).append(coordinate.getZ());</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;655</td>  <td class="nbHitsCovered"><a title="Line 655: Conditional coverage 100% (2/2).">&nbsp;3770</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 655: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (coordinate.getDimension() == Dimension.ThreeMeasured) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;655</td>  <td class="nbHitsCovered"><a title="Line 655: Conditional coverage 100% (2/2).">&nbsp;3774</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 655: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (coordinate.getDimension() == Dimension.ThreeMeasured) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;656</td>  <td class="nbHitsCovered">&nbsp;532</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">" "</span>).append(coordinate.getZ());</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;657</td>  <td class="nbHitsCovered">&nbsp;532</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">" "</span>).append(coordinate.getM());</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;658</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;659</td>  <td class="nbHitsCovered">&nbsp;4795</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;659</td>  <td class="nbHitsCovered">&nbsp;4799</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;660</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;661</td>  <td class="nbHits">&nbsp;</td>
@@ -945,11 +945,11 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;666</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">void</span> addSrid(Geometry g, StringBuilder builder) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;667</td>  <td class="nbHitsCovered"><a title="Line 667: Conditional coverage 100% (2/2).">&nbsp;475</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 667: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (g.getSrid() != <span class="keyword">null</span>) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;667</td>  <td class="nbHitsCovered"><a title="Line 667: Conditional coverage 100% (2/2).">&nbsp;478</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 667: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (g.getSrid() != <span class="keyword">null</span>) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;668</td>  <td class="nbHitsCovered">&nbsp;167</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">"SRID="</span>).append(g.getSrid()).append(<span class="string">";"</span>);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;669</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;670</td>  <td class="nbHitsCovered">&nbsp;475</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;670</td>  <td class="nbHitsCovered">&nbsp;478</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;671</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;672</td>  <td class="nbHits">&nbsp;</td>
@@ -964,15 +964,15 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">     */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;677</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">void</span> addDimension(Geometry g, StringBuilder builder) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;678</td>  <td class="nbHitsCovered"><a title="Line 678: Conditional coverage 100% (2/2).">&nbsp;444</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 678: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (g.getDimension() == Dimension.TwoMeasured) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;678</td>  <td class="nbHitsCovered"><a title="Line 678: Conditional coverage 100% (2/2).">&nbsp;445</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 678: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (g.getDimension() == Dimension.TwoMeasured) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;679</td>  <td class="nbHitsCovered">&nbsp;80</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">" M"</span>);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;680</td>  <td class="nbHitsCovered"><a title="Line 680: Conditional coverage 100% (2/2).">&nbsp;364</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 680: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g.getDimension() == Dimension.Three) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;680</td>  <td class="nbHitsCovered"><a title="Line 680: Conditional coverage 100% (2/2).">&nbsp;365</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 680: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g.getDimension() == Dimension.Three) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;681</td>  <td class="nbHitsCovered">&nbsp;83</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">" Z"</span>);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;682</td>  <td class="nbHitsCovered"><a title="Line 682: Conditional coverage 100% (2/2).">&nbsp;281</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 682: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g.getDimension() == Dimension.ThreeMeasured) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;682</td>  <td class="nbHitsCovered"><a title="Line 682: Conditional coverage 100% (2/2).">&nbsp;282</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 682: Conditional coverage 100% (2/2).">        } <span class="keyword">else</span> <span class="keyword">if</span> (g.getDimension() == Dimension.ThreeMeasured) {</a></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;683</td>  <td class="nbHitsCovered">&nbsp;82</td>  <td class="src"><pre class="src">&nbsp;            builder.append(<span class="string">" ZM"</span>);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;684</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;685</td>  <td class="nbHitsCovered">&nbsp;444</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;685</td>  <td class="nbHitsCovered">&nbsp;445</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;686</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;687</td>  <td class="nbHits">&nbsp;</td>
@@ -1005,6 +1005,6 @@
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 6/18/17 1:10 PM.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 6/22/17 3:36 AM.</div>
 </body>
 </html>

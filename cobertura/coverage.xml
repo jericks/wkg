@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.8211887590151704" branch-rate="0.7427785419532325" lines-covered="3302" lines-valid="4021" branches-covered="1080" branches-valid="1454" complexity="1.9968051118210863" version="2.1.1" timestamp="1497816657767">
+<coverage line-rate="0.8208582834331337" branch-rate="0.7431318681318682" lines-covered="3290" lines-valid="4008" branches-covered="1082" branches-valid="1456" complexity="1.9978723404255319" version="2.1.1" timestamp="1498102578971">
 	<sources>
-		<source>/Users/jericks/Projects/wellknowngeom/src/main/java</source>
-		<source>/Users/jericks/Projects/wellknowngeom/target/generated-sources/antlr4</source>
-		<source>/Users/jericks/Projects/wellknowngeom/target/generated-sources/annotations</source>
 		<source>--source</source>
+		<source>/home/travis/build/jericks/wkg/src/main/java</source>
+		<source>/home/travis/build/jericks/wkg/target/generated-sources/antlr4</source>
+		<source>/home/travis/build/jericks/wkg/target/generated-sources/annotations</source>
 	</sources>
 	<packages>
-		<package name="org.cugos.wkg" line-rate="0.9352750809061489" branch-rate="0.8554083885209713" complexity="2.5885714285714285">
+		<package name="org.cugos.wkg" line-rate="0.9354313619099295" branch-rate="0.8557268722466961" complexity="2.58974358974359">
 			<classes>
 				<class name="org.cugos.wkg.AbstractGeometryCollection" filename="org/cugos/wkg/AbstractGeometryCollection.java" line-rate="1.0" branch-rate="1.0" complexity="1.4">
 					<methods>
@@ -227,17 +227,17 @@
 						</method>
 						<method name="&lt;init&gt;" signature="(DDDD)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="36" hits="6073" branch="false"/>
-								<line number="37" hits="6073" branch="false"/>
-								<line number="38" hits="6073" branch="false"/>
-								<line number="39" hits="6073" branch="false"/>
-								<line number="40" hits="6073" branch="false"/>
-								<line number="41" hits="6073" branch="false"/>
+								<line number="36" hits="6077" branch="false"/>
+								<line number="37" hits="6077" branch="false"/>
+								<line number="38" hits="6077" branch="false"/>
+								<line number="39" hits="6077" branch="false"/>
+								<line number="40" hits="6077" branch="false"/>
+								<line number="41" hits="6077" branch="false"/>
 							</lines>
 						</method>
 						<method name="create2D" signature="(DD)Lorg/cugos/wkg/Coordinate;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="67" hits="2350" branch="false"/>
+								<line number="67" hits="2354" branch="false"/>
 							</lines>
 						</method>
 						<method name="create2DM" signature="(DDD)Lorg/cugos/wkg/Coordinate;" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -299,26 +299,26 @@
 						</method>
 						<method name="getDimension" signature="()Lorg/cugos/wkg/Dimension;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="141" hits="15201" branch="true" condition-coverage="100% (4/4)">
+								<line number="141" hits="15213" branch="true" condition-coverage="100% (4/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="142" hits="1812" branch="false"/>
-								<line number="143" hits="13389" branch="true" condition-coverage="100% (2/2)">
+								<line number="143" hits="13401" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="144" hits="1254" branch="false"/>
-								<line number="145" hits="12135" branch="true" condition-coverage="100% (2/2)">
+								<line number="145" hits="12147" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="146" hits="721" branch="false"/>
-								<line number="148" hits="11414" branch="false"/>
+								<line number="148" hits="11426" branch="false"/>
 							</lines>
 						</method>
 						<method name="getM" signature="()D" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -328,12 +328,12 @@
 						</method>
 						<method name="getX" signature="()D" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="109" hits="9629" branch="false"/>
+								<line number="109" hits="9637" branch="false"/>
 							</lines>
 						</method>
 						<method name="getY" signature="()D" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="117" hits="9629" branch="false"/>
+								<line number="117" hits="9637" branch="false"/>
 							</lines>
 						</method>
 						<method name="getZ" signature="()D" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -356,7 +356,7 @@
 						</method>
 						<method name="isEmpty" signature="()Z" line-rate="1.0" branch-rate="0.75" complexity="0">
 							<lines>
-								<line number="157" hits="305" branch="true" condition-coverage="75% (3/4)">
+								<line number="157" hits="308" branch="true" condition-coverage="75% (3/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="50%"/>
@@ -385,44 +385,44 @@
 						</method>
 					</methods>
 					<lines>
-						<line number="36" hits="6073" branch="false"/>
-						<line number="37" hits="6073" branch="false"/>
-						<line number="38" hits="6073" branch="false"/>
-						<line number="39" hits="6073" branch="false"/>
-						<line number="40" hits="6073" branch="false"/>
-						<line number="41" hits="6073" branch="false"/>
+						<line number="36" hits="6077" branch="false"/>
+						<line number="37" hits="6077" branch="false"/>
+						<line number="38" hits="6077" branch="false"/>
+						<line number="39" hits="6077" branch="false"/>
+						<line number="40" hits="6077" branch="false"/>
+						<line number="41" hits="6077" branch="false"/>
 						<line number="49" hits="23" branch="false"/>
 						<line number="50" hits="23" branch="false"/>
 						<line number="57" hits="6" branch="false"/>
-						<line number="67" hits="2350" branch="false"/>
+						<line number="67" hits="2354" branch="false"/>
 						<line number="78" hits="432" branch="false"/>
 						<line number="89" hits="411" branch="false"/>
 						<line number="101" hits="559" branch="false"/>
-						<line number="109" hits="9629" branch="false"/>
-						<line number="117" hits="9629" branch="false"/>
+						<line number="109" hits="9637" branch="false"/>
+						<line number="117" hits="9637" branch="false"/>
 						<line number="125" hits="3907" branch="false"/>
 						<line number="133" hits="3894" branch="false"/>
-						<line number="141" hits="15201" branch="true" condition-coverage="100% (4/4)">
+						<line number="141" hits="15213" branch="true" condition-coverage="100% (4/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="142" hits="1812" branch="false"/>
-						<line number="143" hits="13389" branch="true" condition-coverage="100% (2/2)">
+						<line number="143" hits="13401" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="144" hits="1254" branch="false"/>
-						<line number="145" hits="12135" branch="true" condition-coverage="100% (2/2)">
+						<line number="145" hits="12147" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="146" hits="721" branch="false"/>
-						<line number="148" hits="11414" branch="false"/>
-						<line number="157" hits="305" branch="true" condition-coverage="75% (3/4)">
+						<line number="148" hits="11426" branch="false"/>
+						<line number="157" hits="308" branch="true" condition-coverage="75% (3/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="50%"/>
@@ -639,14 +639,14 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lorg/cugos/wkg/Dimension;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="15" hits="861" branch="false"/>
-								<line number="16" hits="861" branch="false"/>
+								<line number="15" hits="864" branch="false"/>
+								<line number="16" hits="864" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="15" hits="861" branch="false"/>
-						<line number="16" hits="861" branch="false"/>
+						<line number="15" hits="864" branch="false"/>
+						<line number="16" hits="864" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.cugos.wkg.CurvePolygon" filename="org/cugos/wkg/CurvePolygon.java" line-rate="1.0" branch-rate="0.8333333333333334" complexity="1.25">
@@ -785,63 +785,63 @@
 						<line number="11" hits="1" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.cugos.wkg.Envelope" filename="org/cugos/wkg/Envelope.java" line-rate="1.0" branch-rate="0.6470588235294118" complexity="1.9473684210526316">
+				<class name="org.cugos.wkg.Envelope" filename="org/cugos/wkg/Envelope.java" line-rate="1.0" branch-rate="0.6666666666666666" complexity="2.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lorg/cugos/wkg/Coordinate;Lorg/cugos/wkg/Coordinate;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="9" hits="71" branch="false"/>
-								<line number="10" hits="71" branch="false"/>
-								<line number="11" hits="71" branch="false"/>
 								<line number="12" hits="71" branch="false"/>
+								<line number="13" hits="71" branch="false"/>
+								<line number="14" hits="71" branch="false"/>
+								<line number="15" hits="71" branch="false"/>
 							</lines>
 						</method>
 						<method name="create2D" signature="(DDDD)Lorg/cugos/wkg/Envelope;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="19" hits="5" branch="false"/>
+								<line number="22" hits="5" branch="false"/>
 							</lines>
 						</method>
 						<method name="create2DM" signature="(DDDDDD)Lorg/cugos/wkg/Envelope;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="27" hits="1" branch="false"/>
+								<line number="30" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="create3D" signature="(DDDDDD)Lorg/cugos/wkg/Envelope;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="23" hits="1" branch="false"/>
+								<line number="26" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="create3DM" signature="(DDDDDDDD)Lorg/cugos/wkg/Envelope;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="31" hits="63" branch="false"/>
+								<line number="34" hits="63" branch="false"/>
 							</lines>
 						</method>
 						<method name="createEmpty" signature="()Lorg/cugos/wkg/Envelope;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="15" hits="1" branch="false"/>
+								<line number="18" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="equals" signature="(Ljava/lang/Object;)Z" line-rate="1.0" branch-rate="0.4375" complexity="0">
 							<lines>
-								<line number="112" hits="4" branch="true" condition-coverage="50% (1/2)">
+								<line number="133" hits="4" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="113" hits="4" branch="true" condition-coverage="50% (2/4)">
+								<line number="134" hits="4" branch="true" condition-coverage="50% (2/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 										<condition number="1" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="115" hits="4" branch="false"/>
-								<line number="117" hits="4" branch="true" condition-coverage="50% (3/6)">
+								<line number="136" hits="4" branch="false"/>
+								<line number="138" hits="4" branch="true" condition-coverage="50% (3/6)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 										<condition number="1" type="jump" coverage="100%"/>
 										<condition number="2" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="118" hits="2" branch="true" condition-coverage="25% (1/4)">
+								<line number="139" hits="2" branch="true" condition-coverage="25% (1/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 										<condition number="1" type="jump" coverage="0%"/>
@@ -851,73 +851,73 @@
 						</method>
 						<method name="getDimension" signature="()Lorg/cugos/wkg/Dimension;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="71" hits="5" branch="true" condition-coverage="100% (2/2)">
+								<line number="74" hits="5" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="72" hits="4" branch="false"/>
-								<line number="74" hits="1" branch="false"/>
+								<line number="75" hits="4" branch="false"/>
+								<line number="77" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMaxM" signature="()D" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="63" hits="9" branch="false"/>
+								<line number="66" hits="9" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMaxX" signature="()D" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="43" hits="39" branch="false"/>
+								<line number="46" hits="39" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMaxY" signature="()D" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="47" hits="39" branch="false"/>
+								<line number="50" hits="39" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMaxZ" signature="()D" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="55" hits="9" branch="false"/>
+								<line number="58" hits="9" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMinM" signature="()D" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="59" hits="9" branch="false"/>
+								<line number="62" hits="9" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMinX" signature="()D" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="35" hits="39" branch="false"/>
+								<line number="38" hits="39" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMinY" signature="()D" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="39" hits="39" branch="false"/>
+								<line number="42" hits="39" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMinZ" signature="()D" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="51" hits="9" branch="false"/>
+								<line number="54" hits="9" branch="false"/>
 							</lines>
 						</method>
 						<method name="hashCode" signature="()I" line-rate="1.0" branch-rate="0.5" complexity="0">
 							<lines>
-								<line number="123" hits="6" branch="true" condition-coverage="50% (1/2)">
+								<line number="144" hits="6" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="124" hits="6" branch="true" condition-coverage="50% (1/2)">
+								<line number="145" hits="6" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="125" hits="6" branch="false"/>
+								<line number="146" hits="6" branch="false"/>
 							</lines>
 						</method>
 						<method name="isEmpty" signature="()Z" line-rate="1.0" branch-rate="0.75" complexity="0">
 							<lines>
-								<line number="83" hits="5" branch="true" condition-coverage="75% (3/4)">
+								<line number="86" hits="7" branch="true" condition-coverage="75% (3/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="50%"/>
@@ -925,140 +925,170 @@
 								</line>
 							</lines>
 						</method>
+						<method name="toGeometry" signature="()Lorg/cugos/wkg/Geometry;" line-rate="1.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="94" hits="2" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="95" hits="1" branch="false"/>
+								<line number="97" hits="1" branch="false"/>
+								<line number="98" hits="1" branch="false"/>
+								<line number="99" hits="1" branch="false"/>
+								<line number="100" hits="1" branch="false"/>
+								<line number="101" hits="1" branch="false"/>
+								<line number="102" hits="1" branch="false"/>
+								<line number="103" hits="1" branch="false"/>
+							</lines>
+						</method>
 						<method name="toString" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="88" hits="5" branch="false"/>
-								<line number="89" hits="5" branch="false"/>
-								<line number="90" hits="5" branch="false"/>
-								<line number="91" hits="5" branch="true" condition-coverage="100% (2/2)">
+								<line number="109" hits="5" branch="false"/>
+								<line number="110" hits="5" branch="false"/>
+								<line number="111" hits="5" branch="false"/>
+								<line number="112" hits="5" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="92" hits="2" branch="false"/>
-								<line number="94" hits="5" branch="true" condition-coverage="100% (2/2)">
+								<line number="113" hits="2" branch="false"/>
+								<line number="115" hits="5" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="95" hits="2" branch="false"/>
-								<line number="97" hits="5" branch="false"/>
-								<line number="98" hits="5" branch="false"/>
-								<line number="99" hits="5" branch="true" condition-coverage="100% (2/2)">
+								<line number="116" hits="2" branch="false"/>
+								<line number="118" hits="5" branch="false"/>
+								<line number="119" hits="5" branch="false"/>
+								<line number="120" hits="5" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="101" hits="2" branch="false"/>
-								<line number="103" hits="5" branch="true" condition-coverage="100% (2/2)">
+								<line number="122" hits="2" branch="false"/>
+								<line number="124" hits="5" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="104" hits="2" branch="false"/>
-								<line number="106" hits="5" branch="false"/>
-								<line number="107" hits="5" branch="false"/>
+								<line number="125" hits="2" branch="false"/>
+								<line number="127" hits="5" branch="false"/>
+								<line number="128" hits="5" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="9" hits="71" branch="false"/>
-						<line number="10" hits="71" branch="false"/>
-						<line number="11" hits="71" branch="false"/>
 						<line number="12" hits="71" branch="false"/>
-						<line number="15" hits="1" branch="false"/>
-						<line number="19" hits="5" branch="false"/>
-						<line number="23" hits="1" branch="false"/>
-						<line number="27" hits="1" branch="false"/>
-						<line number="31" hits="63" branch="false"/>
-						<line number="35" hits="39" branch="false"/>
-						<line number="39" hits="39" branch="false"/>
-						<line number="43" hits="39" branch="false"/>
-						<line number="47" hits="39" branch="false"/>
-						<line number="51" hits="9" branch="false"/>
-						<line number="55" hits="9" branch="false"/>
-						<line number="59" hits="9" branch="false"/>
-						<line number="63" hits="9" branch="false"/>
-						<line number="71" hits="5" branch="true" condition-coverage="100% (2/2)">
+						<line number="13" hits="71" branch="false"/>
+						<line number="14" hits="71" branch="false"/>
+						<line number="15" hits="71" branch="false"/>
+						<line number="18" hits="1" branch="false"/>
+						<line number="22" hits="5" branch="false"/>
+						<line number="26" hits="1" branch="false"/>
+						<line number="30" hits="1" branch="false"/>
+						<line number="34" hits="63" branch="false"/>
+						<line number="38" hits="39" branch="false"/>
+						<line number="42" hits="39" branch="false"/>
+						<line number="46" hits="39" branch="false"/>
+						<line number="50" hits="39" branch="false"/>
+						<line number="54" hits="9" branch="false"/>
+						<line number="58" hits="9" branch="false"/>
+						<line number="62" hits="9" branch="false"/>
+						<line number="66" hits="9" branch="false"/>
+						<line number="74" hits="5" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="72" hits="4" branch="false"/>
-						<line number="74" hits="1" branch="false"/>
-						<line number="83" hits="5" branch="true" condition-coverage="75% (3/4)">
+						<line number="75" hits="4" branch="false"/>
+						<line number="77" hits="1" branch="false"/>
+						<line number="86" hits="7" branch="true" condition-coverage="75% (3/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="88" hits="5" branch="false"/>
-						<line number="89" hits="5" branch="false"/>
-						<line number="90" hits="5" branch="false"/>
-						<line number="91" hits="5" branch="true" condition-coverage="100% (2/2)">
+						<line number="94" hits="2" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="92" hits="2" branch="false"/>
-						<line number="94" hits="5" branch="true" condition-coverage="100% (2/2)">
+						<line number="95" hits="1" branch="false"/>
+						<line number="97" hits="1" branch="false"/>
+						<line number="98" hits="1" branch="false"/>
+						<line number="99" hits="1" branch="false"/>
+						<line number="100" hits="1" branch="false"/>
+						<line number="101" hits="1" branch="false"/>
+						<line number="102" hits="1" branch="false"/>
+						<line number="103" hits="1" branch="false"/>
+						<line number="109" hits="5" branch="false"/>
+						<line number="110" hits="5" branch="false"/>
+						<line number="111" hits="5" branch="false"/>
+						<line number="112" hits="5" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="95" hits="2" branch="false"/>
-						<line number="97" hits="5" branch="false"/>
-						<line number="98" hits="5" branch="false"/>
-						<line number="99" hits="5" branch="true" condition-coverage="100% (2/2)">
+						<line number="113" hits="2" branch="false"/>
+						<line number="115" hits="5" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="101" hits="2" branch="false"/>
-						<line number="103" hits="5" branch="true" condition-coverage="100% (2/2)">
+						<line number="116" hits="2" branch="false"/>
+						<line number="118" hits="5" branch="false"/>
+						<line number="119" hits="5" branch="false"/>
+						<line number="120" hits="5" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="104" hits="2" branch="false"/>
-						<line number="106" hits="5" branch="false"/>
-						<line number="107" hits="5" branch="false"/>
-						<line number="112" hits="4" branch="true" condition-coverage="50% (1/2)">
+						<line number="122" hits="2" branch="false"/>
+						<line number="124" hits="5" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="125" hits="2" branch="false"/>
+						<line number="127" hits="5" branch="false"/>
+						<line number="128" hits="5" branch="false"/>
+						<line number="133" hits="4" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="113" hits="4" branch="true" condition-coverage="50% (2/4)">
+						<line number="134" hits="4" branch="true" condition-coverage="50% (2/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 								<condition number="1" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="115" hits="4" branch="false"/>
-						<line number="117" hits="4" branch="true" condition-coverage="50% (3/6)">
+						<line number="136" hits="4" branch="false"/>
+						<line number="138" hits="4" branch="true" condition-coverage="50% (3/6)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 								<condition number="1" type="jump" coverage="100%"/>
 								<condition number="2" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="118" hits="2" branch="true" condition-coverage="25% (1/4)">
+						<line number="139" hits="2" branch="true" condition-coverage="25% (1/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="123" hits="6" branch="true" condition-coverage="50% (1/2)">
+						<line number="144" hits="6" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="124" hits="6" branch="true" condition-coverage="50% (1/2)">
+						<line number="145" hits="6" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="125" hits="6" branch="false"/>
+						<line number="146" hits="6" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.cugos.wkg.GeoPackage" filename="org/cugos/wkg/GeoPackage.java" line-rate="0.0" branch-rate="1.0" complexity="1.8181818181818181">
@@ -1424,7 +1454,6 @@
 									</conditions>
 								</line>
 								<line number="116" hits="19795" branch="false"/>
-								<line number="117" hits="19795" branch="false"/>
 								<line number="119" hits="29" branch="false"/>
 							</lines>
 						</method>
@@ -1504,7 +1533,6 @@
 							</conditions>
 						</line>
 						<line number="116" hits="19795" branch="false"/>
-						<line number="117" hits="19795" branch="false"/>
 						<line number="119" hits="29" branch="false"/>
 						<line number="125" hits="3" branch="false"/>
 					</lines>
@@ -1643,7 +1671,7 @@
 						<line number="205" hits="29" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.cugos.wkg.GeoPackageWriter" filename="org/cugos/wkg/GeoPackageWriter.java" line-rate="0.9824561403508771" branch-rate="0.8846153846153846" complexity="3.5714285714285716">
+				<class name="org.cugos.wkg.GeoPackageWriter" filename="org/cugos/wkg/GeoPackageWriter.java" line-rate="0.9821428571428571" branch-rate="0.8846153846153846" complexity="3.5714285714285716">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -1707,7 +1735,6 @@
 						<method name="calculateNumberOfBytes" signature="(Lorg/cugos/wkg/Geometry;)I" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="106" hits="29" branch="false"/>
-								<line number="111" hits="29" branch="false"/>
 							</lines>
 						</method>
 						<method name="toHex" signature="([B)Ljava/lang/String;" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -1842,7 +1869,6 @@
 						<line number="101" hits="29" branch="false"/>
 						<line number="102" hits="29" branch="false"/>
 						<line number="106" hits="29" branch="false"/>
-						<line number="111" hits="29" branch="false"/>
 						<line number="115" hits="29" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
@@ -1891,15 +1917,15 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lorg/cugos/wkg/Dimension;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="26" hits="1698" branch="false"/>
-								<line number="27" hits="1698" branch="false"/>
-								<line number="28" hits="1698" branch="false"/>
-								<line number="29" hits="1698" branch="false"/>
+								<line number="26" hits="1704" branch="false"/>
+								<line number="27" hits="1704" branch="false"/>
+								<line number="28" hits="1704" branch="false"/>
+								<line number="29" hits="1704" branch="false"/>
 							</lines>
 						</method>
 						<method name="getDimension" signature="()Lorg/cugos/wkg/Dimension;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="131" hits="2076" branch="false"/>
+								<line number="131" hits="2079" branch="false"/>
 							</lines>
 						</method>
 						<method name="getEnvelope" signature="()Lorg/cugos/wkg/Envelope;" line-rate="0.8857142857142857" branch-rate="0.7777777777777778" complexity="0">
@@ -1979,7 +2005,7 @@
 						</method>
 						<method name="getSrid" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="115" hits="2298" branch="false"/>
+								<line number="115" hits="2301" branch="false"/>
 							</lines>
 						</method>
 						<method name="setSrid" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -1990,15 +2016,15 @@
 						</method>
 						<method name="toString" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="140" hits="205" branch="false"/>
+								<line number="140" hits="208" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="26" hits="1698" branch="false"/>
-						<line number="27" hits="1698" branch="false"/>
-						<line number="28" hits="1698" branch="false"/>
-						<line number="29" hits="1698" branch="false"/>
+						<line number="26" hits="1704" branch="false"/>
+						<line number="27" hits="1704" branch="false"/>
+						<line number="28" hits="1704" branch="false"/>
+						<line number="29" hits="1704" branch="false"/>
 						<line number="54" hits="35" branch="false"/>
 						<line number="55" hits="35" branch="false"/>
 						<line number="56" hits="35" branch="false"/>
@@ -2070,11 +2096,11 @@
 						<line number="103" hits="0" branch="false"/>
 						<line number="106" hits="1180" branch="false"/>
 						<line number="107" hits="35" branch="false"/>
-						<line number="115" hits="2298" branch="false"/>
+						<line number="115" hits="2301" branch="false"/>
 						<line number="123" hits="29" branch="false"/>
 						<line number="124" hits="29" branch="false"/>
-						<line number="131" hits="2076" branch="false"/>
-						<line number="140" hits="205" branch="false"/>
+						<line number="131" hits="2079" branch="false"/>
+						<line number="140" hits="208" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.cugos.wkg.GeometryCollection" filename="org/cugos/wkg/GeometryCollection.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
@@ -2121,9 +2147,9 @@
 						</method>
 						<method name="&lt;init&gt;" signature="(Ljava/util/List;Lorg/cugos/wkg/Dimension;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="34" hits="697" branch="false"/>
-								<line number="35" hits="697" branch="false"/>
-								<line number="36" hits="697" branch="false"/>
+								<line number="34" hits="700" branch="false"/>
+								<line number="35" hits="700" branch="false"/>
+								<line number="36" hits="700" branch="false"/>
 							</lines>
 						</method>
 						<method name="createEmpty" signature="()Lorg/cugos/wkg/LineString;" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -2133,7 +2159,7 @@
 						</method>
 						<method name="getCoordinates" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="44" hits="1875" branch="false"/>
+								<line number="44" hits="1879" branch="false"/>
 							</lines>
 						</method>
 						<method name="getNumberOfCoordinates" signature="()I" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -2150,10 +2176,10 @@
 					<lines>
 						<line number="24" hits="13" branch="false"/>
 						<line number="25" hits="13" branch="false"/>
-						<line number="34" hits="697" branch="false"/>
-						<line number="35" hits="697" branch="false"/>
-						<line number="36" hits="697" branch="false"/>
-						<line number="44" hits="1875" branch="false"/>
+						<line number="34" hits="700" branch="false"/>
+						<line number="35" hits="700" branch="false"/>
+						<line number="36" hits="700" branch="false"/>
+						<line number="44" hits="1879" branch="false"/>
 						<line number="49" hits="423" branch="false"/>
 						<line number="54" hits="119" branch="false"/>
 						<line number="62" hits="2" branch="false"/>
@@ -2163,19 +2189,19 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Ljava/util/List;Lorg/cugos/wkg/Dimension;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="18" hits="15" branch="false"/>
-								<line number="19" hits="15" branch="false"/>
+								<line number="18" hits="16" branch="false"/>
+								<line number="19" hits="16" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Ljava/util/List;Lorg/cugos/wkg/Dimension;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="28" hits="412" branch="false"/>
-								<line number="29" hits="412" branch="false"/>
+								<line number="28" hits="415" branch="false"/>
+								<line number="29" hits="415" branch="false"/>
 							</lines>
 						</method>
 						<method name="createEmpty" signature="()Lorg/cugos/wkg/LinearRing;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="41" hits="5" branch="false"/>
+								<line number="41" hits="7" branch="false"/>
 							</lines>
 						</method>
 						<method name="getNumberOfCoordinates" signature="()I" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -2185,12 +2211,12 @@
 						</method>
 					</methods>
 					<lines>
-						<line number="18" hits="15" branch="false"/>
-						<line number="19" hits="15" branch="false"/>
-						<line number="28" hits="412" branch="false"/>
-						<line number="29" hits="412" branch="false"/>
+						<line number="18" hits="16" branch="false"/>
+						<line number="19" hits="16" branch="false"/>
+						<line number="28" hits="415" branch="false"/>
+						<line number="29" hits="415" branch="false"/>
 						<line number="33" hits="174" branch="false"/>
-						<line number="41" hits="5" branch="false"/>
+						<line number="41" hits="7" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.cugos.wkg.MultiCurve" filename="org/cugos/wkg/MultiCurve.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
@@ -2517,21 +2543,21 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lorg/cugos/wkg/LinearRing;Ljava/util/List;Lorg/cugos/wkg/Dimension;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="30" hits="8" branch="false"/>
-								<line number="31" hits="8" branch="false"/>
+								<line number="30" hits="9" branch="false"/>
+								<line number="31" hits="9" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Lorg/cugos/wkg/LinearRing;Ljava/util/List;Lorg/cugos/wkg/Dimension;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="41" hits="278" branch="false"/>
-								<line number="42" hits="278" branch="false"/>
-								<line number="43" hits="278" branch="false"/>
-								<line number="44" hits="278" branch="false"/>
+								<line number="41" hits="281" branch="false"/>
+								<line number="42" hits="281" branch="false"/>
+								<line number="43" hits="281" branch="false"/>
+								<line number="44" hits="281" branch="false"/>
 							</lines>
 						</method>
 						<method name="createEmpty" signature="()Lorg/cugos/wkg/Polygon;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="91" hits="2" branch="false"/>
+								<line number="91" hits="4" branch="false"/>
 							</lines>
 						</method>
 						<method name="getCoordinates" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -2550,7 +2576,7 @@
 						</method>
 						<method name="getInnerLinearRings" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="59" hits="646" branch="false"/>
+								<line number="59" hits="647" branch="false"/>
 							</lines>
 						</method>
 						<method name="getNumberOfCoordinates" signature="()I" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -2568,7 +2594,7 @@
 						</method>
 						<method name="getOuterLinearRing" signature="()Lorg/cugos/wkg/LinearRing;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="51" hits="681" branch="false"/>
+								<line number="51" hits="688" branch="false"/>
 							</lines>
 						</method>
 						<method name="isEmpty" signature="()Z" line-rate="1.0" branch-rate="0.5" complexity="0">
@@ -2582,14 +2608,14 @@
 						</method>
 					</methods>
 					<lines>
-						<line number="30" hits="8" branch="false"/>
-						<line number="31" hits="8" branch="false"/>
-						<line number="41" hits="278" branch="false"/>
-						<line number="42" hits="278" branch="false"/>
-						<line number="43" hits="278" branch="false"/>
-						<line number="44" hits="278" branch="false"/>
-						<line number="51" hits="681" branch="false"/>
-						<line number="59" hits="646" branch="false"/>
+						<line number="30" hits="9" branch="false"/>
+						<line number="31" hits="9" branch="false"/>
+						<line number="41" hits="281" branch="false"/>
+						<line number="42" hits="281" branch="false"/>
+						<line number="43" hits="281" branch="false"/>
+						<line number="44" hits="281" branch="false"/>
+						<line number="51" hits="688" branch="false"/>
+						<line number="59" hits="647" branch="false"/>
 						<line number="64" hits="310" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
@@ -2614,21 +2640,21 @@
 						<line number="81" hits="2" branch="false"/>
 						<line number="82" hits="2" branch="false"/>
 						<line number="83" hits="18" branch="false"/>
-						<line number="91" hits="2" branch="false"/>
+						<line number="91" hits="4" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.cugos.wkg.Surface" filename="org/cugos/wkg/Surface.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lorg/cugos/wkg/Dimension;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="15" hits="401" branch="false"/>
-								<line number="16" hits="401" branch="false"/>
+								<line number="15" hits="404" branch="false"/>
+								<line number="16" hits="404" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="15" hits="401" branch="false"/>
-						<line number="16" hits="401" branch="false"/>
+						<line number="15" hits="404" branch="false"/>
+						<line number="16" hits="404" branch="false"/>
 					</lines>
 				</class>
 				<class name="org.cugos.wkg.Tin" filename="org/cugos/wkg/Tin.java" line-rate="1.0" branch-rate="1.0" complexity="1.2857142857142858">
@@ -2985,7 +3011,7 @@
 						<line number="13" hits="1" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.cugos.wkg.WKBReader" filename="org/cugos/wkg/WKBReader.java" line-rate="0.9935064935064936" branch-rate="0.9888888888888889" complexity="13.0">
+				<class name="org.cugos.wkg.WKBReader" filename="org/cugos/wkg/WKBReader.java" line-rate="0.9934640522875817" branch-rate="0.9888888888888889" complexity="13.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -3332,7 +3358,6 @@
 									</conditions>
 								</line>
 								<line number="247" hits="2168" branch="false"/>
-								<line number="248" hits="2168" branch="false"/>
 								<line number="250" hits="16" branch="false"/>
 							</lines>
 						</method>
@@ -3661,11 +3686,10 @@
 							</conditions>
 						</line>
 						<line number="247" hits="2168" branch="false"/>
-						<line number="248" hits="2168" branch="false"/>
 						<line number="250" hits="16" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.cugos.wkg.WKBWriter" filename="org/cugos/wkg/WKBWriter.java" line-rate="0.8942917547568711" branch-rate="0.8267716535433071" complexity="3.1325301204819276">
+				<class name="org.cugos.wkg.WKBWriter" filename="org/cugos/wkg/WKBWriter.java" line-rate="0.8941684665226782" branch-rate="0.8267716535433071" complexity="3.1325301204819276">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -3708,7 +3732,6 @@
 						<method name="calculateNumberOfBytes" signature="(Lorg/cugos/wkg/CircularString;)I" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="737" hits="45" branch="false"/>
-								<line number="738" hits="45" branch="false"/>
 							</lines>
 						</method>
 						<method name="calculateNumberOfBytes" signature="(Lorg/cugos/wkg/CompoundCurve;)I" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -3878,13 +3901,11 @@
 						<method name="calculateNumberOfBytes" signature="(Lorg/cugos/wkg/LineString;)I" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="421" hits="109" branch="false"/>
-								<line number="422" hits="109" branch="false"/>
 							</lines>
 						</method>
 						<method name="calculateNumberOfBytes" signature="(Lorg/cugos/wkg/LinearRing;)I" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="375" hits="0" branch="false"/>
-								<line number="376" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="calculateNumberOfBytes" signature="(Lorg/cugos/wkg/MultiCurve;)I" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -3916,8 +3937,6 @@
 						<method name="calculateNumberOfBytes" signature="(Lorg/cugos/wkg/MultiPoint;)I" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="529" hits="12" branch="false"/>
-								<line number="531" hits="12" branch="false"/>
-								<line number="533" hits="12" branch="false"/>
 							</lines>
 						</method>
 						<method name="calculateNumberOfBytes" signature="(Lorg/cugos/wkg/MultiPolygon;)I" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -3949,7 +3968,6 @@
 						<method name="calculateNumberOfBytes" signature="(Lorg/cugos/wkg/Point;)I" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="329" hits="46" branch="false"/>
-								<line number="330" hits="46" branch="false"/>
 							</lines>
 						</method>
 						<method name="calculateNumberOfBytes" signature="(Lorg/cugos/wkg/PolyHedralSurface;)I" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -3975,8 +3993,6 @@
 								</line>
 								<line number="469" hits="69" branch="false"/>
 								<line number="471" hits="69" branch="false"/>
-								<line number="473" hits="69" branch="false"/>
-								<line number="474" hits="69" branch="false"/>
 							</lines>
 						</method>
 						<method name="calculateNumberOfBytes" signature="(Lorg/cugos/wkg/Surface;)I" line-rate="0.6363636363636364" branch-rate="0.6" complexity="0">
@@ -4037,8 +4053,6 @@
 								</line>
 								<line number="1131" hits="33" branch="false"/>
 								<line number="1133" hits="33" branch="false"/>
-								<line number="1135" hits="33" branch="false"/>
-								<line number="1136" hits="33" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMultiplier" signature="(Lorg/cugos/wkg/Dimension;)I" line-rate="0.8571428571428571" branch-rate="0.875" complexity="0">
@@ -5372,7 +5386,6 @@
 						<line number="319" hits="15" branch="false"/>
 						<line number="320" hits="15" branch="false"/>
 						<line number="329" hits="46" branch="false"/>
-						<line number="330" hits="46" branch="false"/>
 						<line number="339" hits="73" branch="false"/>
 						<line number="340" hits="73" branch="false"/>
 						<line number="341" hits="73" branch="false"/>
@@ -5388,7 +5401,6 @@
 						<line number="365" hits="0" branch="false"/>
 						<line number="366" hits="0" branch="false"/>
 						<line number="375" hits="0" branch="false"/>
-						<line number="376" hits="0" branch="false"/>
 						<line number="385" hits="0" branch="false"/>
 						<line number="386" hits="0" branch="false"/>
 						<line number="387" hits="0" branch="false"/>
@@ -5404,7 +5416,6 @@
 						<line number="411" hits="10" branch="false"/>
 						<line number="412" hits="10" branch="false"/>
 						<line number="421" hits="109" branch="false"/>
-						<line number="422" hits="109" branch="false"/>
 						<line number="431" hits="109" branch="false"/>
 						<line number="432" hits="109" branch="false"/>
 						<line number="433" hits="109" branch="false"/>
@@ -5427,8 +5438,6 @@
 						</line>
 						<line number="469" hits="69" branch="false"/>
 						<line number="471" hits="69" branch="false"/>
-						<line number="473" hits="69" branch="false"/>
-						<line number="474" hits="69" branch="false"/>
 						<line number="483" hits="69" branch="false"/>
 						<line number="484" hits="69" branch="false"/>
 						<line number="485" hits="69" branch="false"/>
@@ -5459,8 +5468,6 @@
 						<line number="519" hits="10" branch="false"/>
 						<line number="520" hits="10" branch="false"/>
 						<line number="529" hits="12" branch="false"/>
-						<line number="531" hits="12" branch="false"/>
-						<line number="533" hits="12" branch="false"/>
 						<line number="542" hits="12" branch="false"/>
 						<line number="543" hits="12" branch="false"/>
 						<line number="544" hits="12" branch="false"/>
@@ -5573,7 +5580,6 @@
 						<line number="727" hits="9" branch="false"/>
 						<line number="728" hits="9" branch="false"/>
 						<line number="737" hits="45" branch="false"/>
-						<line number="738" hits="45" branch="false"/>
 						<line number="747" hits="45" branch="false"/>
 						<line number="748" hits="45" branch="false"/>
 						<line number="749" hits="45" branch="false"/>
@@ -5857,8 +5863,6 @@
 						</line>
 						<line number="1131" hits="33" branch="false"/>
 						<line number="1133" hits="33" branch="false"/>
-						<line number="1135" hits="33" branch="false"/>
-						<line number="1136" hits="33" branch="false"/>
 						<line number="1145" hits="33" branch="false"/>
 						<line number="1146" hits="33" branch="false"/>
 						<line number="1147" hits="33" branch="false"/>
@@ -6247,7 +6251,7 @@
 						<line number="29" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.cugos.wkg.WKTReader$2" filename="org/cugos/wkg/WKTReader.java" line-rate="0.9794520547945206" branch-rate="0.8061224489795918" complexity="3.193548387096774">
+				<class name="org.cugos.wkg.WKTReader$2" filename="org/cugos/wkg/WKTReader.java" line-rate="0.9784172661870504" branch-rate="0.8061224489795918" complexity="3.193548387096774">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lorg/cugos/wkg/WKTReader;Lorg/cugos/wkg/WKTReader$Var;Lorg/cugos/wkg/WKTReader$Var;Ljava/util/Stack;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -6296,12 +6300,11 @@
 								<line number="219" hits="17" branch="false"/>
 								<line number="221" hits="34" branch="false"/>
 								<line number="222" hits="17" branch="false"/>
-								<line number="224" hits="17" branch="false"/>
 								<line number="226" hits="18" branch="false"/>
 								<line number="227" hits="18" branch="false"/>
 							</lines>
 						</method>
-						<method name="exitCurvePolygon" signature="(Lorg/cugos/wkg/internal/WKTParser$CurvePolygonContext;)V" line-rate="0.9411764705882353" branch-rate="0.75" complexity="0">
+						<method name="exitCurvePolygon" signature="(Lorg/cugos/wkg/internal/WKTParser$CurvePolygonContext;)V" line-rate="0.9285714285714286" branch-rate="0.75" complexity="0">
 							<lines>
 								<line number="187" hits="37" branch="true" condition-coverage="75% (3/4)">
 									<conditions>
@@ -6336,9 +6339,6 @@
 								<line number="197" hits="36" branch="false"/>
 								<line number="199" hits="72" branch="false"/>
 								<line number="200" hits="36" branch="false"/>
-								<line number="201" hits="36" branch="false"/>
-								<line number="202" hits="36" branch="false"/>
-								<line number="203" hits="36" branch="false"/>
 								<line number="205" hits="37" branch="false"/>
 								<line number="206" hits="37" branch="false"/>
 							</lines>
@@ -6385,7 +6385,6 @@
 								<line number="282" hits="67" branch="false"/>
 								<line number="283" hits="20" branch="false"/>
 								<line number="284" hits="20" branch="false"/>
-								<line number="286" hits="20" branch="false"/>
 								<line number="288" hits="21" branch="false"/>
 								<line number="289" hits="21" branch="false"/>
 							</lines>
@@ -6403,7 +6402,7 @@
 								<line number="77" hits="37" branch="false"/>
 							</lines>
 						</method>
-						<method name="exitMultiCurve" signature="(Lorg/cugos/wkg/internal/WKTParser$MultiCurveContext;)V" line-rate="0.8666666666666667" branch-rate="0.6666666666666666" complexity="0">
+						<method name="exitMultiCurve" signature="(Lorg/cugos/wkg/internal/WKTParser$MultiCurveContext;)V" line-rate="0.8571428571428571" branch-rate="0.6666666666666666" complexity="0">
 							<lines>
 								<line number="232" hits="18" branch="true" condition-coverage="75% (3/4)">
 									<conditions>
@@ -6438,7 +6437,6 @@
 								<line number="242" hits="0" branch="false"/>
 								<line number="244" hits="34" branch="false"/>
 								<line number="245" hits="17" branch="false"/>
-								<line number="247" hits="17" branch="false"/>
 								<line number="249" hits="18" branch="false"/>
 								<line number="250" hits="18" branch="false"/>
 							</lines>
@@ -6530,7 +6528,6 @@
 								<line number="263" hits="18" branch="false"/>
 								<line number="265" hits="36" branch="false"/>
 								<line number="266" hits="18" branch="false"/>
-								<line number="268" hits="18" branch="false"/>
 								<line number="270" hits="19" branch="false"/>
 								<line number="271" hits="19" branch="false"/>
 							</lines>
@@ -6814,9 +6811,6 @@
 						<line number="197" hits="36" branch="false"/>
 						<line number="199" hits="72" branch="false"/>
 						<line number="200" hits="36" branch="false"/>
-						<line number="201" hits="36" branch="false"/>
-						<line number="202" hits="36" branch="false"/>
-						<line number="203" hits="36" branch="false"/>
 						<line number="205" hits="37" branch="false"/>
 						<line number="206" hits="37" branch="false"/>
 						<line number="211" hits="18" branch="true" condition-coverage="75% (3/4)">
@@ -6846,7 +6840,6 @@
 						<line number="219" hits="17" branch="false"/>
 						<line number="221" hits="34" branch="false"/>
 						<line number="222" hits="17" branch="false"/>
-						<line number="224" hits="17" branch="false"/>
 						<line number="226" hits="18" branch="false"/>
 						<line number="227" hits="18" branch="false"/>
 						<line number="232" hits="18" branch="true" condition-coverage="75% (3/4)">
@@ -6882,7 +6875,6 @@
 						<line number="242" hits="0" branch="false"/>
 						<line number="244" hits="34" branch="false"/>
 						<line number="245" hits="17" branch="false"/>
-						<line number="247" hits="17" branch="false"/>
 						<line number="249" hits="18" branch="false"/>
 						<line number="250" hits="18" branch="false"/>
 						<line number="255" hits="19" branch="true" condition-coverage="75% (3/4)">
@@ -6912,7 +6904,6 @@
 						<line number="263" hits="18" branch="false"/>
 						<line number="265" hits="36" branch="false"/>
 						<line number="266" hits="18" branch="false"/>
-						<line number="268" hits="18" branch="false"/>
 						<line number="270" hits="19" branch="false"/>
 						<line number="271" hits="19" branch="false"/>
 						<line number="276" hits="21" branch="true" condition-coverage="75% (3/4)">
@@ -6932,7 +6923,6 @@
 						<line number="282" hits="67" branch="false"/>
 						<line number="283" hits="20" branch="false"/>
 						<line number="284" hits="20" branch="false"/>
-						<line number="286" hits="20" branch="false"/>
 						<line number="288" hits="21" branch="false"/>
 						<line number="289" hits="21" branch="false"/>
 					</lines>
@@ -6973,103 +6963,103 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="21" hits="349" branch="false"/>
-								<line number="22" hits="349" branch="false"/>
+								<line number="21" hits="352" branch="false"/>
+								<line number="22" hits="352" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Z)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="28" hits="349" branch="false"/>
-								<line number="29" hits="349" branch="false"/>
-								<line number="30" hits="349" branch="false"/>
+								<line number="28" hits="352" branch="false"/>
+								<line number="29" hits="352" branch="false"/>
+								<line number="30" hits="352" branch="false"/>
 							</lines>
 						</method>
 						<method name="addCoordinate" signature="(Lorg/cugos/wkg/Coordinate;Ljava/lang/StringBuilder;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="648" hits="4795" branch="false"/>
-								<line number="649" hits="4795" branch="false"/>
-								<line number="650" hits="4795" branch="false"/>
-								<line number="651" hits="4795" branch="true" condition-coverage="100% (2/2)">
+								<line number="648" hits="4799" branch="false"/>
+								<line number="649" hits="4799" branch="false"/>
+								<line number="650" hits="4799" branch="false"/>
+								<line number="651" hits="4799" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="652" hits="506" branch="false"/>
-								<line number="653" hits="4289" branch="true" condition-coverage="100% (2/2)">
+								<line number="653" hits="4293" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="654" hits="519" branch="false"/>
-								<line number="655" hits="3770" branch="true" condition-coverage="100% (2/2)">
+								<line number="655" hits="3774" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="656" hits="532" branch="false"/>
 								<line number="657" hits="532" branch="false"/>
-								<line number="659" hits="4795" branch="false"/>
+								<line number="659" hits="4799" branch="false"/>
 							</lines>
 						</method>
 						<method name="addCoordinates" signature="(Ljava/util/List;Ljava/lang/StringBuilder;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="621" hits="806" branch="false"/>
-								<line number="622" hits="806" branch="false"/>
+								<line number="621" hits="807" branch="false"/>
+								<line number="622" hits="807" branch="false"/>
 							</lines>
 						</method>
 						<method name="addCoordinates" signature="(Ljava/util/List;ZLjava/lang/StringBuilder;)V" line-rate="0.8333333333333334" branch-rate="0.75" complexity="0">
 							<lines>
-								<line number="625" hits="840" branch="false"/>
-								<line number="626" hits="840" branch="true" condition-coverage="100% (2/2)">
+								<line number="625" hits="841" branch="false"/>
+								<line number="626" hits="841" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="627" hits="4693" branch="true" condition-coverage="100% (2/2)">
+								<line number="627" hits="4697" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="628" hits="3853" branch="false"/>
-								<line number="630" hits="840" branch="false"/>
-								<line number="632" hits="4693" branch="true" condition-coverage="50% (1/2)">
+								<line number="628" hits="3856" branch="false"/>
+								<line number="630" hits="841" branch="false"/>
+								<line number="632" hits="4697" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
 								<line number="633" hits="0" branch="false"/>
-								<line number="635" hits="4693" branch="false"/>
-								<line number="636" hits="4693" branch="true" condition-coverage="50% (1/2)">
+								<line number="635" hits="4697" branch="false"/>
+								<line number="636" hits="4697" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
 								<line number="637" hits="0" branch="false"/>
-								<line number="639" hits="4693" branch="false"/>
-								<line number="640" hits="840" branch="false"/>
+								<line number="639" hits="4697" branch="false"/>
+								<line number="640" hits="841" branch="false"/>
 							</lines>
 						</method>
 						<method name="addDimension" signature="(Lorg/cugos/wkg/Geometry;Ljava/lang/StringBuilder;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="678" hits="444" branch="true" condition-coverage="100% (2/2)">
+								<line number="678" hits="445" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="679" hits="80" branch="false"/>
-								<line number="680" hits="364" branch="true" condition-coverage="100% (2/2)">
+								<line number="680" hits="365" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="681" hits="83" branch="false"/>
-								<line number="682" hits="281" branch="true" condition-coverage="100% (2/2)">
+								<line number="682" hits="282" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="683" hits="82" branch="false"/>
-								<line number="685" hits="444" branch="false"/>
+								<line number="685" hits="445" branch="false"/>
 							</lines>
 						</method>
 						<method name="addPolygonText" signature="(Lorg/cugos/wkg/Polygon;Ljava/lang/StringBuilder;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -7092,13 +7082,13 @@
 						</method>
 						<method name="addSrid" signature="(Lorg/cugos/wkg/Geometry;Ljava/lang/StringBuilder;)V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="667" hits="475" branch="true" condition-coverage="100% (2/2)">
+								<line number="667" hits="478" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="668" hits="167" branch="false"/>
-								<line number="670" hits="475" branch="false"/>
+								<line number="670" hits="478" branch="false"/>
 							</lines>
 						</method>
 						<method name="write" signature="(Lorg/cugos/wkg/CircularString;)Ljava/lang/String;" line-rate="1.0" branch-rate="1.0" complexity="0">
@@ -7280,41 +7270,41 @@
 						</method>
 						<method name="write" signature="(Lorg/cugos/wkg/Geometry;)Ljava/lang/String;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="38" hits="469" branch="false"/>
+								<line number="38" hits="472" branch="false"/>
 							</lines>
 						</method>
 						<method name="write" signature="(Lorg/cugos/wkg/Geometry;ZZ)Ljava/lang/String;" line-rate="0.9393939393939394" branch-rate="0.9375" complexity="0">
 							<lines>
-								<line number="49" hits="618" branch="true" condition-coverage="100% (2/2)">
+								<line number="49" hits="621" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="50" hits="102" branch="false"/>
-								<line number="51" hits="516" branch="true" condition-coverage="100% (2/2)">
+								<line number="51" hits="519" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="52" hits="68" branch="false"/>
-								<line number="53" hits="448" branch="true" condition-coverage="50% (1/2)">
+								<line number="53" hits="451" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
 								<line number="54" hits="0" branch="false"/>
-								<line number="55" hits="448" branch="true" condition-coverage="100% (2/2)">
+								<line number="55" hits="451" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="56" hits="31" branch="false"/>
-								<line number="57" hits="417" branch="true" condition-coverage="100% (2/2)">
+								<line number="57" hits="420" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="58" hits="42" branch="false"/>
+								<line number="58" hits="45" branch="false"/>
 								<line number="59" hits="375" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
@@ -7874,31 +7864,31 @@
 						</method>
 						<method name="write" signature="(Lorg/cugos/wkg/Polygon;ZZ)Ljava/lang/String;" line-rate="1.0" branch-rate="0.9" complexity="0">
 							<lines>
-								<line number="192" hits="43" branch="false"/>
-								<line number="193" hits="43" branch="true" condition-coverage="100% (2/2)">
+								<line number="192" hits="46" branch="false"/>
+								<line number="193" hits="46" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="194" hits="34" branch="false"/>
-								<line number="196" hits="43" branch="false"/>
-								<line number="197" hits="43" branch="true" condition-coverage="75% (3/4)">
+								<line number="194" hits="37" branch="false"/>
+								<line number="196" hits="46" branch="false"/>
+								<line number="197" hits="46" branch="true" condition-coverage="75% (3/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 										<condition number="1" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="198" hits="2" branch="false"/>
-								<line number="200" hits="41" branch="true" condition-coverage="100% (2/2)">
+								<line number="198" hits="4" branch="false"/>
+								<line number="200" hits="42" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="201" hits="32" branch="false"/>
-								<line number="203" hits="41" branch="false"/>
-								<line number="205" hits="41" branch="false"/>
-								<line number="206" hits="41" branch="false"/>
-								<line number="208" hits="41" branch="true" condition-coverage="100% (2/2)">
+								<line number="201" hits="33" branch="false"/>
+								<line number="203" hits="42" branch="false"/>
+								<line number="205" hits="42" branch="false"/>
+								<line number="206" hits="42" branch="false"/>
+								<line number="208" hits="42" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
@@ -7907,8 +7897,8 @@
 								<line number="210" hits="23" branch="false"/>
 								<line number="211" hits="23" branch="false"/>
 								<line number="212" hits="23" branch="false"/>
-								<line number="213" hits="41" branch="false"/>
-								<line number="215" hits="43" branch="false"/>
+								<line number="213" hits="42" branch="false"/>
+								<line number="215" hits="46" branch="false"/>
 							</lines>
 						</method>
 						<method name="write" signature="(Lorg/cugos/wkg/Tin;)Ljava/lang/String;" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -8015,42 +8005,42 @@
 						</method>
 					</methods>
 					<lines>
-						<line number="21" hits="349" branch="false"/>
-						<line number="22" hits="349" branch="false"/>
-						<line number="28" hits="349" branch="false"/>
-						<line number="29" hits="349" branch="false"/>
-						<line number="30" hits="349" branch="false"/>
-						<line number="38" hits="469" branch="false"/>
-						<line number="49" hits="618" branch="true" condition-coverage="100% (2/2)">
+						<line number="21" hits="352" branch="false"/>
+						<line number="22" hits="352" branch="false"/>
+						<line number="28" hits="352" branch="false"/>
+						<line number="29" hits="352" branch="false"/>
+						<line number="30" hits="352" branch="false"/>
+						<line number="38" hits="472" branch="false"/>
+						<line number="49" hits="621" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="50" hits="102" branch="false"/>
-						<line number="51" hits="516" branch="true" condition-coverage="100% (2/2)">
+						<line number="51" hits="519" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="52" hits="68" branch="false"/>
-						<line number="53" hits="448" branch="true" condition-coverage="50% (1/2)">
+						<line number="53" hits="451" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
 						<line number="54" hits="0" branch="false"/>
-						<line number="55" hits="448" branch="true" condition-coverage="100% (2/2)">
+						<line number="55" hits="451" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="56" hits="31" branch="false"/>
-						<line number="57" hits="417" branch="true" condition-coverage="100% (2/2)">
+						<line number="57" hits="420" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="58" hits="42" branch="false"/>
+						<line number="58" hits="45" branch="false"/>
 						<line number="59" hits="375" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
@@ -8231,31 +8221,31 @@
 						<line number="182" hits="34" branch="false"/>
 						<line number="184" hits="36" branch="false"/>
 						<line number="188" hits="1" branch="false"/>
-						<line number="192" hits="43" branch="false"/>
-						<line number="193" hits="43" branch="true" condition-coverage="100% (2/2)">
+						<line number="192" hits="46" branch="false"/>
+						<line number="193" hits="46" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="194" hits="34" branch="false"/>
-						<line number="196" hits="43" branch="false"/>
-						<line number="197" hits="43" branch="true" condition-coverage="75% (3/4)">
+						<line number="194" hits="37" branch="false"/>
+						<line number="196" hits="46" branch="false"/>
+						<line number="197" hits="46" branch="true" condition-coverage="75% (3/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 								<condition number="1" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="198" hits="2" branch="false"/>
-						<line number="200" hits="41" branch="true" condition-coverage="100% (2/2)">
+						<line number="198" hits="4" branch="false"/>
+						<line number="200" hits="42" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="201" hits="32" branch="false"/>
-						<line number="203" hits="41" branch="false"/>
-						<line number="205" hits="41" branch="false"/>
-						<line number="206" hits="41" branch="false"/>
-						<line number="208" hits="41" branch="true" condition-coverage="100% (2/2)">
+						<line number="201" hits="33" branch="false"/>
+						<line number="203" hits="42" branch="false"/>
+						<line number="205" hits="42" branch="false"/>
+						<line number="206" hits="42" branch="false"/>
+						<line number="208" hits="42" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
@@ -8264,8 +8254,8 @@
 						<line number="210" hits="23" branch="false"/>
 						<line number="211" hits="23" branch="false"/>
 						<line number="212" hits="23" branch="false"/>
-						<line number="213" hits="41" branch="false"/>
-						<line number="215" hits="43" branch="false"/>
+						<line number="213" hits="42" branch="false"/>
+						<line number="215" hits="46" branch="false"/>
 						<line number="219" hits="0" branch="false"/>
 						<line number="223" hits="44" branch="false"/>
 						<line number="224" hits="44" branch="true" condition-coverage="100% (2/2)">
@@ -8796,85 +8786,85 @@
 						<line number="614" hits="58" branch="false"/>
 						<line number="615" hits="29" branch="false"/>
 						<line number="617" hits="31" branch="false"/>
-						<line number="621" hits="806" branch="false"/>
-						<line number="622" hits="806" branch="false"/>
-						<line number="625" hits="840" branch="false"/>
-						<line number="626" hits="840" branch="true" condition-coverage="100% (2/2)">
+						<line number="621" hits="807" branch="false"/>
+						<line number="622" hits="807" branch="false"/>
+						<line number="625" hits="841" branch="false"/>
+						<line number="626" hits="841" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="627" hits="4693" branch="true" condition-coverage="100% (2/2)">
+						<line number="627" hits="4697" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="628" hits="3853" branch="false"/>
-						<line number="630" hits="840" branch="false"/>
-						<line number="632" hits="4693" branch="true" condition-coverage="50% (1/2)">
+						<line number="628" hits="3856" branch="false"/>
+						<line number="630" hits="841" branch="false"/>
+						<line number="632" hits="4697" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
 						<line number="633" hits="0" branch="false"/>
-						<line number="635" hits="4693" branch="false"/>
-						<line number="636" hits="4693" branch="true" condition-coverage="50% (1/2)">
+						<line number="635" hits="4697" branch="false"/>
+						<line number="636" hits="4697" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
 						<line number="637" hits="0" branch="false"/>
-						<line number="639" hits="4693" branch="false"/>
-						<line number="640" hits="840" branch="false"/>
-						<line number="648" hits="4795" branch="false"/>
-						<line number="649" hits="4795" branch="false"/>
-						<line number="650" hits="4795" branch="false"/>
-						<line number="651" hits="4795" branch="true" condition-coverage="100% (2/2)">
+						<line number="639" hits="4697" branch="false"/>
+						<line number="640" hits="841" branch="false"/>
+						<line number="648" hits="4799" branch="false"/>
+						<line number="649" hits="4799" branch="false"/>
+						<line number="650" hits="4799" branch="false"/>
+						<line number="651" hits="4799" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="652" hits="506" branch="false"/>
-						<line number="653" hits="4289" branch="true" condition-coverage="100% (2/2)">
+						<line number="653" hits="4293" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="654" hits="519" branch="false"/>
-						<line number="655" hits="3770" branch="true" condition-coverage="100% (2/2)">
+						<line number="655" hits="3774" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="656" hits="532" branch="false"/>
 						<line number="657" hits="532" branch="false"/>
-						<line number="659" hits="4795" branch="false"/>
-						<line number="667" hits="475" branch="true" condition-coverage="100% (2/2)">
+						<line number="659" hits="4799" branch="false"/>
+						<line number="667" hits="478" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="668" hits="167" branch="false"/>
-						<line number="670" hits="475" branch="false"/>
-						<line number="678" hits="444" branch="true" condition-coverage="100% (2/2)">
+						<line number="670" hits="478" branch="false"/>
+						<line number="678" hits="445" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="679" hits="80" branch="false"/>
-						<line number="680" hits="364" branch="true" condition-coverage="100% (2/2)">
+						<line number="680" hits="365" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="681" hits="83" branch="false"/>
-						<line number="682" hits="281" branch="true" condition-coverage="100% (2/2)">
+						<line number="682" hits="282" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="683" hits="82" branch="false"/>
-						<line number="685" hits="444" branch="false"/>
+						<line number="685" hits="445" branch="false"/>
 						<line number="693" hits="29" branch="false"/>
 						<line number="695" hits="29" branch="false"/>
 						<line number="696" hits="29" branch="false"/>
@@ -8893,7 +8883,7 @@
 				</class>
 			</classes>
 		</package>
-		<package name="org.cugos.wkg.internal" line-rate="0.7235809875403784" branch-rate="0.5565693430656934" complexity="1.6451612903225807">
+		<package name="org.cugos.wkg.internal" line-rate="0.7233256351039261" branch-rate="0.5565693430656934" complexity="1.6451612903225807">
 			<classes>
 				<class name="org.cugos.wkg.internal.WKTBaseListener" filename="org/cugos/wkg/internal/WKTBaseListener.java" line-rate="0.7333333333333333" branch-rate="1.0" complexity="1.0">
 					<methods>
@@ -9573,7 +9563,7 @@
 						<line number="258" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="org.cugos.wkg.internal.WKTLexer" filename="org/cugos/wkg/internal/WKTLexer.java" line-rate="0.7666666666666667" branch-rate="1.0" complexity="1.0">
+				<class name="org.cugos.wkg.internal.WKTLexer" filename="org/cugos/wkg/internal/WKTLexer.java" line-rate="0.7586206896551724" branch-rate="1.0" complexity="1.0">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -9592,7 +9582,6 @@
 								<line number="62" hits="28" branch="false"/>
 								<line number="63" hits="1" branch="false"/>
 								<line number="192" hits="1" branch="false"/>
-								<line number="193" hits="1" branch="false"/>
 								<line number="195" hits="1" branch="false"/>
 								<line number="196" hits="8" branch="false"/>
 								<line number="197" hits="7" branch="false"/>
@@ -9668,7 +9657,6 @@
 						<line number="96" hits="0" branch="false"/>
 						<line number="99" hits="0" branch="false"/>
 						<line number="192" hits="1" branch="false"/>
-						<line number="193" hits="1" branch="false"/>
 						<line number="195" hits="1" branch="false"/>
 						<line number="196" hits="8" branch="false"/>
 						<line number="197" hits="7" branch="false"/>
@@ -9681,7 +9669,7 @@
 					<lines>
 					</lines>
 				</class>
-				<class name="org.cugos.wkg.internal.WKTParser" filename="org/cugos/wkg/internal/WKTParser.java" line-rate="0.7975656630365151" branch-rate="0.7011834319526628" complexity="2.035422343324251">
+				<class name="org.cugos.wkg.internal.WKTParser" filename="org/cugos/wkg/internal/WKTParser.java" line-rate="0.7974358974358975" branch-rate="0.7011834319526628" complexity="2.035422343324251">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
@@ -9699,7 +9687,6 @@
 								<line number="74" hits="28" branch="false"/>
 								<line number="75" hits="1" branch="false"/>
 								<line number="4082" hits="1" branch="false"/>
-								<line number="4083" hits="1" branch="false"/>
 								<line number="4085" hits="1" branch="false"/>
 								<line number="4086" hits="115" branch="false"/>
 								<line number="4087" hits="114" branch="false"/>
@@ -14056,7 +14043,6 @@
 						<line number="3781" hits="141" branch="false"/>
 						<line number="3782" hits="141" branch="false"/>
 						<line number="4082" hits="1" branch="false"/>
-						<line number="4083" hits="1" branch="false"/>
 						<line number="4085" hits="1" branch="false"/>
 						<line number="4086" hits="115" branch="false"/>
 						<line number="4087" hits="114" branch="false"/>
