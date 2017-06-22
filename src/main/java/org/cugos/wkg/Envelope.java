@@ -1,5 +1,8 @@
 package org.cugos.wkg;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Envelope {
 
     private Coordinate min;
@@ -81,6 +84,24 @@ public class Envelope {
      */
     public boolean isEmpty() {
         return min.isEmpty() && max.isEmpty();
+    }
+
+    /**
+     * Convert the Envelope into a Geometry
+     * @return A Geometry
+     */
+    public Geometry toGeometry() {
+        if (isEmpty()) {
+            return Polygon.createEmpty();
+        } else {
+            Dimension dimension = Dimension.Two;
+            List<Coordinate> coordinates = new ArrayList<>();
+            coordinates.add(Coordinate.create2D(min.getX(), min.getY()));
+            coordinates.add(Coordinate.create2D(max.getX(), min.getY()));
+            coordinates.add(Coordinate.create2D(max.getX(), max.getY()));
+            coordinates.add(Coordinate.create2D(min.getX(), max.getY()));
+            return new Polygon(new LinearRing(coordinates, dimension), new ArrayList<LinearRing>(), dimension);
+        }
     }
 
     @Override

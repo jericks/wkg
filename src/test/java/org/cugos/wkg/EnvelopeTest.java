@@ -19,6 +19,7 @@ public class EnvelopeTest {
         assertTrue(envelope.isEmpty());
         assertEquals(Dimension.Two, envelope.getDimension());
         assertEquals("Envelope { minX = NaN, minY = NaN, maxX = NaN, maxY = NaN }", envelope.toString());
+        assertEquals(Polygon.createEmpty().toString(), envelope.toGeometry().toString());
     }
 
     @Test
@@ -35,6 +36,7 @@ public class EnvelopeTest {
         assertFalse(envelope.isEmpty());
         assertEquals(Dimension.Two, envelope.getDimension());
         assertEquals("Envelope { minX = -122.56, minY = 47.25, maxX = -122.41, maxY = 47.31 }", envelope.toString());
+        assertEquals("POLYGON ((-122.56 47.25, -122.41 47.25, -122.41 47.31, -122.56 47.31))", envelope.toGeometry().toString());
     }
 
     @Test
