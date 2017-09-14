@@ -44,6 +44,25 @@ public class Polygon extends Surface {
     }
 
     /**
+     * Create a new Polygon with only an outer ring
+     * @param outerLinearRing The outer LinearRing
+     * @param dimension The Dimension
+     */
+    public Polygon(LinearRing outerLinearRing, Dimension dimension) {
+        this(outerLinearRing, new ArrayList<LinearRing>(), dimension);
+    }
+
+    /**
+     * Create a new Polygon with only an outer ring
+     * @param outerLinearRing The outer LinearRing
+     * @param dimension The Dimension
+     * @param srid The SRID
+     */
+    public Polygon(LinearRing outerLinearRing, Dimension dimension, String srid) {
+        this(outerLinearRing, new ArrayList<LinearRing>(), dimension, srid);
+    }
+
+    /**
      * Get the outer LinearRing
      * @return The outer LinearRing
      */

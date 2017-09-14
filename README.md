@@ -90,8 +90,8 @@ You can also read and write WKB and EWKB.
 import org.cugos.wkg.WKTReader;
 import org.cugos.wkg.Geometry;
 
-import org.cugos.parboiledwkb.WKBWriter;
-import org.cugos.parboiledwkb.WKBReader;
+import org.cugos.wkg.WKBWriter;
+import org.cugos.wkg.WKBReader;
 import org.cugos.wkg.WKB.Endian;
 import org.cugos.wkg.WKB.Type;
 

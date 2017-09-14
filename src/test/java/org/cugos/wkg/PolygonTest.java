@@ -1,9 +1,51 @@
 package org.cugos.wkg;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class PolygonTest {
+
+    @Test
+    public void createWithOuterRingOnly() {
+        Polygon polygon = new Polygon(
+            new LinearRing(
+                Arrays.asList(
+                    Coordinate.create2D(30,10),
+                    Coordinate.create2D(40,40),
+                    Coordinate.create2D(20,40),
+                    Coordinate.create2D(10,20),
+                    Coordinate.create2D(30,10)
+                ), Dimension.Two
+            ),
+            Dimension.Two
+        );
+        assertNotNull(polygon.getOuterLinearRing());
+        assertEquals(0, polygon.getInnerLinearRings().size());
+        assertEquals("POLYGON ((30.0 10.0, 40.0 40.0, 20.0 40.0, 10.0 20.0, 30.0 10.0))", polygon.toString());
+    }
+
+    @Test
+    public void createWithOuterRingOnlyAndSrid() {
+        Polygon polygon = new Polygon(
+            new LinearRing(
+                Arrays.asList(
+                    Coordinate.create2D(30,10),
+                    Coordinate.create2D(40,40),
+                    Coordinate.create2D(20,40),
+                    Coordinate.create2D(10,20),
+                    Coordinate.create2D(30,10)
+                ), Dimension.Two, "4326"
+            ),
+            Dimension.Two, "4326"
+        );
+        assertNotNull(polygon.getOuterLinearRing());
+        assertEquals(0, polygon.getInnerLinearRings().size());
+        assertEquals("SRID=4326;POLYGON ((30.0 10.0, 40.0 40.0, 20.0 40.0, 10.0 20.0, 30.0 10.0))", polygon.toString());
+    }
 
     @Test
     public void createEmpty() {
