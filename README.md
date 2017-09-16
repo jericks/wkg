@@ -58,7 +58,7 @@ Use
 ---
 You can use the **org.cugos.wkg.WTKReader** to read Geometry from a WKT string.
 
-```groovy
+```java
 import org.cugos.wkg.WKTReader;
 import org.cugos.wkg.Point;
 
@@ -69,7 +69,7 @@ Point point = (Point) reader.read(wkt);
 
 Once you have parse a WKT String into a **org.cugos.wkg.Geometry** you can write it back to WKT using the **org.cugos.wkg.WKTWriter**.
 
-```groovy
+```java
 import org.cugos.wkg.WKTWriter;
 import org.cugos.wkg.Coordinate;
 import org.cugos.wkg.Dimension;
@@ -86,7 +86,7 @@ String wkt = writer.write(cs);
 ```
 You can also read and write WKB and EWKB.
 
-```groovy
+```java
 import org.cugos.wkg.WKTReader;
 import org.cugos.wkg.Geometry;
 
@@ -103,6 +103,20 @@ byte[] wkb = wkb.write(geometry);
 
 WKBReader wkbReader = new WKBReader();
 Geometry point = wkb.read(wkb);
+```
+
+You can also read and write GeoJSON.
+
+```java
+import org.cugos.wkg.GeoJSONReader;
+import org.cugos.wkg.GeoJSONWriter;
+import org.cugos.wkg.Geometry;
+
+GeoJSONReader reader = new GeoJSONReader();
+Geometry point = reader.read("{\"type\": \"Point\", \"coordinates\": [122.34, -43.56]}");
+
+GeoJSONWriter writer = new GeoJSONWriter();
+String geoJSON = writer.write(point);
 ```
 
 Licene
