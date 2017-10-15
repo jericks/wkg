@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * Read a Geometry from a GeoJSON String
  */
-public class GeoJSONReader {
+public class GeoJSONReader implements Reader<String> {
 
     /**
      * The default SRID for GeoJSON is EPSG:4326
@@ -22,6 +22,7 @@ public class GeoJSONReader {
      * @param jsonStr The GeoJSON String
      * @return The Geometry or null
      */
+    @Override
     public Geometry read(String jsonStr) {
         JSON json = parse(jsonStr);
         Geometry geometry = null;

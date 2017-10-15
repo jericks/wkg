@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 /**
  * Write GeoPackage encoded Geometry
  */
-public class GeoPackageWriter {
+public class GeoPackageWriter implements Writer<byte[]> {
 
     /**
      * The GeoPackage version
@@ -64,6 +64,7 @@ public class GeoPackageWriter {
      * @param g The Geometry
      * @return An array of bytes
      */
+    @Override
     public byte[] write(Geometry g) {
         //System.out.println(calculateNumberOfBytes(g));
         ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(g));

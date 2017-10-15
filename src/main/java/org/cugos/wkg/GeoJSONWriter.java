@@ -2,8 +2,9 @@ package org.cugos.wkg;
 
 import java.util.List;
 
-public class GeoJSONWriter {
-  
+public class GeoJSONWriter implements Writer<String> {
+
+  @Override
   public String write(Geometry geometry) {
     if (geometry instanceof Point) {
       return writePoint((Point) geometry);

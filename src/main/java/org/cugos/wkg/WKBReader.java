@@ -13,13 +13,14 @@ import java.util.List;
  * A WKB and EWKB Geometry Reader
  * @author Jared Erickson
  */
-public class WKBReader {
+public class WKBReader implements Reader<byte[]> {
 
     /**
      * Read a Geometry from an array of bytes.
      * @param bytes The array of bytes
      * @return A Geometry or null
      */
+    @Override
     public Geometry read(byte[] bytes) {
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
         return read(buffer);

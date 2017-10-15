@@ -7,7 +7,7 @@ import java.util.List;
  * Write a Geometry to a WKT String.
  * @author Jared Erickson
  */
-public class WKTWriter {
+public class WKTWriter implements Writer<String> {
 
     /**
      * The flag to determine is we should use inner parens for MultiPoint WKT.  The default is false.
@@ -34,6 +34,7 @@ public class WKTWriter {
      * @param g The Geometry
      * @return A WKT String
      */
+    @Override
     public String write(Geometry g) {
         return write(g, true, true);
     }

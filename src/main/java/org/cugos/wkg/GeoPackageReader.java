@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 /**
  * Read GeoPackage encoded Geometry
  */
-public class GeoPackageReader {
+public class GeoPackageReader implements Reader<byte[]> {
 
     /**
      * The WKBReader
@@ -17,6 +17,7 @@ public class GeoPackageReader {
      * @param bytes The array of bytes
      * @return A Geometry or null
      */
+    @Override
     public Geometry read(byte[] bytes) {
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
         return read(buffer, true).getGeometry();

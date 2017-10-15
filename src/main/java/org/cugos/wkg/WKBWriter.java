@@ -13,7 +13,7 @@ import java.util.List;
  * A Well Known Binary Writer.
  * @author Jared Erickson
  */
-public class WKBWriter {
+public class WKBWriter implements Writer<byte[]> {
 
     /**
      * The WKB Type (WKB or EWKB)
@@ -56,6 +56,7 @@ public class WKBWriter {
      * @param g The Geometry
      * @return An array of bytes
      */
+    @Override
     public byte[] write(Geometry g) {
         if (g instanceof Point) {
             return write((Point) g);

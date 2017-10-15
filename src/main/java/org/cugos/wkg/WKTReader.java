@@ -13,13 +13,14 @@ import java.util.Stack;
 /**
  * Read a Geometry from a Well Known Text (WKT) String
  */
-public class WKTReader {
+public class WKTReader implements Reader<String> {
 
     /**
      * Read the WKT and return a Geometry
      * @param wkt The WKT
      * @return A Geometry
      */
+    @Override
     public Geometry read(String wkt) {
         WKTLexer lexer = new WKTLexer(new ANTLRInputStream(wkt));
         WKTParser parser = new WKTParser(new CommonTokenStream(lexer));
