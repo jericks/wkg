@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
-            <version>4.6</version>
+            <version>4.7</version>
         </dependency>
         <dependency>
             <groupId>com.vividsolutions</groupId>
@@ -65,7 +65,7 @@
             <plugin>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
-                <version>4.6</version>
+                <version>4.7</version>
                 <configuration>
                     <sourceDirectory>src/main/antlr</sourceDirectory>
                     <grammars>WKT.g4</grammars>
