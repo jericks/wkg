@@ -39,6 +39,11 @@ public class WKTWriter implements Writer<String> {
         return write(g, true, true);
     }
 
+    @Override
+    public String getName() {
+        return "WKT";
+    }
+
     /**
      * Write a Geometry to a WKT String
      * @param g The Geometry

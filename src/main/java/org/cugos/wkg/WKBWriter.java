@@ -95,6 +95,11 @@ public class WKBWriter implements Writer<byte[]> {
         }
     }
 
+    @Override
+    public String getName() {
+        return "WKB";
+    }
+
     /**
      * Calculate the number of bytes for a given Geometry.
      * @param g The Geometry

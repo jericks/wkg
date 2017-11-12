@@ -23,6 +23,11 @@ public class GeoPackageReader implements Reader<byte[]> {
         return read(buffer, true).getGeometry();
     }
 
+    @Override
+    public String getName() {
+        return "GeoPackage";
+    }
+
     /**
      * Read a Geometry from a hex String
      * @param hex The hex String

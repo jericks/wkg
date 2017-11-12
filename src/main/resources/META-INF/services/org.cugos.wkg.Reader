@@ -1,0 +1,4 @@
+org.cugos.wkg.GeoJSONReader
+org.cugos.wkg.GeoPackageReader
+org.cugos.wkg.WKBReader
+org.cugos.wkg.WKTReader

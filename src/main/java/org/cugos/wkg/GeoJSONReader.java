@@ -33,6 +33,11 @@ public class GeoJSONReader implements Reader<String> {
         return geometry;
     }
 
+    @Override
+    public String getName() {
+        return "GeoJSON";
+    }
+
     private Point readPoint(JSONObject jsonObject) {
         Coordinate coordinate = getCoordinate((JSONArray) jsonObject.get("coordinates"));
         return new Point(coordinate, coordinate.getDimension(), srid);

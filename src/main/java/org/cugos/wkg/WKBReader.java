@@ -26,6 +26,11 @@ public class WKBReader implements Reader<byte[]> {
         return read(buffer);
     }
 
+    @Override
+    public String getName() {
+        return "WKB";
+    }
+
     /**
      * Read a Geometry from a hex String
      * @param hex The hex String

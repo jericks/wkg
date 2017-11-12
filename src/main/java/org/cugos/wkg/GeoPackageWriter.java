@@ -103,6 +103,11 @@ public class GeoPackageWriter implements Writer<byte[]> {
         return buffer.array();
     }
 
+    @Override
+    public String getName() {
+        return "GeoPackage";
+    }
+
     protected int calculateNumberOfBytes(Geometry g) {
         return wkbWriter.calculateNumberOfBytes(g)
             + 2 // magic

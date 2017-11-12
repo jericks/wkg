@@ -294,6 +294,11 @@ public class WKTReader implements Reader<String> {
         return geometries.isEmpty() ? null : geometries.pop();
     }
 
+    @Override
+    public String getName() {
+        return "WKT";
+    }
+
     private Coordinate coordinate(WKTParser.CoordinateContext ctx, Var<Dimension> dimension) {
         double x = Double.parseDouble(ctx.Number(0).getText());
         double y = Double.parseDouble(ctx.Number(1).getText());

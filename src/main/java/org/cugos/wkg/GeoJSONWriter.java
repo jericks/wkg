@@ -23,7 +23,12 @@ public class GeoJSONWriter implements Writer<String> {
     }
     return "";
   }
-  
+
+  @Override
+  public String getName() {
+    return "GeoJSON";
+  }
+
   protected String writePoint(Point point) {
     StringBuilder str = new StringBuilder();
     str.append("{\"type\": \"Point\"").append(", ");
