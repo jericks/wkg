@@ -28,7 +28,22 @@ public class GeoJSONReader implements Reader<String> {
         Geometry geometry = null;
         if (json instanceof JSONObject) {
             JSONObject jsonObject = (JSONObject) json;
-            geometry = readGeometry(jsonObject);
+            String type = jsonObject.get("type").toString();
+            if (type.equalsIgnoreCase("feature")) {
+                geometry = readGeometry((JSONObject) jsonObject.get("geometry"));
+            } else if (type.equalsIgnoreCase("featurecollection")) {
+                JSONArray jsonArray = (JSONArray) jsonObject.get("features");
+                List<Geometry> geometries = new ArrayList<>();
+                for (Object feature : jsonArray.values()) {
+                    JSONObject featureJSONObject = (JSONObject) feature;
+                    JSONObject geometryJSONObject = (JSONObject) ((JSONObject) feature).get("geometry");
+                    geometries.add(readGeometry(geometryJSONObject));
+                }
+                System.out.println(geometries);
+                geometry = new GeometryCollection(geometries, geometries.isEmpty() ? Dimension.Two : geometries.get(0).getDimension(), srid);
+            } else {
+                geometry = readGeometry(jsonObject);
+            }
         }
         return geometry;
     }

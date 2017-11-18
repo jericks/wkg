@@ -29,6 +29,22 @@ public class GeoJSONWriter implements Writer<String> {
     return "GeoJSON";
   }
 
+  public String writeFeature(Geometry geometry) {
+    StringBuilder str = new StringBuilder();
+    str.append("{\"type\": \"Feature\", \"properties\": {}, \"geometry\": ");
+    str.append(write(geometry));
+    str.append("}");
+    return str.toString();
+  }
+
+  public String writeFeatureCollection(Geometry geometry) {
+    StringBuilder str = new StringBuilder();
+    str.append("{\"type\": \"FeatureCollection\", \"features\": [");
+    str.append(writeFeature(geometry));
+    str.append("]}");
+    return str.toString();
+  }
+
   protected String writePoint(Point point) {
     StringBuilder str = new StringBuilder();
     str.append("{\"type\": \"Point\"").append(", ");
@@ -58,7 +74,7 @@ public class GeoJSONWriter implements Writer<String> {
     if (polygon.getInnerLinearRings().size() > 0) {
       str.append(", [");
       int i = 0;
-      for(LinearRing interiorLinearRing : polygon.getInnerLinearRings()) {
+      for (LinearRing interiorLinearRing : polygon.getInnerLinearRings()) {
         if (i > 0) {
           str.append(", ");
         }
@@ -87,7 +103,7 @@ public class GeoJSONWriter implements Writer<String> {
     str.append("{\"type\": \"MultiLineString\"").append(", ");
     str.append("\"coordinates\": [");
     int i = 0;
-    for(LineString lineString : multiLineString.getLineStrings()) {
+    for (LineString lineString : multiLineString.getLineStrings()) {
       if (i > 0) {
         str.append(", ");
       }
@@ -106,7 +122,7 @@ public class GeoJSONWriter implements Writer<String> {
     str.append("{\"type\": \"MultiPolygon\"").append(", ");
     str.append("\"coordinates\": [");
     int i = 0;
-    for(Polygon polygon : multiPolygon.getPolygons()) {
+    for (Polygon polygon : multiPolygon.getPolygons()) {
       if (i > 0) {
         str.append(", ");
       }
@@ -118,7 +134,7 @@ public class GeoJSONWriter implements Writer<String> {
       if (polygon.getInnerLinearRings().size() > 0) {
         str.append(", [");
         int j = 0;
-        for(LinearRing interiorLinearRing : polygon.getInnerLinearRings()) {
+        for (LinearRing interiorLinearRing : polygon.getInnerLinearRings()) {
           if (j > 0) {
             str.append(", ");
           }
@@ -140,7 +156,7 @@ public class GeoJSONWriter implements Writer<String> {
     str.append("{\"type\": \"GeometryCollection\"").append(", ");
     str.append("\"geometries\": [");
     int i = 0;
-    for(Geometry geometry : geometryCollection.getGeometries()) {
+    for (Geometry geometry : geometryCollection.getGeometries()) {
       if (i > 0) {
         str.append(", ");
       }
@@ -168,7 +184,7 @@ public class GeoJSONWriter implements Writer<String> {
 
   protected void writeCoordinates(StringBuilder str, List<Coordinate> coordinates) {
     boolean first = true;
-    for(Coordinate coordinate : coordinates) {
+    for (Coordinate coordinate : coordinates) {
       if (!first) {
         str.append(", ");
       }

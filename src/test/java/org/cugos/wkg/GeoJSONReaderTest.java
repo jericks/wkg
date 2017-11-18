@@ -4,10 +4,32 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class GeoJSONReaderTest {
+
+    @Test
+    public void readFeature() {
+        GeoJSONReader reader = new GeoJSONReader();
+        String json = "{\"type\": \"Feature\", \"properties\": {}, \"geometry\": {\"type\": \"Point\", \"coordinates\": [122.34, -43.56]}}";
+        Geometry expectedGeometry = new Point(Coordinate.create2D(122.34, -43.56), Dimension.Two, "4326");
+        Geometry actualGeometry = reader.read(json);
+        assertEquals(expectedGeometry.toString(), actualGeometry.toString());
+    }
+
+    @Test
+    public void readFeatureCollection() {
+        GeoJSONReader reader = new GeoJSONReader();
+        String json = "{\"type\": \"FeatureCollection\", \"features\": [{\"type\": \"Feature\", \"properties\": {}, \"geometry\": {\"type\": \"Point\", \"coordinates\": [122.34, -43.56]}}]}";
+        List<Geometry> geometries = Arrays.<Geometry>asList(
+            new Point(Coordinate.create2D(122.34, -43.56), Dimension.Two, "4326")
+        );
+        Geometry expectedGeometry = new GeometryCollection(geometries, Dimension.Two, "4326");
+        Geometry actualGeometry = reader.read(json);
+        assertEquals(expectedGeometry.toString(), actualGeometry.toString());
+    }
 
     @Test
     public void readPoint() {

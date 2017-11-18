@@ -10,6 +10,22 @@ import static org.junit.Assert.*;
 public class GeoJSONWriterTest {
 
     @Test
+    public void writeFeature() {
+        GeoJSONWriter writer = new GeoJSONWriter();
+        Point point = new Point(Coordinate.create2D(122.34, -43.56), Dimension.Two);
+        String json = writer.writeFeature(point);
+        assertEquals("{\"type\": \"Feature\", \"properties\": {}, \"geometry\": {\"type\": \"Point\", \"coordinates\": [122.34, -43.56]}}", json);
+    }
+
+    @Test
+    public void writeFeatureCollection() {
+        GeoJSONWriter writer = new GeoJSONWriter();
+        Point point = new Point(Coordinate.create2D(122.34, -43.56), Dimension.Two);
+        String json = writer.writeFeatureCollection(point);
+        assertEquals("{\"type\": \"FeatureCollection\", \"features\": [{\"type\": \"Feature\", \"properties\": {}, \"geometry\": {\"type\": \"Point\", \"coordinates\": [122.34, -43.56]}}]}", json);
+    }
+
+    @Test
     public void writePoint() {
         GeoJSONWriter writer = new GeoJSONWriter();
         Point point = new Point(Coordinate.create2D(122.34, -43.56), Dimension.Two);
