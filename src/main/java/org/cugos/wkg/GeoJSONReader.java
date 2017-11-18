@@ -39,7 +39,6 @@ public class GeoJSONReader implements Reader<String> {
                     JSONObject geometryJSONObject = (JSONObject) ((JSONObject) feature).get("geometry");
                     geometries.add(readGeometry(geometryJSONObject));
                 }
-                System.out.println(geometries);
                 geometry = new GeometryCollection(geometries, geometries.isEmpty() ? Dimension.Two : geometries.get(0).getDimension(), srid);
             } else {
                 geometry = readGeometry(jsonObject);
