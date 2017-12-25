@@ -1,6 +1,7 @@
 package org.cugos.wkg;
 
 import java.util.List;
+import java.util.Map;
 
 public class GeoJSONWriter implements Writer<String> {
 
@@ -31,7 +32,20 @@ public class GeoJSONWriter implements Writer<String> {
 
   public String writeFeature(Geometry geometry) {
     StringBuilder str = new StringBuilder();
-    str.append("{\"type\": \"Feature\", \"properties\": {}, \"geometry\": ");
+    str.append("{\"type\": \"Feature\", \"properties\": {");
+    if (geometry.getData() instanceof Map) {
+      Map<String,Object> data = (Map<String,Object>) geometry.getData();
+      boolean first = true;
+      for (Map.Entry<String,Object> entry : data.entrySet()) {
+        if (!first) {
+          str.append(", ");
+        }
+        str.append("\"").append(entry.getKey()).append("\": ");
+        str.append("\"").append(entry.getValue()).append("\"");
+        first = false;
+      }
+    }
+    str.append("}, \"geometry\": ");
     str.append(write(geometry));
     str.append("}");
     return str.toString();

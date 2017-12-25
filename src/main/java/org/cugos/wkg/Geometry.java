@@ -19,6 +19,11 @@ public abstract class Geometry {
     protected final Dimension dimension;
 
     /**
+     * The data property
+     */
+    protected Object data;
+
+    /**
      * Create a new Geometry with Dimension and SRID
      * @param dimension The Dimension
      * @param srid The SRID
@@ -119,8 +124,26 @@ public abstract class Geometry {
      * Set the SRID for this GeometryType
      * @param srid The SRID
      */ 
-    public void setSrid(String srid) {
+    public Geometry setSrid(String srid) {
         this.srid = srid;
+        return this;
+    }
+
+    /**
+     * Get the data
+     * @return The data
+     */
+    public Object getData() {
+        return data;
+    }
+
+    /**
+     * Set the data
+     * @param data The data
+     */
+    public Geometry setData(Object data) {
+        this.data = data;
+        return this;
     }
 
     /**

@@ -2,12 +2,23 @@ package org.cugos.wkg;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
 public class GeoJSONWriterTest {
+
+    @Test
+    public void writeFeatureWithProperties() {
+        GeoJSONWriter writer = new GeoJSONWriter();
+        Point point = new Point(Coordinate.create2D(122.34, -43.56), Dimension.Two);
+        Map<String, Object> properties = new TreeMap<>();
+        properties.put("id", 1);
+        properties.put("name", "Seattle");
+        point.setData(properties);
+        String json = writer.writeFeature(point);
+        assertEquals("{\"type\": \"Feature\", \"properties\": {\"id\": \"1\", \"name\": \"Seattle\"}, \"geometry\": {\"type\": \"Point\", \"coordinates\": [122.34, -43.56]}}", json);
+    }
 
     @Test
     public void writeFeature() {
@@ -23,6 +34,18 @@ public class GeoJSONWriterTest {
         Point point = new Point(Coordinate.create2D(122.34, -43.56), Dimension.Two);
         String json = writer.writeFeatureCollection(point);
         assertEquals("{\"type\": \"FeatureCollection\", \"features\": [{\"type\": \"Feature\", \"properties\": {}, \"geometry\": {\"type\": \"Point\", \"coordinates\": [122.34, -43.56]}}]}", json);
+    }
+
+    @Test
+    public void writeFeatureCollectionWithProperties() {
+        GeoJSONWriter writer = new GeoJSONWriter();
+        Point point = new Point(Coordinate.create2D(122.34, -43.56), Dimension.Two);
+        Map<String, Object> properties = new TreeMap<>();
+        properties.put("id", 1);
+        properties.put("name", "Seattle");
+        point.setData(properties);
+        String json = writer.writeFeatureCollection(point);
+        assertEquals("{\"type\": \"FeatureCollection\", \"features\": [{\"type\": \"Feature\", \"properties\": {\"id\": \"1\", \"name\": \"Seattle\"}, \"geometry\": {\"type\": \"Point\", \"coordinates\": [122.34, -43.56]}}]}", json);
     }
 
     @Test
