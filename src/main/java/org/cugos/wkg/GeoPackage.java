@@ -2,9 +2,13 @@ package org.cugos.wkg;
 
 /**
  * A holder to GeoPackage enums used in the GeoPackageReader and Writer
+ * @author Jared Erickson
  */
 public class GeoPackage {
     
+    /**
+     * GeoPackage Flags
+     */
     public static enum Flag {
         BinaryType((byte) 0x20),
         GeometryEmpty((byte) 0x10),
@@ -22,6 +26,9 @@ public class GeoPackage {
         }
     }
 
+    /**
+     * Binary Type
+     */
     public static enum BinaryType {
         Standard(0),
         Extended (1);
@@ -46,6 +53,9 @@ public class GeoPackage {
         }
     }
 
+    /**
+     * Geometry Empty Type
+     */
     public static enum GeometryEmptyType {
         Empty(0),
         NotEmpty (1);
@@ -70,6 +80,9 @@ public class GeoPackage {
         }
     }
 
+    /**
+     * Envelope Type
+     */
     public static enum EnvelopeType {
         NoEnvelope(0),
         Envelope(1),

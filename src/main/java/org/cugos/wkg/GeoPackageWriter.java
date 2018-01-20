@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 
 /**
  * Write GeoPackage encoded Geometry
+ * @author Jared Erickson
  */
 public class GeoPackageWriter implements Writer<byte[]> {
 

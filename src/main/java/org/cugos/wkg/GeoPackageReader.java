@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 
 /**
  * Read GeoPackage encoded Geometry
+ * @author Jared Erickson
  */
 public class GeoPackageReader implements Reader<byte[]> {
 

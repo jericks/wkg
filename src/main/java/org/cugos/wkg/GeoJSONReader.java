@@ -9,6 +9,7 @@ import java.util.*;
 
 /**
  * Read a Geometry from a GeoJSON String
+ * @author Jared Erickson
  */
 public class GeoJSONReader implements Reader<String> {
 

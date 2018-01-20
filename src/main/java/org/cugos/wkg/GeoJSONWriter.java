@@ -3,8 +3,17 @@ package org.cugos.wkg;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Write a Geometry to a GeoJSON String
+ * @author Jared Erickson
+ */
 public class GeoJSONWriter implements Writer<String> {
 
+  /**
+   * Write a Geometry to a GeoJSON String
+   * @param geometry The Geometry
+   * @return A GeoJSON string
+   */
   @Override
   public String write(Geometry geometry) {
     if (geometry instanceof Point) {
@@ -30,6 +39,11 @@ public class GeoJSONWriter implements Writer<String> {
     return "GeoJSON";
   }
 
+  /**
+   * Write the Geometry to a GeoJSON Feature String
+   * @param geometry The Geometry
+   * @return A GeoJSON Feature String
+   */
   public String writeFeature(Geometry geometry) {
     StringBuilder str = new StringBuilder();
     str.append("{\"type\": \"Feature\", \"properties\": {");
@@ -51,6 +65,11 @@ public class GeoJSONWriter implements Writer<String> {
     return str.toString();
   }
 
+  /**
+   * Write the Geometry to a GeoJSON FeatureCollection String
+   * @param geometry The Geometry
+   * @return A GeoJSON FeatureCollection String
+   */
   public String writeFeatureCollection(Geometry geometry) {
     StringBuilder str = new StringBuilder();
     str.append("{\"type\": \"FeatureCollection\", \"features\": [");
@@ -206,6 +225,5 @@ public class GeoJSONWriter implements Writer<String> {
       first = false;
     }
   }
-
 
 }
