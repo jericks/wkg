@@ -119,6 +119,6 @@ GeoJSONWriter writer = new GeoJSONWriter();
 String geoJSON = writer.write(point);
 ```
 
-Licene
-------
+Licence
+-------
 Well Known Geometry is open source and licensed under the MIT License.
