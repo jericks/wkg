@@ -43,6 +43,7 @@ public class Envelope {
      * @param minY The min Y
      * @param maxX The max X
      * @param maxY The max Y
+     * @return A 2D Envelope
      */
     public static Envelope create2D(double minX, double minY, double maxX, double maxY) {
         return new Envelope(Coordinate.create2D(minX, minY), Coordinate.create2D(maxX, maxY));
@@ -56,6 +57,7 @@ public class Envelope {
      * @param maxX The max X
      * @param maxY The max Y
      * @param maxZ The max Z
+     * @return A 3D Envelope
      */
     public static Envelope create3D(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
         return new Envelope(Coordinate.create3D(minX, minY, minZ), Coordinate.create3D(maxX, maxY, maxZ));
@@ -69,6 +71,7 @@ public class Envelope {
      * @param maxX The max X
      * @param maxY The max Y
      * @param maxM The max M
+     * @return A 2DM Envelope
      */
     public static Envelope create2DM(double minX, double minY, double minM, double maxX, double maxY, double maxM) {
         return new Envelope(Coordinate.create2DM(minX, minY, minM), Coordinate.create2DM(maxX, maxY, maxM));
@@ -84,6 +87,7 @@ public class Envelope {
      * @param maxY The max Y
      * @param maxZ The max Z
      * @param maxM The max M
+     * @return A 3DM Envelope
      */
     public static Envelope create3DM(double minX, double minY, double minZ, double minM, double maxX, double maxY, double maxZ, double maxM) {
         return new Envelope(Coordinate.create3DM(minX, minY, minZ, minM), Coordinate.create3DM(maxX, maxY, maxZ, maxM));

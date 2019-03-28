@@ -123,6 +123,7 @@ public abstract class Geometry {
     /**
      * Set the SRID for this GeometryType
      * @param srid The SRID
+     * @return This Geometry
      */ 
     public Geometry setSrid(String srid) {
         this.srid = srid;
@@ -140,6 +141,7 @@ public abstract class Geometry {
     /**
      * Set the data
      * @param data The data
+     * @return This Geometry
      */
     public Geometry setData(Object data) {
         this.data = data;
