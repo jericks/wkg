@@ -2,8 +2,8 @@ package org.cugos.wkg;
 
 import org.cugos.wkg.WKB.Endian;
 import org.cugos.wkg.WKB.Type;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WKBWriterTest {
 

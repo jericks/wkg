@@ -1,7 +1,7 @@
 package org.cugos.wkg;
 
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RoundTripTest {
 
@@ -121,12 +121,12 @@ public class RoundTripTest {
                 // Read from WKT
                 Geometry geometry = wktReader.read(srid + wkt);
                 // Write to WKT
-                assertEquals("Should be " + srid + wkt, srid + wkt, wktWriter.write(geometry));
+                assertEquals( srid + wkt, wktWriter.write(geometry),"Should be " + srid + wkt);
                 // Write to WKB
                 byte[] bytes = wkbWriter.write(geometry);
                 // Read from WKB
                 Geometry geometryFromWkb = wkbReader.read(bytes);
-                assertEquals("Should be " + srid + wkt, srid + wkt, geometryFromWkb.toString());
+                assertEquals( srid + wkt, geometryFromWkb.toString(), "Should be " + srid + wkt);
             }
         }
 
