@@ -22,7 +22,7 @@ public class WKTReader implements Reader<String> {
      */
     @Override
     public Geometry read(String wkt) {
-        WKTLexer lexer = new WKTLexer(new ANTLRInputStream(wkt));
+        WKTLexer lexer = new WKTLexer(CharStreams.fromString(wkt));
         WKTParser parser = new WKTParser(new CommonTokenStream(lexer));
         parser.addErrorListener(new BaseErrorListener() {
             @Override
