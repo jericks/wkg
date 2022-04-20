@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PolyHedralSurface.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">PolyHedralSurface.java</span></div><h1>PolyHedralSurface.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * A PolyHedralSurface is a Surface made up of connected Polygons
+ * @author Jared Erickson
+ */
+public class PolyHedralSurface extends Surface {
+
+    /**
+     * A List of Polygons
+     */
+    private final List&lt;Polygon&gt; polygons;
+
+    /**
+     * Create a new PolyHedralSurface
+     * @param polygons The List of Polygons
+     * @param dimension The Dimension
+     * @param srid The SRID
+     */
+    public PolyHedralSurface(List&lt;Polygon&gt; polygons, Dimension dimension, String srid) {
+<span class="fc" id="L25">        super(dimension, srid);</span>
+<span class="fc" id="L26">        this.polygons = Collections.unmodifiableList(polygons);</span>
+<span class="fc" id="L27">    }</span>
+
+    /**
+     * Get the List of Polygons
+     * @return The List of Polygons
+     */
+    public List&lt;Polygon&gt; getPolygons() {
+<span class="fc" id="L34">        return polygons;</span>
+    }
+
+    @Override
+    public boolean isEmpty() {
+<span class="fc" id="L39">        return polygons.isEmpty();</span>
+    }
+
+    @Override
+    public int getNumberOfCoordinates() {
+<span class="fc" id="L44">        int numberOfCoordinates = 0;</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        for(Polygon polygon : this.polygons) {</span>
+<span class="fc" id="L46">            numberOfCoordinates += polygon.getNumberOfCoordinates();</span>
+<span class="fc" id="L47">        }</span>
+<span class="fc" id="L48">        return numberOfCoordinates;</span>
+    }
+
+    @Override
+    public List&lt;Coordinate&gt; getCoordinates() {
+<span class="fc" id="L53">        List&lt;Coordinate&gt; coordinates = new ArrayList&lt;Coordinate&gt;();</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        for(Polygon polygon : this.polygons) {</span>
+<span class="fc" id="L55">            coordinates.addAll(polygon.getCoordinates());</span>
+<span class="fc" id="L56">        }</span>
+<span class="fc" id="L57">        return Collections.unmodifiableList(coordinates);</span>
+    }
+
+    /**
+     * Create an empty PolyHedralSurface
+     * @return An empty PolyHedralSurface
+     */
+    public static PolyHedralSurface createEmpty() {
+<span class="fc" id="L65">        return new PolyHedralSurface(new ArrayList&lt;Polygon&gt;(), Dimension.Two, null);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Envelope.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">Envelope.java</span></div><h1>Envelope.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * An Envelope is a rectangular bounding box
+ * @author Jared Erickson
+ */
+public class Envelope {
+
+    /**
+     * The min Coordinate
+     */
+    private Coordinate min;
+
+    /**
+     * The max Coordinate
+     */
+    private Coordinate max;
+
+    /**
+     * Create a new Envelope with a min and max Coordinate
+     * @param min The min Coordinate
+     * @param max The max Coordinate
+     */
+<span class="fc" id="L27">    public Envelope(Coordinate min, Coordinate max) {</span>
+<span class="fc" id="L28">        this.min = min;</span>
+<span class="fc" id="L29">        this.max = max;</span>
+<span class="fc" id="L30">    }</span>
+
+    /**
+     * Create an empty Envelope
+     * @return An empty Envelope
+     */
+    public static Envelope createEmpty() {
+<span class="fc" id="L37">        return new Envelope(Coordinate.createEmpty(), Coordinate.createEmpty());</span>
+    }
+
+    /**
+     * Create a 2D Envelope
+     * @param minX The min X
+     * @param minY The min Y
+     * @param maxX The max X
+     * @param maxY The max Y
+     * @return A 2D Envelope
+     */
+    public static Envelope create2D(double minX, double minY, double maxX, double maxY) {
+<span class="fc" id="L49">        return new Envelope(Coordinate.create2D(minX, minY), Coordinate.create2D(maxX, maxY));</span>
+    }
+
+    /**
+     * Create a 3D Envelope
+     * @param minX The min X
+     * @param minY The min Y
+     * @param minZ The min Z
+     * @param maxX The max X
+     * @param maxY The max Y
+     * @param maxZ The max Z
+     * @return A 3D Envelope
+     */
+    public static Envelope create3D(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+<span class="fc" id="L63">        return new Envelope(Coordinate.create3D(minX, minY, minZ), Coordinate.create3D(maxX, maxY, maxZ));</span>
+    }
+
+    /**
+     * Create a 2DM Envelope
+     * @param minX The min X
+     * @param minY The min Y
+     * @param minM The min M
+     * @param maxX The max X
+     * @param maxY The max Y
+     * @param maxM The max M
+     * @return A 2DM Envelope
+     */
+    public static Envelope create2DM(double minX, double minY, double minM, double maxX, double maxY, double maxM) {
+<span class="fc" id="L77">        return new Envelope(Coordinate.create2DM(minX, minY, minM), Coordinate.create2DM(maxX, maxY, maxM));</span>
+    }
+
+    /**
+     * Create a 3DM Envelope
+     * @param minX The min X
+     * @param minY The min Y
+     * @param minZ The min Z
+     * @param minM The min M
+     * @param maxX The max X
+     * @param maxY The max Y
+     * @param maxZ The max Z
+     * @param maxM The max M
+     * @return A 3DM Envelope
+     */
+    public static Envelope create3DM(double minX, double minY, double minZ, double minM, double maxX, double maxY, double maxZ, double maxM) {
+<span class="fc" id="L93">        return new Envelope(Coordinate.create3DM(minX, minY, minZ, minM), Coordinate.create3DM(maxX, maxY, maxZ, maxM));</span>
+    }
+
+    /**
+     * Get the min X
+     * @return The min X
+     */
+    public double getMinX() {
+<span class="fc" id="L101">        return min.getX();</span>
+    }
+
+    /**
+     * Get the min Y
+     * @return The min Y
+     */
+    public double getMinY() {
+<span class="fc" id="L109">        return min.getY();</span>
+    }
+
+    /**
+     * Get the max X
+     * @return The max X
+     */
+    public double getMaxX() {
+<span class="fc" id="L117">        return max.getX();</span>
+    }
+
+    /**
+     * Get the max Y
+     * @return The max Y
+     */
+    public double getMaxY() {
+<span class="fc" id="L125">        return max.getY();</span>
+    }
+
+    /**
+     * Get the min Z
+     * @return The min Z
+     */
+    public double getMinZ() {
+<span class="fc" id="L133">        return min.getZ();</span>
+    }
+
+    /**
+     * Get the max Z
+     * @return The max Z
+     */
+    public double getMaxZ() {
+<span class="fc" id="L141">        return max.getZ();</span>
+    }
+
+    /**
+     * Get the min M
+     * @return The min M
+     */
+    public double getMinM() {
+<span class="fc" id="L149">        return min.getM();</span>
+    }
+
+    /**
+     * Get the max M
+     * @return The max M
+     */
+    public double getMaxM() {
+<span class="fc" id="L157">        return max.getM();</span>
+    }
+
+    /**
+     * Get the Dimension
+     * @return The Dimension
+     */
+    public Dimension getDimension() {
+<span class="fc bfc" id="L165" title="All 2 branches covered.">        if (!min.isEmpty()) {</span>
+<span class="fc" id="L166">            return min.getDimension();</span>
+        } else {
+<span class="fc" id="L168">            return max.getDimension();</span>
+        }
+    }
+
+    /**
+     * Determine if the Coordinate is empty (x and y values of NaN)
+     * @return Whether this Coordinate is empty
+     */
+    public boolean isEmpty() {
+<span class="pc bpc" id="L177" title="1 of 4 branches missed.">        return min.isEmpty() &amp;&amp; max.isEmpty();</span>
+    }
+
+    /**
+     * Convert the Envelope into a Geometry
+     * @return A Geometry
+     */
+    public Geometry toGeometry() {
+<span class="fc bfc" id="L185" title="All 2 branches covered.">        if (isEmpty()) {</span>
+<span class="fc" id="L186">            return Polygon.createEmpty();</span>
+        } else {
+<span class="fc" id="L188">            Dimension dimension = Dimension.Two;</span>
+<span class="fc" id="L189">            List&lt;Coordinate&gt; coordinates = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L190">            coordinates.add(Coordinate.create2D(min.getX(), min.getY()));</span>
+<span class="fc" id="L191">            coordinates.add(Coordinate.create2D(max.getX(), min.getY()));</span>
+<span class="fc" id="L192">            coordinates.add(Coordinate.create2D(max.getX(), max.getY()));</span>
+<span class="fc" id="L193">            coordinates.add(Coordinate.create2D(min.getX(), max.getY()));</span>
+<span class="fc" id="L194">            return new Polygon(new LinearRing(coordinates, dimension), new ArrayList&lt;LinearRing&gt;(), dimension);</span>
+        }
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L200">        String str = &quot;Envelope { &quot;;</span>
+<span class="fc" id="L201">        str = str + &quot;minX = &quot; + min.getX() + &quot;, &quot;;</span>
+<span class="fc" id="L202">        str = str + &quot;minY = &quot; + min.getY() + &quot;, &quot;;</span>
+<span class="fc bfc" id="L203" title="All 2 branches covered.">        if (!Double.isNaN(min.getZ())) {</span>
+<span class="fc" id="L204">            str = str + &quot;minZ = &quot; + min.getZ() + &quot;, &quot;;</span>
+        }
+<span class="fc bfc" id="L206" title="All 2 branches covered.">        if (!Double.isNaN(min.getM())) {</span>
+<span class="fc" id="L207">            str = str + &quot;minM = &quot; + min.getM() + &quot;, &quot;;</span>
+        }
+<span class="fc" id="L209">        str = str + &quot;maxX = &quot; + max.getX() + &quot;, &quot;;</span>
+<span class="fc" id="L210">        str = str + &quot;maxY = &quot; + max.getY();</span>
+<span class="fc bfc" id="L211" title="All 2 branches covered.">        if (!Double.isNaN(max.getZ())) {</span>
+
+<span class="fc" id="L213">            str = str + &quot;, maxZ = &quot; + max.getZ();</span>
+        }
+<span class="fc bfc" id="L215" title="All 2 branches covered.">        if (!Double.isNaN(max.getM())) {</span>
+<span class="fc" id="L216">            str = str + &quot;, maxM = &quot; + max.getM();</span>
+        }
+<span class="fc" id="L218">        str = str + &quot; }&quot;;</span>
+<span class="fc" id="L219">        return str;</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L224" title="1 of 2 branches missed.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L225" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+
+<span class="fc" id="L227">        Envelope envelope = (Envelope) o;</span>
+
+<span class="pc bpc" id="L229" title="3 of 6 branches missed.">        if (min != null ? !min.equals(envelope.min) : envelope.min != null) return false;</span>
+<span class="pc bpc" id="L230" title="3 of 4 branches missed.">        return max != null ? max.equals(envelope.max) : envelope.max == null;</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="pc bpc" id="L235" title="1 of 2 branches missed.">        int result = min != null ? min.hashCode() : 0;</span>
+<span class="pc bpc" id="L236" title="1 of 2 branches missed.">        result = 31 * result + (max != null ? max.hashCode() : 0);</span>
+<span class="fc" id="L237">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

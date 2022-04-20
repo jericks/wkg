@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MultiPolygon.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">MultiPolygon.java</span></div><h1>MultiPolygon.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * A MultiPolygon is a GeometryCollection made up of only Polygons.
+ * @author Jared Erickson
+ */
+public class MultiPolygon extends AbstractGeometryCollection&lt;Polygon&gt; {
+
+    /**
+     * Create a new MultiPolygon
+     * @param polygons The List of Polygons
+     * @param dimension The Dimension
+     */
+    public MultiPolygon(List&lt;Polygon&gt; polygons, Dimension dimension) {
+<span class="fc" id="L18">        this(polygons, dimension, null);</span>
+<span class="fc" id="L19">    }</span>
+
+    /**
+     * Create a new MultiPolygon
+     * @param polygons The List of Polygons
+     * @param dimension The Dimension
+     * @param srid The SRID
+     */
+    public MultiPolygon(List&lt;Polygon&gt; polygons, Dimension dimension, String srid) {
+<span class="fc" id="L28">        super(polygons, dimension, srid);</span>
+<span class="fc" id="L29">    }</span>
+
+    /**
+     * Get the List of Polygons
+     * @return The List of Polygons
+     */
+    public List&lt;Polygon&gt; getPolygons() {
+<span class="fc" id="L36">        return geometries;</span>
+    }
+
+    /**
+     * Create an empty MultiPolygon
+     * @return An empty MultiPolygon
+     */
+    public static MultiPolygon createEmpty() {
+<span class="fc" id="L44">        return new MultiPolygon(new ArrayList&lt;Polygon&gt;(), Dimension.Two, null);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

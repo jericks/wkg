@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Coordinate.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">Coordinate.java</span></div><h1>Coordinate.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+/**
+ * A Coordinate that can contain X, Y, Z, and M values
+ * @author Jared Erickson
+ */
+public final class Coordinate {
+
+    /**
+     * The X value
+     */
+    private final double x;
+
+    /**
+     * The Y value
+     */
+    private final double y;
+
+    /**
+     * The Z value
+     */
+    private final double z;
+
+    /**
+     * The M value
+     */
+    private final double m;
+
+    /**
+     * Creae a new Coordinate
+     * @param x The x value
+     * @param y The y value
+     * @param z The z value
+     * @param m The m value
+     */
+<span class="fc" id="L36">    public Coordinate(double x, double y, double z, double m) {</span>
+<span class="fc" id="L37">        this.x = x;</span>
+<span class="fc" id="L38">        this.y = y;</span>
+<span class="fc" id="L39">        this.z = z;</span>
+<span class="fc" id="L40">        this.m = m;</span>
+<span class="fc" id="L41">    }</span>
+
+    /**
+     * Create a Coordinate with only XY values
+     * @param x The x value
+     * @param y The y value
+     */
+    public Coordinate(double x, double y) {
+<span class="fc" id="L49">        this(x, y, Double.NaN, Double.NaN);</span>
+<span class="fc" id="L50">    }</span>
+
+    /**
+     * Create an empty Coordinate
+     * @return An empty Coordinate
+     */
+    public static Coordinate createEmpty() {
+<span class="fc" id="L57">        return new Coordinate(Double.NaN, Double.NaN, Double.NaN, Double.NaN);</span>
+    }
+
+    /**
+     * Create a 2D Coordinate
+     * @param x The x value
+     * @param y The y value
+     * @return A 2D Coordinate
+     */
+    public static Coordinate create2D(double x, double y) {
+<span class="fc" id="L67">        return new Coordinate(x, y, Double.NaN, Double.NaN);</span>
+    }
+
+    /**
+     * Create a 3D Coordinate
+     * @param x The x value
+     * @param y The y value
+     * @param z The z value
+     * @return A 3D Coordinate
+     */
+    public static Coordinate create3D(double x, double y, double z) {
+<span class="fc" id="L78">        return new Coordinate(x, y, z, Double.NaN);</span>
+    }
+
+    /**
+     * Create a 2DM Coordinate
+     * @param x The x value
+     * @param y The y value
+     * @param m The m value
+     * @return A 2DM Coordinate
+     */
+    public static Coordinate create2DM(double x, double y, double m) {
+<span class="fc" id="L89">        return new Coordinate(x, y, Double.NaN, m);</span>
+    }
+
+    /**
+     * Create a 3DM Coordinate
+     * @param x The x value
+     * @param y The y value
+     * @param z The z value
+     * @param m The m value
+     * @return A 3DM Coordinate
+     */
+    public static Coordinate create3DM(double x, double y, double z, double m) {
+<span class="fc" id="L101">        return new Coordinate(x, y, z, m);</span>
+    }
+
+    /**
+     * Get the x value
+     * @return The x value
+     */
+    public double getX() {
+<span class="fc" id="L109">        return x;</span>
+    }
+
+    /**
+     * Get the y value
+     * @return The y value
+     */
+    public double getY() {
+<span class="fc" id="L117">        return y;</span>
+    }
+
+    /**
+     * Get the z value
+     * @return The z value
+     */
+    public double getZ() {
+<span class="fc" id="L125">        return z;</span>
+    }
+
+    /**
+     * Get the m vaue
+     * @return The m value
+     */
+    public double getM() {
+<span class="fc" id="L133">        return m;</span>
+    }
+
+    /**
+     * Get the Dimension
+     * @return The Dimension
+     */
+    public Dimension getDimension() {
+<span class="fc bfc" id="L141" title="All 4 branches covered.">        if (!Double.isNaN(m) &amp;&amp; !Double.isNaN(z)) {</span>
+<span class="fc" id="L142">            return Dimension.ThreeMeasured;</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        } else if (!Double.isNaN(z)) {</span>
+<span class="fc" id="L144">            return Dimension.Three;</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">        } else if (!Double.isNaN(m)) {</span>
+<span class="fc" id="L146">            return Dimension.TwoMeasured;</span>
+        } else {
+<span class="fc" id="L148">            return Dimension.Two;</span>
+        }
+    }
+
+    /**
+     * Determine if the Coordinate is empty (x and y values of NaN)
+     * @return Whether this Coordinate is empty
+     */
+    public boolean isEmpty() {
+<span class="pc bpc" id="L157" title="1 of 4 branches missed.">        return (Double.isNaN(x) &amp;&amp; Double.isNaN(y));</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L162" title="1 of 2 branches missed.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L163" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+
+<span class="fc" id="L165">        Coordinate that = (Coordinate) o;</span>
+
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        if (Double.compare(that.m, m) != 0) return false;</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (Double.compare(that.x, x) != 0) return false;</span>
+<span class="pc bpc" id="L169" title="1 of 2 branches missed.">        if (Double.compare(that.y, y) != 0) return false;</span>
+<span class="pc bpc" id="L170" title="1 of 2 branches missed.">        if (Double.compare(that.z, z) != 0) return false;</span>
+
+<span class="fc" id="L172">        return true;</span>
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+<span class="fc" id="L179">        temp = Double.doubleToLongBits(x);</span>
+<span class="fc" id="L180">        result = (int) (temp ^ (temp &gt;&gt;&gt; 32));</span>
+<span class="fc" id="L181">        temp = Double.doubleToLongBits(y);</span>
+<span class="fc" id="L182">        result = 31 * result + (int) (temp ^ (temp &gt;&gt;&gt; 32));</span>
+<span class="fc" id="L183">        temp = Double.doubleToLongBits(z);</span>
+<span class="fc" id="L184">        result = 31 * result + (int) (temp ^ (temp &gt;&gt;&gt; 32));</span>
+<span class="fc" id="L185">        temp = Double.doubleToLongBits(m);</span>
+<span class="fc" id="L186">        result = 31 * result + (int) (temp ^ (temp &gt;&gt;&gt; 32));</span>
+<span class="fc" id="L187">        return result;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L192">        String str = &quot;Coordinate { x = &quot; + x + &quot; y = &quot; + y;</span>
+<span class="fc bfc" id="L193" title="All 2 branches covered.">        if (!Double.isNaN(z)) {</span>
+<span class="fc" id="L194">            str = str + &quot; z = &quot; + z;</span>
+        }
+<span class="fc bfc" id="L196" title="All 2 branches covered.">        if (!Double.isNaN(m)) {</span>
+<span class="fc" id="L197">            str = str + &quot; m = &quot; + m;</span>
+        }
+<span class="fc" id="L199">        str = str + &quot; }&quot;;</span>
+<span class="fc" id="L200">        return str;</span>
+    }
+
+    /**
+     * A Builder for constructing immutable Coordinates
+     */
+<span class="fc" id="L206">    public static class Builder {</span>
+
+<span class="fc" id="L208">        private double x = Double.NaN;</span>
+
+<span class="fc" id="L210">        private double y = Double.NaN;</span>
+
+<span class="fc" id="L212">        private double z = Double.NaN;</span>
+
+<span class="fc" id="L214">        private double m = Double.NaN;</span>
+
+        public Builder setX(double x) {
+<span class="fc" id="L217">            this.x = x;</span>
+<span class="fc" id="L218">            return this;</span>
+        }
+
+        public Builder setY(double y) {
+<span class="fc" id="L222">            this.y = y;</span>
+<span class="fc" id="L223">            return this;</span>
+        }
+
+        public Builder setM(double m) {
+<span class="fc" id="L227">            this.m = m;</span>
+<span class="fc" id="L228">            return this;</span>
+        }
+
+        public Builder setZ(double z) {
+<span class="fc" id="L232">            this.z = z;</span>
+<span class="fc" id="L233">            return this;</span>
+        }
+
+        public Coordinate build() {
+            Coordinate coordinate;
+            // Three Measured
+<span class="pc bpc" id="L239" title="1 of 8 branches missed.">            if (!Double.isNaN(x) &amp;&amp; !Double.isNaN(y) &amp;&amp; !Double.isNaN(z) &amp;&amp; !Double.isNaN(m)) {</span>
+<span class="fc" id="L240">                coordinate = new Coordinate(x, y, z, m);</span>
+            }
+            // Three
+<span class="pc bpc" id="L243" title="2 of 8 branches missed.">            else if (!Double.isNaN(x) &amp;&amp; !Double.isNaN(y) &amp;&amp; !Double.isNaN(z) &amp;&amp; Double.isNaN(m)) {</span>
+<span class="fc" id="L244">                coordinate = new Coordinate(x, y, z, Double.NaN);</span>
+            }
+            // Two Measured
+<span class="pc bpc" id="L247" title="2 of 8 branches missed.">            else if (!Double.isNaN(x) &amp;&amp; !Double.isNaN(y) &amp;&amp; Double.isNaN(z) &amp;&amp; !Double.isNaN(m)) {</span>
+<span class="fc" id="L248">                coordinate = new Coordinate(x, y, Double.NaN, m);</span>
+            }
+            // Two
+<span class="pc bpc" id="L251" title="3 of 8 branches missed.">            else if (!Double.isNaN(x) &amp;&amp; !Double.isNaN(y) &amp;&amp; Double.isNaN(z) &amp;&amp; Double.isNaN(m)) {</span>
+<span class="fc" id="L252">                coordinate = new Coordinate(x, y, Double.NaN, Double.NaN);</span>
+            }
+            // Empty
+            else {
+<span class="fc" id="L256">                coordinate = new Coordinate(Double.NaN, Double.NaN, Double.NaN, Double.NaN);</span>
+            }
+<span class="fc" id="L258">            reset();</span>
+<span class="fc" id="L259">            return coordinate;</span>
+        }
+
+        private void reset() {
+<span class="fc" id="L263">            this.x = Double.NaN;</span>
+<span class="fc" id="L264">            this.y = Double.NaN;</span>
+<span class="fc" id="L265">            this.z = Double.NaN;</span>
+<span class="fc" id="L266">            this.m = Double.NaN;</span>
+<span class="fc" id="L267">        }</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

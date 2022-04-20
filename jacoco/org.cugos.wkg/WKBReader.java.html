@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WKBReader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">WKBReader.java</span></div><h1>WKBReader.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+import org.cugos.wkg.WKB.Endian;
+import org.cugos.wkg.WKB.GeometryType;
+import org.cugos.wkg.WKB.GeometryTypeFlag;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * A WKB and EWKB Geometry Reader
+ * @author Jared Erickson
+ */
+<span class="fc" id="L16">public class WKBReader implements Reader&lt;byte[]&gt; {</span>
+
+    /**
+     * Read a Geometry from an array of bytes.
+     * @param bytes The array of bytes
+     * @return A Geometry or null
+     */
+    @Override
+    public Geometry read(byte[] bytes) {
+<span class="fc" id="L25">        ByteBuffer buffer = ByteBuffer.wrap(bytes);</span>
+<span class="fc" id="L26">        return read(buffer);</span>
+    }
+
+    @Override
+    public String getName() {
+<span class="fc" id="L31">        return &quot;WKB&quot;;</span>
+    }
+
+    /**
+     * Read a Geometry from a hex String
+     * @param hex The hex String
+     * @return A Geometry or null
+     */
+    public Geometry read(String hex) {
+<span class="fc" id="L40">        return read(toBytes(hex));</span>
+    }
+
+    /**
+     * Read a Geometry from a ByteBuffer
+     * @param buffer The ByteBuffer
+     * @return A Geometry or null
+     */
+    protected Geometry read(ByteBuffer buffer) {
+
+        // Determine byte order
+<span class="fc" id="L51">        Endian endian = Endian.get(buffer.get());</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (endian == Endian.Big) {</span>
+<span class="fc" id="L53">            buffer.order(ByteOrder.BIG_ENDIAN);</span>
+        } else {
+<span class="fc" id="L55">            buffer.order(ByteOrder.LITTLE_ENDIAN);</span>
+        }
+
+        // Determine geometry type
+<span class="fc" id="L59">        int geometryTypeInt = buffer.getInt();</span>
+<span class="fc" id="L60">        int gt = geometryTypeInt;</span>
+
+        // Determine dimension
+<span class="fc" id="L63">        boolean hasM = false;</span>
+<span class="fc" id="L64">        boolean hasZ = false;</span>
+<span class="fc" id="L65">        boolean hasSRID = false;</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if ((geometryTypeInt &amp; GeometryTypeFlag.M.getValue()) == GeometryTypeFlag.M.getValue()) {</span>
+<span class="fc" id="L67">            hasM = true;</span>
+<span class="fc" id="L68">            gt = gt - GeometryTypeFlag.M.getValue();</span>
+        }
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        if ((geometryTypeInt &amp; GeometryTypeFlag.Z.getValue()) == GeometryTypeFlag.Z.getValue()) {</span>
+<span class="fc" id="L71">            hasZ = true;</span>
+<span class="fc" id="L72">            gt = gt - GeometryTypeFlag.Z.getValue();</span>
+        }
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if ((geometryTypeInt &amp; GeometryTypeFlag.SRID.getValue()) == GeometryTypeFlag.SRID.getValue()) {</span>
+<span class="fc" id="L75">            hasSRID = true;</span>
+<span class="fc" id="L76">            gt = gt - GeometryTypeFlag.SRID.getValue();</span>
+        }
+
+<span class="fc" id="L79">        GeometryType geometryType = GeometryType.get(gt);</span>
+
+        Dimension dimension;
+<span class="fc bfc" id="L82" title="All 4 branches covered.">        if (hasZ &amp;&amp; hasM) {</span>
+<span class="fc" id="L83">            dimension = Dimension.ThreeMeasured;</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        } else if (hasZ) {</span>
+<span class="fc" id="L85">            dimension = Dimension.Three;</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        } else if (hasM) {</span>
+<span class="fc" id="L87">            dimension = Dimension.TwoMeasured;</span>
+        } else {
+<span class="fc" id="L89">            dimension = Dimension.Two;</span>
+        }
+
+        // Extract SRID if present
+<span class="fc" id="L93">        String srid = null;</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        if (hasSRID) {</span>
+<span class="fc" id="L95">            srid = String.valueOf(buffer.getInt());</span>
+        }
+
+        // Extract Geometry
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        if (geometryType == GeometryType.Point) {</span>
+<span class="fc" id="L100">            Coordinate coordinate = getCoordinate(buffer, dimension);</span>
+<span class="fc" id="L101">            return new Point(coordinate, dimension, srid);</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        } else if (geometryType == GeometryType.LineString) {</span>
+<span class="fc" id="L103">            int numberOfCoordinates = buffer.getInt();</span>
+<span class="fc" id="L104">            List&lt;Coordinate&gt; coordinates = new ArrayList&lt;Coordinate&gt;(numberOfCoordinates);</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">            for(int i = 0; i&lt;numberOfCoordinates; i++) {</span>
+<span class="fc" id="L106">                coordinates.add(getCoordinate(buffer, dimension));</span>
+            }
+<span class="fc" id="L108">            return new LineString(coordinates, dimension, srid);</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        } else if (geometryType == GeometryType.Polygon) {</span>
+<span class="fc" id="L110">            int numberOfRings = buffer.getInt();</span>
+<span class="fc" id="L111">            List&lt;LinearRing&gt; rings = new ArrayList&lt;LinearRing&gt;(numberOfRings);</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">            for (int i = 0; i &lt; numberOfRings; i++) {</span>
+<span class="fc" id="L113">                int numberOfCoordinates = buffer.getInt();</span>
+<span class="fc" id="L114">                List&lt;Coordinate&gt; coordinates = new ArrayList&lt;Coordinate&gt;(numberOfCoordinates);</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">                for (int j = 0; j &lt; numberOfCoordinates; j++) {</span>
+<span class="fc" id="L116">                    coordinates.add(getCoordinate(buffer, dimension));</span>
+                }
+<span class="fc" id="L118">                rings.add(new LinearRing(coordinates, dimension, srid));</span>
+            }
+<span class="fc" id="L120">            return new Polygon(rings.get(0), rings.subList(1, rings.size()), dimension, srid);</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        } else if (geometryType == GeometryType.MultiPoint) {</span>
+<span class="fc" id="L122">            int numberOfPoints = buffer.getInt();</span>
+<span class="fc" id="L123">            List&lt;Point&gt; points = new ArrayList&lt;Point&gt;(numberOfPoints);</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">            for (int i = 0; i &lt; numberOfPoints; i++) {</span>
+<span class="fc" id="L125">                Point point = (Point) read(buffer);</span>
+<span class="fc" id="L126">                points.add(point);</span>
+            }
+<span class="fc" id="L128">            return new MultiPoint(points, dimension, srid);</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        } else if (geometryType == GeometryType.MultiLineString) {</span>
+<span class="fc" id="L130">            int numberOfLines = buffer.getInt();</span>
+<span class="fc" id="L131">            List&lt;LineString&gt; lines = new ArrayList&lt;LineString&gt;(numberOfLines);</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">            for (int i = 0; i &lt; numberOfLines; i++) {</span>
+<span class="fc" id="L133">                LineString line = (LineString) read(buffer);</span>
+<span class="fc" id="L134">                lines.add(line);</span>
+            }
+<span class="fc" id="L136">            return new MultiLineString(lines, dimension, srid);</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        } else if (geometryType == GeometryType.MultiPolygon) {</span>
+<span class="fc" id="L138">            int numberOfPolygons = buffer.getInt();</span>
+<span class="fc" id="L139">            List&lt;Polygon&gt; polygons = new ArrayList&lt;Polygon&gt;(numberOfPolygons);</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">            for (int i = 0; i &lt; numberOfPolygons; i++) {</span>
+<span class="fc" id="L141">                Polygon polygon = (Polygon) read(buffer);</span>
+<span class="fc" id="L142">                polygons.add(polygon);</span>
+            }
+<span class="fc" id="L144">            return new MultiPolygon(polygons, dimension, srid);</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">        } else if (geometryType == GeometryType.GeometryCollection) {</span>
+<span class="fc" id="L146">            int numberOfGeometries = buffer.getInt();</span>
+<span class="fc" id="L147">            List&lt;Geometry&gt; geometries = new ArrayList&lt;Geometry&gt;(numberOfGeometries);</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">            for (int i = 0; i &lt; numberOfGeometries; i++) {</span>
+<span class="fc" id="L149">                Geometry geometry = read(buffer);</span>
+<span class="fc" id="L150">                geometries.add(geometry);</span>
+            }
+<span class="fc" id="L152">            return new GeometryCollection(geometries, dimension, srid);</span>
+<span class="fc bfc" id="L153" title="All 2 branches covered.">        } else if (geometryType == GeometryType.CircularString) {</span>
+<span class="fc" id="L154">            int numberOfCoordinates = buffer.getInt();</span>
+<span class="fc" id="L155">            List&lt;Coordinate&gt; coordinates = new ArrayList&lt;Coordinate&gt;(numberOfCoordinates);</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">            for(int i = 0; i&lt;numberOfCoordinates; i++) {</span>
+<span class="fc" id="L157">                coordinates.add(getCoordinate(buffer, dimension));</span>
+            }
+<span class="fc" id="L159">            return new CircularString(coordinates, dimension, srid);</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">        } else if (geometryType == GeometryType.Triangle) {</span>
+<span class="fc" id="L161">            int numberOfRings = buffer.getInt();</span>
+<span class="fc" id="L162">            List&lt;LinearRing&gt; rings = new ArrayList&lt;LinearRing&gt;(numberOfRings);</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">            for (int i = 0; i &lt; numberOfRings; i++) {</span>
+<span class="fc" id="L164">                int numberOfCoordinates = buffer.getInt();</span>
+<span class="fc" id="L165">                List&lt;Coordinate&gt; coordinates = new ArrayList&lt;Coordinate&gt;(numberOfCoordinates);</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">                for (int j = 0; j &lt; numberOfCoordinates; j++) {</span>
+<span class="fc" id="L167">                    coordinates.add(getCoordinate(buffer, dimension));</span>
+                }
+<span class="fc" id="L169">                rings.add(new LinearRing(coordinates, dimension, srid));</span>
+            }
+<span class="fc" id="L171">            return new Triangle(rings.get(0), rings.subList(1, rings.size()), dimension, srid);</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">        } else if (geometryType == GeometryType.Tin) {</span>
+<span class="fc" id="L173">            int numberOfTriangles = buffer.getInt();</span>
+<span class="fc" id="L174">            List&lt;Triangle&gt; triangles = new ArrayList&lt;Triangle&gt;(numberOfTriangles);</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">            for (int i = 0; i &lt; numberOfTriangles; i++) {</span>
+<span class="fc" id="L176">                Triangle triangle = (Triangle) read(buffer);</span>
+<span class="fc" id="L177">                triangles.add(triangle);</span>
+            }
+<span class="fc" id="L179">            return new Tin(triangles, dimension, srid);</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">        } else if (geometryType == GeometryType.CompoundCurve) {</span>
+<span class="fc" id="L181">            int numberOfCurves = buffer.getInt();</span>
+<span class="fc" id="L182">            List&lt;Curve&gt; curves = new ArrayList&lt;Curve&gt;(numberOfCurves);</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">            for (int i = 0; i &lt; numberOfCurves; i++) {</span>
+<span class="fc" id="L184">                Curve curve = (Curve) read(buffer);</span>
+<span class="fc" id="L185">                curves.add(curve);</span>
+            }
+<span class="fc" id="L187">            return new CompoundCurve(curves, dimension, srid);</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">        } else if (geometryType == GeometryType.MultiCurve) {</span>
+<span class="fc" id="L189">            int numberOfCurves = buffer.getInt();</span>
+<span class="fc" id="L190">            List&lt;Curve&gt; curves = new ArrayList&lt;Curve&gt;(numberOfCurves);</span>
+<span class="fc bfc" id="L191" title="All 2 branches covered.">            for (int i = 0; i &lt; numberOfCurves; i++) {</span>
+<span class="fc" id="L192">                Curve curve = (Curve) read(buffer);</span>
+<span class="fc" id="L193">                curves.add(curve);</span>
+            }
+<span class="fc" id="L195">            return new MultiCurve(curves, dimension, srid);</span>
+<span class="fc bfc" id="L196" title="All 2 branches covered.">        } else if (geometryType == GeometryType.CurvePolygon) {</span>
+<span class="fc" id="L197">            int numberOfCurves = buffer.getInt();</span>
+<span class="fc" id="L198">            List&lt;Curve&gt; curves = new ArrayList&lt;Curve&gt;(numberOfCurves);</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">            for (int i = 0; i &lt; numberOfCurves; i++) {</span>
+<span class="fc" id="L200">                Curve curve = (Curve) read(buffer);</span>
+<span class="fc" id="L201">                curves.add(curve);</span>
+            }
+<span class="fc" id="L203">            return new CurvePolygon(curves.get(0), curves.subList(1, curves.size()), dimension, srid);</span>
+<span class="fc bfc" id="L204" title="All 2 branches covered.">        } else if (geometryType == GeometryType.MultiSurface) {</span>
+<span class="fc" id="L205">            int numberOfSurfaces = buffer.getInt();</span>
+<span class="fc" id="L206">            List&lt;Surface&gt; surfaces = new ArrayList&lt;Surface&gt;(numberOfSurfaces);</span>
+<span class="fc bfc" id="L207" title="All 2 branches covered.">            for (int i = 0; i &lt; numberOfSurfaces; i++) {</span>
+<span class="fc" id="L208">                Surface surface = (Surface) read(buffer);</span>
+<span class="fc" id="L209">                surfaces.add(surface);</span>
+            }
+<span class="fc" id="L211">            return new MultiSurface(surfaces, dimension, srid);</span>
+<span class="pc bpc" id="L212" title="1 of 2 branches missed.">        } else if (geometryType == GeometryType.PolyHedralSurface) {</span>
+<span class="fc" id="L213">            int numberOfPolygons = buffer.getInt();</span>
+<span class="fc" id="L214">            List&lt;Polygon&gt; polygons = new ArrayList&lt;Polygon&gt;(numberOfPolygons);</span>
+<span class="fc bfc" id="L215" title="All 2 branches covered.">            for (int i = 0; i &lt; numberOfPolygons; i++) {</span>
+<span class="fc" id="L216">                Polygon polygon = (Polygon) read(buffer);</span>
+<span class="fc" id="L217">                polygons.add(polygon);</span>
+            }
+<span class="fc" id="L219">            return new PolyHedralSurface(polygons, dimension, srid);</span>
+        }
+<span class="nc" id="L221">        return null;</span>
+    }
+
+    /**
+     * Get Coordinate of the given Dimension from the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param dimension The Dimension
+     * @return A Coordinate
+     */
+    private Coordinate getCoordinate(ByteBuffer buffer, Dimension dimension) {
+<span class="fc" id="L231">        double x = buffer.getDouble();</span>
+<span class="fc" id="L232">        double y = buffer.getDouble();</span>
+<span class="fc" id="L233">        double z = Double.NaN;</span>
+<span class="fc" id="L234">        double m = Double.NaN;</span>
+<span class="fc bfc" id="L235" title="All 4 branches covered.">        if (dimension == Dimension.Three || dimension == Dimension.ThreeMeasured) {</span>
+<span class="fc" id="L236">            z = buffer.getDouble();</span>
+        }
+<span class="fc bfc" id="L238" title="All 4 branches covered.">        if (dimension == Dimension.ThreeMeasured || dimension == Dimension.TwoMeasured) {</span>
+<span class="fc" id="L239">            m = buffer.getDouble();</span>
+        }
+<span class="fc" id="L241">        return new Coordinate(x,y,z,m);</span>
+    }
+
+    /**
+     * Convert a hex String into a byte Array
+     * @param hexString The hex String
+     * @return An array of bytes
+     */
+    private static byte[] toBytes(String hexString) {
+<span class="fc" id="L250">        int len = hexString.length();</span>
+<span class="fc" id="L251">        byte[] data = new byte[len / 2];</span>
+<span class="fc bfc" id="L252" title="All 2 branches covered.">        for (int i = 0; i &lt; len; i += 2) {</span>
+<span class="fc" id="L253">            data[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) &lt;&lt; 4)</span>
+<span class="fc" id="L254">                    + Character.digit(hexString.charAt(i+1), 16));</span>
+        }
+<span class="fc" id="L256">        return data;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

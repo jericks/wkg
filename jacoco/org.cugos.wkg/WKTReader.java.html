@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WKTReader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">WKTReader.java</span></div><h1>WKTReader.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+import org.antlr.v4.runtime.*;
+import org.cugos.wkg.internal.WKTBaseListener;
+import org.cugos.wkg.internal.WKTLexer;
+import org.cugos.wkg.internal.WKTParser;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
+
+/**
+ * Read a Geometry from a Well Known Text (WKT) String
+ */
+<span class="fc" id="L16">public class WKTReader implements Reader&lt;String&gt; {</span>
+
+    /**
+     * Read the WKT and return a Geometry
+     * @param wkt The WKT
+     * @return A Geometry
+     */
+    @Override
+    public Geometry read(String wkt) {
+<span class="fc" id="L25">        WKTLexer lexer = new WKTLexer(CharStreams.fromString(wkt));</span>
+<span class="fc" id="L26">        WKTParser parser = new WKTParser(new CommonTokenStream(lexer));</span>
+<span class="fc" id="L27">        parser.addErrorListener(new BaseErrorListener() {</span>
+            @Override
+            public void syntaxError(Recognizer&lt;?, ?&gt; recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+<span class="nc" id="L30">                throw new IllegalStateException(&quot;failed to parse at line &quot; + line + &quot; due to &quot; + msg, e);</span>
+            }
+        });
+
+<span class="fc" id="L34">        final Stack&lt;Geometry&gt; geometries = new Stack&lt;Geometry&gt;();</span>
+<span class="fc" id="L35">        final Var&lt;Dimension&gt; dimension = new Var&lt;Dimension&gt;();</span>
+<span class="fc" id="L36">        final Var&lt;String&gt; srid = new Var&lt;String&gt;();</span>
+
+<span class="fc" id="L38">        dimension.set(Dimension.Two);</span>
+
+<span class="fc" id="L40">        parser.addParseListener(new WKTBaseListener() {</span>
+
+            @Override
+            public void exitDimension(WKTParser.DimensionContext ctx) {
+<span class="fc bfc" id="L44" title="All 2 branches covered.">                if (ctx.M() != null) {</span>
+<span class="fc" id="L45">                    dimension.set(Dimension.TwoMeasured);</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">                } else if (ctx.Z() != null) {</span>
+<span class="fc" id="L47">                    dimension.set(Dimension.Three);</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">                } else if (ctx.ZM() != null) {</span>
+<span class="fc" id="L49">                    dimension.set(Dimension.ThreeMeasured);</span>
+                }
+<span class="fc" id="L51">            }</span>
+
+            @Override
+            public void exitSrid(WKTParser.SridContext ctx) {
+<span class="fc" id="L55">                srid.set(ctx.Number().getText());</span>
+<span class="fc" id="L56">            }</span>
+
+            @Override
+            public void exitPoint(WKTParser.PointContext ctx) {
+                Point point;
+<span class="fc bfc" id="L61" title="All 2 branches covered.">                if (ctx.coordinate() == null) {</span>
+<span class="fc" id="L62">                    point = Point.createEmpty();</span>
+                } else {
+<span class="fc" id="L64">                    point = point(ctx, dimension, srid);</span>
+                }
+<span class="fc" id="L66">                geometries.push(point);</span>
+<span class="fc" id="L67">            }</span>
+
+            @Override
+            public void exitLineString(WKTParser.LineStringContext ctx) {
+                LineString lineString;
+<span class="fc bfc" id="L72" title="All 2 branches covered.">                if (ctx.coordinates() == null) {</span>
+<span class="fc" id="L73">                    lineString = LineString.createEmpty();</span>
+                } else {
+<span class="fc" id="L75">                    lineString = lineString(ctx, dimension, srid);</span>
+                }
+<span class="fc" id="L77">                geometries.push(lineString);</span>
+<span class="fc" id="L78">            }</span>
+
+            @Override
+            public void exitCircularString(WKTParser.CircularStringContext ctx) {
+                CircularString lineString;
+<span class="fc bfc" id="L83" title="All 2 branches covered.">                if (ctx.coordinates() == null) {</span>
+<span class="fc" id="L84">                    lineString = CircularString.createEmpty();</span>
+                } else {
+<span class="fc" id="L86">                    lineString = new CircularString(coordinates(ctx.coordinates(), dimension), dimension.get(), srid.get());</span>
+                }
+<span class="fc" id="L88">                geometries.push(lineString);</span>
+<span class="fc" id="L89">            }</span>
+
+            @Override
+            public void exitMultiPoint(WKTParser.MultiPointContext ctx) {
+                MultiPoint lineString;
+<span class="fc bfc" id="L94" title="All 4 branches covered.">                if (ctx.coordinates() == null &amp;&amp; ctx.coordinatesets() == null) {</span>
+<span class="fc" id="L95">                    lineString = MultiPoint.createEmpty();</span>
+                } else  {
+<span class="fc" id="L97">                    lineString = multiPoint(ctx, dimension, srid);</span>
+                }
+<span class="fc" id="L99">                geometries.push(lineString);</span>
+<span class="fc" id="L100">            }</span>
+
+            @Override
+            public void exitPolygon(WKTParser.PolygonContext ctx) {
+                Polygon polygon;
+<span class="pc bpc" id="L105" title="1 of 4 branches missed.">                if (ctx.coordinatesets() == null || ctx.coordinatesets().coordinates().size() == 0) {</span>
+<span class="fc" id="L106">                    polygon = Polygon.createEmpty();</span>
+                } else {
+<span class="fc" id="L108">                    polygon = polygon(ctx.coordinatesets(), dimension, srid);</span>
+                }
+<span class="fc" id="L110">                geometries.push(polygon);</span>
+<span class="fc" id="L111">            }</span>
+
+            @Override
+            public void exitTriangle(WKTParser.TriangleContext ctx) {
+                Triangle polygon;
+<span class="pc bpc" id="L116" title="1 of 4 branches missed.">                if (ctx.coordinatesets() == null || ctx.coordinatesets().coordinates().size() == 0) {</span>
+<span class="fc" id="L117">                    polygon = Triangle.createEmpty();</span>
+                } else {
+<span class="fc" id="L119">                    polygon = triangle(ctx.coordinatesets().coordinates(), dimension, srid);</span>
+                }
+<span class="fc" id="L121">                geometries.push(polygon);</span>
+<span class="fc" id="L122">            }</span>
+
+            @Override
+            public void exitTin(WKTParser.TinContext ctx) {
+                Tin tin;
+<span class="pc bpc" id="L127" title="1 of 4 branches missed.">                if (ctx.coordinatesetsset() == null || ctx.coordinatesetsset().coordinatesets().isEmpty()) {</span>
+<span class="fc" id="L128">                    tin = Tin.createEmpty();</span>
+                } else {
+<span class="fc" id="L130">                    List&lt;Triangle&gt; triangles = new ArrayList&lt;Triangle&gt;();</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">                    for (WKTParser.CoordinatesetsContext cctx : ctx.coordinatesetsset().coordinatesets()) {</span>
+<span class="fc" id="L132">                        List&lt;WKTParser.CoordinatesContext&gt; coordinatesContexts = cctx.coordinates();</span>
+<span class="fc" id="L133">                        triangles.add(triangle(coordinatesContexts, dimension, srid));</span>
+<span class="fc" id="L134">                    }</span>
+<span class="fc" id="L135">                    tin = new Tin(triangles, dimension.get(), srid.get());</span>
+                }
+<span class="fc" id="L137">                geometries.push(tin);</span>
+<span class="fc" id="L138">            }</span>
+
+            @Override
+            public void exitMultiLineString(WKTParser.MultiLineStringContext ctx) {
+                MultiLineString multiLineString;
+<span class="pc bpc" id="L143" title="1 of 4 branches missed.">                if (ctx.coordinatesets() == null || ctx.coordinatesets().coordinates().size() == 0) {</span>
+<span class="fc" id="L144">                    multiLineString = MultiLineString.createEmpty();</span>
+                } else {
+<span class="fc" id="L146">                    List&lt;LineString&gt; linesStrings = new ArrayList&lt;LineString&gt;();</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">                    for(WKTParser.CoordinatesContext cctx : ctx.coordinatesets().coordinates()) {</span>
+<span class="fc" id="L148">                       linesStrings.add(new LineString(coordinates(cctx, dimension), dimension.get(), srid.get()));</span>
+<span class="fc" id="L149">                    }</span>
+<span class="fc" id="L150">                    multiLineString = new MultiLineString(linesStrings,dimension.get() , srid.get());</span>
+                }
+<span class="fc" id="L152">                geometries.push(multiLineString);</span>
+<span class="fc" id="L153">            }</span>
+
+            @Override
+            public void exitPolyHedralSurface(WKTParser.PolyHedralSurfaceContext ctx) {
+                PolyHedralSurface polyHedralSurface;
+<span class="pc bpc" id="L158" title="1 of 4 branches missed.">                if (ctx.coordinatesetsset() == null || ctx.coordinatesetsset().coordinatesets().isEmpty()) {</span>
+<span class="fc" id="L159">                    polyHedralSurface = PolyHedralSurface.createEmpty();</span>
+                } else {
+<span class="fc" id="L161">                    List&lt;Polygon&gt; polygons = new ArrayList&lt;Polygon&gt;();</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">                    for (WKTParser.CoordinatesetsContext cctx : ctx.coordinatesetsset().coordinatesets()) {</span>
+<span class="fc" id="L163">                        polygons.add(polygon(cctx, dimension, srid));</span>
+<span class="fc" id="L164">                    }</span>
+<span class="fc" id="L165">                    polyHedralSurface = new PolyHedralSurface(polygons, dimension.get(), srid.get());</span>
+                }
+<span class="fc" id="L167">                geometries.push(polyHedralSurface);</span>
+<span class="fc" id="L168">            }</span>
+
+            @Override
+            public void exitMultiPolygon(WKTParser.MultiPolygonContext ctx) {
+                MultiPolygon multiPolygon;
+<span class="pc bpc" id="L173" title="1 of 4 branches missed.">                if (ctx.coordinatesetsset() == null || ctx.coordinatesetsset().coordinatesets().isEmpty()) {</span>
+<span class="fc" id="L174">                    multiPolygon = MultiPolygon.createEmpty();</span>
+                } else {
+<span class="fc" id="L176">                    List&lt;Polygon&gt; polygons = new ArrayList&lt;Polygon&gt;();</span>
+<span class="fc bfc" id="L177" title="All 2 branches covered.">                    for (WKTParser.CoordinatesetsContext cctx : ctx.coordinatesetsset().coordinatesets()) {</span>
+<span class="fc" id="L178">                        polygons.add(polygon(cctx, dimension, srid));</span>
+<span class="fc" id="L179">                    }</span>
+<span class="fc" id="L180">                    multiPolygon = new MultiPolygon(polygons, dimension.get(), srid.get());</span>
+                }
+<span class="fc" id="L182">                geometries.push(multiPolygon);</span>
+<span class="fc" id="L183">            }</span>
+
+            @Override
+            public void exitCurvePolygon(WKTParser.CurvePolygonContext ctx) {
+                CurvePolygon curvePolygon;
+<span class="pc bpc" id="L188" title="1 of 4 branches missed.">                if (ctx.curvePolygonItems() == null || ctx.curvePolygonItems().curvePolygonElements() == null) {</span>
+<span class="fc" id="L189">                    curvePolygon = CurvePolygon.createEmpty();</span>
+                } else {
+<span class="fc" id="L191">                    List&lt;Curve&gt; curves = new ArrayList&lt;Curve&gt;();</span>
+<span class="fc bfc" id="L192" title="All 2 branches covered.">                    for(WKTParser.CurvePolygonElementsContext cpext : ctx.curvePolygonItems().curvePolygonElements()) {</span>
+<span class="fc bfc" id="L193" title="All 2 branches covered.">                        if (cpext.circularString() != null) {</span>
+<span class="fc" id="L194">                            curves.add((Curve) geometries.pop());</span>
+<span class="pc bpc" id="L195" title="1 of 2 branches missed.">                        } else if (cpext.compoundCurve() != null) {</span>
+<span class="nc" id="L196">                            curves.add((Curve) geometries.pop());</span>
+<span class="pc bpc" id="L197" title="1 of 2 branches missed.">                        } else if (cpext.lineStringCoordinates() != null) {</span>
+<span class="fc" id="L198">                            curves.add(lineString(cpext.lineStringCoordinates().coordinates(), dimension, srid));</span>
+                        }
+<span class="fc" id="L200">                    }</span>
+<span class="fc" id="L201">                    curvePolygon = new CurvePolygon(</span>
+<span class="fc" id="L202">                            curves.get(0),</span>
+<span class="fc" id="L203">                            curves.subList(1, curves.size()),</span>
+<span class="fc" id="L204">                            dimension.get(), srid.get());</span>
+                }
+<span class="fc" id="L206">                geometries.push(curvePolygon);</span>
+<span class="fc" id="L207">            }</span>
+
+            @Override
+            public void exitCompoundCurve(WKTParser.CompoundCurveContext ctx) {
+                CompoundCurve compoundCurve;
+<span class="pc bpc" id="L212" title="1 of 4 branches missed.">                if (ctx.compoundCurveItems() == null || ctx.compoundCurveItems().compoundCurveElements() == null) {</span>
+<span class="fc" id="L213">                    compoundCurve = CompoundCurve.createEmpty();</span>
+                } else {
+<span class="fc" id="L215">                    List&lt;Curve&gt; curves = new ArrayList&lt;Curve&gt;();</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">                    for(WKTParser.CompoundCurveElementsContext ccext : ctx.compoundCurveItems().compoundCurveElements()) {</span>
+<span class="fc bfc" id="L217" title="All 2 branches covered.">                        if (ccext.circularString() != null) {</span>
+<span class="fc" id="L218">                            curves.add((Curve) geometries.pop());</span>
+<span class="pc bpc" id="L219" title="1 of 2 branches missed.">                        } else if (ccext.lineStringCoordinates() != null) {</span>
+<span class="fc" id="L220">                            curves.add(lineString(ccext.lineStringCoordinates().coordinates(), dimension, srid));</span>
+                        }
+<span class="fc" id="L222">                    }</span>
+<span class="fc" id="L223">                    compoundCurve = new CompoundCurve(</span>
+                            curves,
+<span class="fc" id="L225">                            dimension.get(), srid.get());</span>
+                }
+<span class="fc" id="L227">                geometries.push(compoundCurve);</span>
+<span class="fc" id="L228">            }</span>
+
+            @Override
+            public void exitMultiCurve(WKTParser.MultiCurveContext ctx) {
+                MultiCurve multiCurve;
+<span class="pc bpc" id="L233" title="1 of 4 branches missed.">                if (ctx.multiCurveItems() == null || ctx.multiCurveItems().multiCurveElements() == null) {</span>
+<span class="fc" id="L234">                    multiCurve = MultiCurve.createEmpty();</span>
+                } else {
+<span class="fc" id="L236">                    List&lt;Curve&gt; curves = new ArrayList&lt;Curve&gt;();</span>
+<span class="fc bfc" id="L237" title="All 2 branches covered.">                    for(WKTParser.MultiCurveElementsContext ccext : ctx.multiCurveItems().multiCurveElements()) {</span>
+<span class="fc bfc" id="L238" title="All 2 branches covered.">                        if (ccext.circularString() != null) {</span>
+<span class="fc" id="L239">                            curves.add((CircularString) geometries.pop());</span>
+<span class="pc bpc" id="L240" title="1 of 2 branches missed.">                        } else if (ccext.lineStringCoordinates() != null) {</span>
+<span class="fc" id="L241">                            curves.add(lineString(ccext.lineStringCoordinates().coordinates(), dimension, srid));</span>
+<span class="nc bnc" id="L242" title="All 2 branches missed.">                        } else if (ccext.compoundCurve() != null) {</span>
+<span class="nc" id="L243">                            curves.add((CompoundCurve) geometries.pop());</span>
+                        }
+<span class="fc" id="L245">                    }</span>
+<span class="fc" id="L246">                    multiCurve = new MultiCurve(</span>
+                            curves,
+<span class="fc" id="L248">                            dimension.get(), srid.get());</span>
+                }
+<span class="fc" id="L250">                geometries.push(multiCurve);</span>
+<span class="fc" id="L251">            }</span>
+
+            @Override
+            public void exitMultiSurface(WKTParser.MultiSurfaceContext ctx) {
+                MultiSurface multiSurface;
+<span class="pc bpc" id="L256" title="1 of 4 branches missed.">                if (ctx.multiSurfaceItems() == null || ctx.multiSurfaceItems().multiSurfaceElements() == null) {</span>
+<span class="fc" id="L257">                    multiSurface = MultiSurface.createEmpty();</span>
+                } else {
+<span class="fc" id="L259">                    List&lt;Surface&gt; surfaces = new ArrayList&lt;Surface&gt;();</span>
+<span class="fc bfc" id="L260" title="All 2 branches covered.">                    for(WKTParser.MultiSurfaceElementsContext ccext : ctx.multiSurfaceItems().multiSurfaceElements()) {</span>
+<span class="fc bfc" id="L261" title="All 2 branches covered.">                        if (ccext.curvePolygon() != null) {</span>
+<span class="fc" id="L262">                            surfaces.add((CurvePolygon) geometries.pop());</span>
+<span class="pc bpc" id="L263" title="1 of 2 branches missed.">                        } else if (ccext.polygonCoordinates() != null) {</span>
+<span class="fc" id="L264">                            surfaces.add(polygon(ccext.polygonCoordinates().coordinatesets(), dimension, srid));</span>
+                        }
+<span class="fc" id="L266">                    }</span>
+<span class="fc" id="L267">                    multiSurface = new MultiSurface(</span>
+                            surfaces,
+<span class="fc" id="L269">                            dimension.get(), srid.get());</span>
+                }
+<span class="fc" id="L271">                geometries.push(multiSurface);</span>
+<span class="fc" id="L272">            }</span>
+
+            @Override
+            public void exitGeometryCollection(WKTParser.GeometryCollectionContext ctx) {
+                GeometryCollection geometryCollection;
+<span class="pc bpc" id="L277" title="1 of 4 branches missed.">                if (ctx.geometryCollectionItems() == null || ctx.geometryCollectionItems().geometryCollectionElements() == null) {</span>
+<span class="fc" id="L278">                    geometryCollection = GeometryCollection.createEmpty();</span>
+                } else {
+<span class="fc" id="L280">                    List&lt;Geometry&gt; geometryList = new ArrayList&lt;Geometry&gt;();</span>
+<span class="fc bfc" id="L281" title="All 2 branches covered.">                    for(WKTParser.GeometryCollectionElementsContext ccext : ctx.geometryCollectionItems().geometryCollectionElements()) {</span>
+<span class="fc" id="L282">                        geometryList.add(geometries.pop());</span>
+<span class="fc" id="L283">                    }</span>
+<span class="fc" id="L284">                    Collections.reverse(geometryList);</span>
+<span class="fc" id="L285">                    geometryCollection = new GeometryCollection(</span>
+                            geometryList,
+<span class="fc" id="L287">                            dimension.get(), srid.get());</span>
+                }
+<span class="fc" id="L289">                geometries.push(geometryCollection);</span>
+<span class="fc" id="L290">            }</span>
+        });
+<span class="fc" id="L292">        parser.wkt();</span>
+
+<span class="pc bpc" id="L294" title="1 of 2 branches missed.">        return geometries.isEmpty() ? null : geometries.pop();</span>
+    }
+
+    @Override
+    public String getName() {
+<span class="fc" id="L299">        return &quot;WKT&quot;;</span>
+    }
+
+    private Coordinate coordinate(WKTParser.CoordinateContext ctx, Var&lt;Dimension&gt; dimension) {
+<span class="fc" id="L303">        double x = Double.parseDouble(ctx.Number(0).getText());</span>
+<span class="fc" id="L304">        double y = Double.parseDouble(ctx.Number(1).getText());</span>
+<span class="fc bfc" id="L305" title="All 4 branches covered.">        if (dimension.get() == Dimension.Two &amp;&amp; ctx.Number().size() == 3) {</span>
+<span class="fc" id="L306">            dimension.set(Dimension.Three);</span>
+<span class="fc bfc" id="L307" title="All 4 branches covered.">        } else if (dimension.get() == Dimension.Two &amp;&amp; ctx.Number().size()== 4) {</span>
+<span class="fc" id="L308">            dimension.set(Dimension.ThreeMeasured);</span>
+        }
+<span class="fc bfc" id="L310" title="All 2 branches covered.">        if (dimension.get() == Dimension.TwoMeasured) {</span>
+<span class="fc" id="L311">            return Coordinate.create2DM(x,y, Double.parseDouble(ctx.Number(2).getText()));</span>
+<span class="fc bfc" id="L312" title="All 2 branches covered.">        } if (dimension.get() == Dimension.Three) {</span>
+<span class="fc" id="L313">            return Coordinate.create3D(x,y, Double.parseDouble(ctx.Number(2).getText()));</span>
+<span class="fc bfc" id="L314" title="All 2 branches covered.">        } if (dimension.get() == Dimension.ThreeMeasured) {</span>
+<span class="fc" id="L315">            return Coordinate.create3DM(x,y, Double.parseDouble(ctx.Number(2).getText()), Double.parseDouble(ctx.Number(3).getText()));</span>
+        } /*if (dimension == Dimension.Two)*/ {
+<span class="fc" id="L317">            return Coordinate.create2D(x,y);</span>
+        }
+    }
+
+    private List&lt;Coordinate&gt; coordinates(WKTParser.CoordinatesContext ctx, Var&lt;Dimension&gt; dimension) {
+<span class="fc" id="L322">        List&lt;Coordinate&gt; points = new ArrayList&lt;Coordinate&gt;();</span>
+<span class="fc bfc" id="L323" title="All 2 branches covered.">        for(WKTParser.CoordinateContext cctx : ctx.coordinate()) {</span>
+<span class="fc" id="L324">            points.add(coordinate(cctx, dimension));</span>
+<span class="fc" id="L325">        }</span>
+<span class="fc" id="L326">        return points;</span>
+    }
+
+    private List&lt;Point&gt; points(WKTParser.CoordinatesContext ctx, Var&lt;Dimension&gt; dimension, Var&lt;String&gt; srid) {
+<span class="fc" id="L330">        List&lt;Point&gt; points = new ArrayList&lt;Point&gt;();</span>
+<span class="fc bfc" id="L331" title="All 2 branches covered.">        for(Coordinate coordinate : coordinates(ctx, dimension)) {</span>
+<span class="fc" id="L332">            points.add(new Point(coordinate, dimension.get(), srid.get()));</span>
+<span class="fc" id="L333">        }</span>
+<span class="fc" id="L334">        return points;</span>
+    }
+
+    private List&lt;Point&gt; points(WKTParser.CoordinatesetsContext ctx, Var&lt;Dimension&gt; dimension, Var&lt;String&gt; srid) {
+<span class="fc" id="L338">        List&lt;Point&gt; points = new ArrayList&lt;Point&gt;();</span>
+<span class="fc" id="L339">        List&lt;WKTParser.CoordinatesContext&gt; coordinatesContexts = ctx.coordinates();</span>
+<span class="fc bfc" id="L340" title="All 2 branches covered.">        for(WKTParser.CoordinatesContext cctx : coordinatesContexts) {</span>
+<span class="fc" id="L341">            points.addAll(points(cctx, dimension, srid));</span>
+<span class="fc" id="L342">        }</span>
+<span class="fc" id="L343">        return points;</span>
+    }
+
+    private Point point(WKTParser.PointContext ctx, Var&lt;Dimension&gt; dimension, Var&lt;String&gt; srid) {
+<span class="fc" id="L347">        return new Point(coordinate(ctx.coordinate(), dimension), dimension.get(), srid.get());</span>
+    }
+
+    private LineString lineString(WKTParser.LineStringContext ctx, Var&lt;Dimension&gt; dimension, Var&lt;String&gt; srid) {
+<span class="fc" id="L351">        return new LineString(coordinates(ctx.coordinates(), dimension), dimension.get(), srid.get());</span>
+    }
+
+    private LineString lineString(WKTParser.CoordinatesContext ctx, Var&lt;Dimension&gt; dimension, Var&lt;String&gt; srid) {
+<span class="fc" id="L355">        return new LineString(coordinates(ctx, dimension), dimension.get(), srid.get());</span>
+    }
+
+    private Polygon polygon(WKTParser.CoordinatesetsContext cctx, Var&lt;Dimension&gt; dimension, Var&lt;String&gt; srid) {
+<span class="fc" id="L359">        List&lt;WKTParser.CoordinatesContext&gt; coordinatesContexts = cctx.coordinates();</span>
+<span class="fc" id="L360">        LinearRing linearRing = new LinearRing(coordinates(coordinatesContexts.get(0), dimension), dimension.get(), srid.get());</span>
+<span class="fc" id="L361">        List&lt;LinearRing&gt; holes = new ArrayList&lt;LinearRing&gt;();</span>
+<span class="fc bfc" id="L362" title="All 2 branches covered.">        for(int i = 1; i&lt;coordinatesContexts.size(); i++) {</span>
+<span class="fc" id="L363">            LinearRing hole = new LinearRing(coordinates(coordinatesContexts.get(i), dimension), dimension.get(), srid.get());</span>
+<span class="fc" id="L364">            holes.add(hole);</span>
+        }
+<span class="fc" id="L366">        return new Polygon(linearRing, holes, dimension.get(), srid.get());</span>
+    }
+
+    private MultiPoint multiPoint(WKTParser.MultiPointContext ctx, Var&lt;Dimension&gt; dimension, Var&lt;String&gt; srid) {
+<span class="fc bfc" id="L370" title="All 2 branches covered.">        if (ctx.coordinates() != null) {</span>
+<span class="fc" id="L371">            return new MultiPoint(points(ctx.coordinates(), dimension, srid), dimension.get(), srid.get());</span>
+        } else {
+<span class="fc" id="L373">            return new MultiPoint(points(ctx.coordinatesets(), dimension, srid), dimension.get(), srid.get());</span>
+        }
+    }
+
+    private Triangle triangle(List&lt;WKTParser.CoordinatesContext&gt; coordinatesContexts, Var&lt;Dimension&gt; dimension, Var&lt;String&gt; srid) {
+<span class="fc" id="L378">        LinearRing linearRing = new LinearRing(coordinates(coordinatesContexts.get(0), dimension), dimension.get(), srid.get());</span>
+<span class="fc" id="L379">        List&lt;LinearRing&gt; holes = new ArrayList&lt;LinearRing&gt;();</span>
+<span class="pc bpc" id="L380" title="1 of 2 branches missed.">        for(int i = 1; i&lt;coordinatesContexts.size(); i++) {</span>
+<span class="nc" id="L381">            LinearRing hole = new LinearRing(coordinates(coordinatesContexts.get(i), dimension), dimension.get(), srid.get());</span>
+<span class="nc" id="L382">            holes.add(hole);</span>
+        }
+<span class="fc" id="L384">        return new Triangle(linearRing, holes, dimension.get(), srid.get());</span>
+    }
+
+<span class="fc" id="L387">    private static class Var&lt;T&gt; {</span>
+<span class="fc" id="L388">        private T variable = null;</span>
+        public T get() {
+<span class="fc" id="L390">            return variable;</span>
+        }
+        public void set(T var) {
+<span class="fc" id="L393">            this.variable = var;</span>
+<span class="fc" id="L394">        }</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

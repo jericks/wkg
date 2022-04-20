@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WKTWriter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">WKTWriter.java</span></div><h1>WKTWriter.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Write a Geometry to a WKT String.
+ * @author Jared Erickson
+ */
+public class WKTWriter implements Writer&lt;String&gt; {
+
+    /**
+     * The flag to determine is we should use inner parens for MultiPoint WKT.  The default is false.
+     */
+    private final boolean useInnerParensForMultiPoints;
+
+    /**
+     * Create a new WKTWriter
+     */
+    public WKTWriter() {
+<span class="fc" id="L21">        this(false);</span>
+<span class="fc" id="L22">    }</span>
+
+    /**
+     * Create a WKTWriter
+     * @param useInnerParensForMultiPoints The flag to determine is we should use inner parens for MultiPoint WKT.
+     */
+<span class="fc" id="L28">    public WKTWriter(boolean useInnerParensForMultiPoints) {</span>
+<span class="fc" id="L29">        this.useInnerParensForMultiPoints = useInnerParensForMultiPoints;</span>
+<span class="fc" id="L30">    }</span>
+
+    /**
+     * Write a Geometry to a WKT String
+     * @param g The Geometry
+     * @return A WKT String
+     */
+    @Override
+    public String write(Geometry g) {
+<span class="fc" id="L39">        return write(g, true, true);</span>
+    }
+
+    @Override
+    public String getName() {
+<span class="fc" id="L44">        return &quot;WKT&quot;;</span>
+    }
+
+    /**
+     * Write a Geometry to a WKT String
+     * @param g The Geometry
+     * @param includeSrid Whether to include the SRID prefix (SRID=4326;) or not
+     * @param includeDimension Whether to include the dimension (M, Z, or ZM) before the Geometry type
+     * @return A WKT String
+     */
+    public String write(Geometry g, boolean includeSrid, boolean includeDimension) {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (g instanceof Point) {</span>
+<span class="fc" id="L56">            return write((Point) g, includeSrid, includeDimension);</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        } else if (g instanceof LineString) {</span>
+<span class="fc" id="L58">            return write((LineString) g, includeSrid, includeDimension);</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        } else if (g instanceof LinearRing) {</span>
+<span class="nc" id="L60">            return write((LinearRing) g, includeSrid, includeDimension);</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        } else if (g instanceof Triangle) {</span>
+<span class="fc" id="L62">            return write((Triangle) g, includeSrid, includeDimension);</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        } else if (g instanceof Polygon) {</span>
+<span class="fc" id="L64">            return write((Polygon) g, includeSrid, includeDimension);</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        } else if (g instanceof MultiPoint) {</span>
+<span class="fc" id="L66">            return write((MultiPoint) g, includeSrid, includeDimension);</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        } else if (g instanceof MultiLineString) {</span>
+<span class="fc" id="L68">            return write((MultiLineString) g, includeSrid, includeDimension);</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        } else if (g instanceof MultiPolygon) {</span>
+<span class="fc" id="L70">            return write((MultiPolygon) g, includeSrid, includeDimension);</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        } else if (g instanceof GeometryCollection) {</span>
+<span class="fc" id="L72">            return write((GeometryCollection) g, includeSrid, includeDimension);</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        } else if (g instanceof CircularString) {</span>
+<span class="fc" id="L74">            return write((CircularString) g, includeSrid, includeDimension);</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        } else if (g instanceof CurvePolygon) {</span>
+<span class="fc" id="L76">            return write((CurvePolygon) g, includeSrid, includeDimension);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        } else if (g instanceof MultiCurve) {</span>
+<span class="fc" id="L78">            return write((MultiCurve) g, includeSrid, includeDimension);</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        } else if (g instanceof PolyHedralSurface) {</span>
+<span class="fc" id="L80">            return write((PolyHedralSurface) g, includeSrid, includeDimension);</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        } else if (g instanceof MultiSurface) {</span>
+<span class="fc" id="L82">            return write((MultiSurface) g, includeSrid, includeDimension);</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        } else if (g instanceof CompoundCurve) {</span>
+<span class="fc" id="L84">            return write((CompoundCurve) g, includeSrid, includeDimension);</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">        } else if (g instanceof Tin) {</span>
+<span class="fc" id="L86">            return write((Tin) g, includeSrid, includeDimension);</span>
+        }
+        else {
+<span class="nc" id="L89">            throw new IllegalArgumentException(&quot;Unknown Geometry! &quot; + g.getClass().getName());</span>
+        }
+    }
+
+    public String write(Point p) {
+<span class="fc" id="L94">        return write(p, true, true);</span>
+    }
+
+    public String write(Point p, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L98">        Coordinate coordinate = p.getCoordinate();</span>
+<span class="fc" id="L99">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L101">            addSrid(p, builder);</span>
+        }
+<span class="fc" id="L103">        builder.append(&quot;POINT&quot;);</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        if (coordinate.isEmpty()) {</span>
+<span class="fc" id="L105">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L107" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L108">                addDimension(p, builder);</span>
+            }
+<span class="fc" id="L110">            builder.append(&quot; (&quot;);</span>
+<span class="fc" id="L111">            addCoordinate(coordinate, builder);</span>
+<span class="fc" id="L112">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L114">        return builder.toString();</span>
+    }
+
+    public String write(LineString lineString) {
+<span class="fc" id="L118">        return write(lineString, true, true);</span>
+    }
+
+    public String write(LineString lineString, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L122">        List coordinates = lineString.getCoordinates();</span>
+<span class="fc" id="L123">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L125">            addSrid(lineString, builder);</span>
+        }
+<span class="fc" id="L127">        builder.append(&quot;LINESTRING&quot;);</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        if (coordinates.isEmpty()) {</span>
+<span class="fc" id="L129">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L131" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L132">                addDimension(lineString, builder);</span>
+            }
+<span class="fc" id="L134">            builder.append(&quot; (&quot;);</span>
+<span class="fc" id="L135">            addCoordinates(coordinates, builder);</span>
+<span class="fc" id="L136">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L138">        return builder.toString();</span>
+    }
+
+    public String write(LinearRing ring) {
+<span class="nc" id="L142">        return write(ring, true, true);</span>
+    }
+
+    public String write(LinearRing lineString, boolean includeSrid, boolean includeDimension) {
+<span class="nc" id="L146">        List coordinates = lineString.getCoordinates();</span>
+<span class="nc" id="L147">        StringBuilder builder = new StringBuilder();</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        if (includeSrid) {</span>
+<span class="nc" id="L149">            addSrid(lineString, builder);</span>
+        }
+<span class="nc" id="L151">        builder.append(&quot;LINEARRING&quot;);</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        if (coordinates.isEmpty()) {</span>
+<span class="nc" id="L153">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="nc bnc" id="L155" title="All 2 branches missed.">            if (includeDimension) {</span>
+<span class="nc" id="L156">                addDimension(lineString, builder);</span>
+            }
+<span class="nc" id="L158">            builder.append(&quot; (&quot;);</span>
+<span class="nc" id="L159">            addCoordinates(coordinates, builder);</span>
+<span class="nc" id="L160">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="nc" id="L162">        return builder.toString();</span>
+    }
+
+    public String write(MultiPoint mp) {
+<span class="nc" id="L166">        return write(mp, true, true);</span>
+    }
+
+    public String write(MultiPoint mp, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L170">        List&lt;Point&gt; points = mp.getPoints();</span>
+<span class="fc" id="L171">        List&lt;Coordinate&gt; coords = new ArrayList&lt;Coordinate&gt;();</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">        for(Point pt : points) {</span>
+<span class="fc" id="L173">            coords.add(pt.getCoordinate());</span>
+<span class="fc" id="L174">        }</span>
+<span class="fc" id="L175">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L177">            addSrid(mp, builder);</span>
+        }
+<span class="fc" id="L179">        builder.append(&quot;MULTIPOINT&quot;);</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">        if (points.isEmpty()) {</span>
+<span class="fc" id="L181">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L183" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L184">                addDimension(mp, builder);</span>
+            }
+<span class="fc" id="L186">            builder.append(&quot; (&quot;);</span>
+<span class="fc" id="L187">            addCoordinates(coords, useInnerParensForMultiPoints, builder);</span>
+<span class="fc" id="L188">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L190">        return builder.toString();</span>
+    }
+
+    public String write(Polygon p) {
+<span class="fc" id="L194">        return write(p, true, true);</span>
+    }
+
+    public String write(Polygon p, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L198">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L200">            addSrid(p, builder);</span>
+        }
+<span class="fc" id="L202">        builder.append(&quot;POLYGON&quot;);</span>
+<span class="pc bpc" id="L203" title="1 of 4 branches missed.">        if (p.getOuterLinearRing() == null || p.getOuterLinearRing().getCoordinates().isEmpty()) {</span>
+<span class="fc" id="L204">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L206" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L207">                addDimension(p, builder);</span>
+            }
+<span class="fc" id="L209">            builder.append(&quot; ((&quot;);</span>
+            // Outer ring
+<span class="fc" id="L211">            addCoordinates(p.getOuterLinearRing().getCoordinates(), builder);</span>
+<span class="fc" id="L212">            builder.append(&quot;)&quot;);</span>
+            // Inner rings
+<span class="fc bfc" id="L214" title="All 2 branches covered.">            for (LinearRing ring : p.getInnerLinearRings()) {</span>
+<span class="fc" id="L215">                builder.append(&quot;, (&quot;);</span>
+<span class="fc" id="L216">                addCoordinates(ring.getCoordinates(), builder);</span>
+<span class="fc" id="L217">                builder.append(&quot;)&quot;);</span>
+<span class="fc" id="L218">            }</span>
+<span class="fc" id="L219">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L221">        return builder.toString();</span>
+    }
+
+    public String write(MultiPolygon mp) {
+<span class="nc" id="L225">        return write(mp, true, true);</span>
+    }
+
+    public String write(MultiPolygon mp, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L229">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L230" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L231">            addSrid(mp, builder);</span>
+        }
+<span class="fc" id="L233">        builder.append(&quot;MULTIPOLYGON&quot;);</span>
+<span class="fc bfc" id="L234" title="All 2 branches covered.">        if (mp.getPolygons().isEmpty()) {</span>
+<span class="fc" id="L235">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L237" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L238">                addDimension(mp, builder);</span>
+            }
+<span class="fc" id="L240">            builder.append(&quot; (&quot;);</span>
+<span class="fc" id="L241">            boolean firstPoly = true;</span>
+<span class="fc bfc" id="L242" title="All 2 branches covered.">            for (Polygon polygon : mp.getPolygons()) {</span>
+<span class="fc bfc" id="L243" title="All 2 branches covered.">                if (!firstPoly) {</span>
+<span class="fc" id="L244">                    builder.append(&quot;, &quot;);</span>
+                } else {
+<span class="fc" id="L246">                    firstPoly = false;</span>
+                }
+<span class="fc" id="L248">                builder.append(&quot;((&quot;);</span>
+                // Outer ring
+<span class="fc" id="L250">                addCoordinates(polygon.getOuterLinearRing().getCoordinates(), builder);</span>
+<span class="fc" id="L251">                builder.append(&quot;)&quot;);</span>
+                // Inner rings
+<span class="fc bfc" id="L253" title="All 2 branches covered.">                for (LinearRing ring : polygon.getInnerLinearRings()) {</span>
+<span class="fc" id="L254">                    builder.append(&quot;, (&quot;);</span>
+<span class="fc" id="L255">                    addCoordinates(ring.getCoordinates(), builder);</span>
+<span class="fc" id="L256">                    builder.append(&quot;)&quot;);</span>
+<span class="fc" id="L257">                }</span>
+<span class="fc" id="L258">                builder.append(&quot;)&quot;);</span>
+<span class="fc" id="L259">            }</span>
+<span class="fc" id="L260">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L262">        return builder.toString();</span>
+    }
+
+    public String write(MultiLineString ml) {
+<span class="nc" id="L266">        return write(ml, true, true);</span>
+    }
+
+    public String write(MultiLineString ml, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L270">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L271" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L272">            addSrid(ml, builder);</span>
+        }
+<span class="fc" id="L274">        builder.append(&quot;MULTILINESTRING&quot;);</span>
+<span class="fc bfc" id="L275" title="All 2 branches covered.">        if (ml.getLineStrings().isEmpty()) {</span>
+<span class="fc" id="L276">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L278" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L279">                addDimension(ml, builder);</span>
+            }
+<span class="fc" id="L281">            builder.append(&quot; (&quot;);</span>
+<span class="fc" id="L282">            boolean firstLine = true;</span>
+<span class="fc bfc" id="L283" title="All 2 branches covered.">            for (LineString line : ml.getLineStrings()) {</span>
+<span class="fc bfc" id="L284" title="All 2 branches covered.">                if (!firstLine) {</span>
+<span class="fc" id="L285">                    builder.append(&quot;, &quot;);</span>
+                } else {
+<span class="fc" id="L287">                    firstLine = false;</span>
+                }
+<span class="fc" id="L289">                builder.append(&quot;(&quot;);</span>
+<span class="fc" id="L290">                addCoordinates(line.getCoordinates(), builder);</span>
+<span class="fc" id="L291">                builder.append(&quot;)&quot;);</span>
+<span class="fc" id="L292">            }</span>
+<span class="fc" id="L293">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L295">        return builder.toString();</span>
+    }
+
+    public String write(GeometryCollection gc) {
+<span class="nc" id="L299">        return write(gc, true, true);</span>
+    }
+
+    public String write(GeometryCollection gc, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L303">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L304" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L305">            addSrid(gc, builder);</span>
+        }
+<span class="fc" id="L307">        builder.append(&quot;GEOMETRYCOLLECTION&quot;);</span>
+<span class="fc bfc" id="L308" title="All 2 branches covered.">        if (gc.getGeometries().isEmpty()) {</span>
+<span class="fc" id="L309">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L311" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L312">                addDimension(gc, builder);</span>
+            }
+<span class="fc" id="L314">            builder.append(&quot; (&quot;);</span>
+<span class="fc" id="L315">            boolean first = true;</span>
+<span class="fc bfc" id="L316" title="All 2 branches covered.">            for (Geometry g : gc.getGeometries()) {</span>
+<span class="fc bfc" id="L317" title="All 2 branches covered.">                if (!first) {</span>
+<span class="fc" id="L318">                    builder.append(&quot;, &quot;);</span>
+                } else {
+<span class="fc" id="L320">                    first = false;</span>
+                }
+<span class="fc" id="L322">                builder.append(write(g, false, false));</span>
+<span class="fc" id="L323">            }</span>
+<span class="fc" id="L324">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L326">        return builder.toString();</span>
+    }
+
+    public String write(Triangle t) {
+<span class="nc" id="L330">        return write(t, true, true);</span>
+    }
+
+    public String write(Triangle t, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L334">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L335" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L336">            addSrid(t, builder);</span>
+        }
+<span class="fc" id="L338">        builder.append(&quot;TRIANGLE&quot;);</span>
+<span class="fc bfc" id="L339" title="All 2 branches covered.">        if (t.getOuterLinearRing().getCoordinates().isEmpty()) {</span>
+<span class="fc" id="L340">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L342" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L343">                addDimension(t, builder);</span>
+            }
+<span class="fc" id="L345">            builder.append(&quot; ((&quot;);</span>
+            // Outer ring
+<span class="fc" id="L347">            addCoordinates(t.getOuterLinearRing().getCoordinates(), builder);</span>
+<span class="fc" id="L348">            builder.append(&quot;)&quot;);</span>
+            // Inner rings
+<span class="pc bpc" id="L350" title="1 of 2 branches missed.">            for (LinearRing ring : t.getInnerLinearRings()) {</span>
+<span class="nc" id="L351">                builder.append(&quot;, (&quot;);</span>
+<span class="nc" id="L352">                addCoordinates(ring.getCoordinates(), builder);</span>
+<span class="nc" id="L353">                builder.append(&quot;)&quot;);</span>
+<span class="nc" id="L354">            }</span>
+<span class="fc" id="L355">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L357">        return builder.toString();</span>
+    }
+
+    public String write(CircularString circularString) {
+<span class="fc" id="L361">        return write(circularString, true, true);</span>
+    }
+
+    public String write(CircularString circularString, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L365">        List coordinates = circularString.getCoordinates();</span>
+<span class="fc" id="L366">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L367" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L368">            addSrid(circularString, builder);</span>
+        }
+<span class="fc" id="L370">        builder.append(&quot;CIRCULARSTRING&quot;);</span>
+<span class="fc bfc" id="L371" title="All 2 branches covered.">        if (coordinates.isEmpty()) {</span>
+<span class="fc" id="L372">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L374" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L375">                addDimension(circularString, builder);</span>
+            }
+<span class="fc" id="L377">            builder.append(&quot; (&quot;);</span>
+<span class="fc" id="L378">            addCoordinates(coordinates, builder);</span>
+<span class="fc" id="L379">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L381">        return builder.toString();</span>
+    }
+
+    public String write(Tin tin) {
+<span class="nc" id="L385">        return write(tin, true, true);</span>
+    }
+
+    public String write(Tin tin, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L389">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L390" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L391">            addSrid(tin, builder);</span>
+        }
+<span class="fc" id="L393">        builder.append(&quot;TIN&quot;);</span>
+<span class="fc bfc" id="L394" title="All 2 branches covered.">        if (tin.getTriangles().isEmpty()) {</span>
+<span class="fc" id="L395">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L397" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L398">                addDimension(tin, builder);</span>
+            }
+<span class="fc" id="L400">            builder.append(&quot; (&quot;);</span>
+<span class="fc" id="L401">            boolean first = true;</span>
+<span class="fc bfc" id="L402" title="All 2 branches covered.">            for (Triangle t : tin.getTriangles()) {</span>
+<span class="fc bfc" id="L403" title="All 2 branches covered.">                if (!first) {</span>
+<span class="fc" id="L404">                    builder.append(&quot;, &quot;);</span>
+                } else {
+<span class="fc" id="L406">                    first = false;</span>
+                }
+<span class="fc" id="L408">                builder.append(&quot;((&quot;);</span>
+                // Outer ring
+<span class="fc" id="L410">                addCoordinates(t.getOuterLinearRing().getCoordinates(), builder);</span>
+<span class="fc" id="L411">                builder.append(&quot;)&quot;);</span>
+                // Inner rings
+<span class="pc bpc" id="L413" title="1 of 2 branches missed.">                for (LinearRing ring : t.getInnerLinearRings()) {</span>
+<span class="nc" id="L414">                    builder.append(&quot;, (&quot;);</span>
+<span class="nc" id="L415">                    addCoordinates(ring.getCoordinates(), builder);</span>
+<span class="nc" id="L416">                    builder.append(&quot;)&quot;);</span>
+<span class="nc" id="L417">                }</span>
+<span class="fc" id="L418">                builder.append(&quot;)&quot;);</span>
+<span class="fc" id="L419">            }</span>
+<span class="fc" id="L420">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L422">        return builder.toString();</span>
+    }
+
+    public String write(CompoundCurve compoundCurve) {
+<span class="nc" id="L426">        return write(compoundCurve, true, true);</span>
+    }
+
+    public String write(CompoundCurve compoundCurve, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L430">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L431" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L432">            addSrid(compoundCurve, builder);</span>
+        }
+<span class="fc" id="L434">        builder.append(&quot;COMPOUNDCURVE&quot;);</span>
+<span class="fc bfc" id="L435" title="All 2 branches covered.">        if (compoundCurve.getCurves().isEmpty()) {</span>
+<span class="fc" id="L436">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L438" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L439">                addDimension(compoundCurve, builder);</span>
+            }
+<span class="fc" id="L441">            builder.append(&quot; (&quot;);</span>
+<span class="fc" id="L442">            boolean first = true;</span>
+<span class="fc bfc" id="L443" title="All 2 branches covered.">            for (Curve curve : compoundCurve.getCurves()) {</span>
+<span class="fc bfc" id="L444" title="All 2 branches covered.">                if (!first) {</span>
+<span class="fc" id="L445">                    builder.append(&quot;, &quot;);</span>
+                } else {
+<span class="fc" id="L447">                    first = false;</span>
+                }
+<span class="fc bfc" id="L449" title="All 2 branches covered.">                if (curve instanceof LineString) {</span>
+<span class="fc" id="L450">                    builder.append(&quot;(&quot;);</span>
+<span class="fc" id="L451">                    addCoordinates(((LineString) curve).getCoordinates(), builder);</span>
+<span class="fc" id="L452">                    builder.append(&quot;)&quot;);</span>
+<span class="pc bpc" id="L453" title="1 of 2 branches missed.">                } else if (curve instanceof CircularString) {</span>
+<span class="fc" id="L454">                    builder.append(write((CircularString) curve, false, false));</span>
+                }
+<span class="fc" id="L456">            }</span>
+<span class="fc" id="L457">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L459">        return builder.toString();</span>
+    }
+
+    public String write(CurvePolygon p) {
+<span class="nc" id="L463">        return write(p, true, true);</span>
+    }
+
+    public String write(CurvePolygon p, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L467">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L468" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L469">            addSrid(p, builder);</span>
+        }
+<span class="fc" id="L471">        builder.append(&quot;CURVEPOLYGON&quot;);</span>
+<span class="pc bpc" id="L472" title="1 of 4 branches missed.">        if (p.getOuterCurve() == null || p.getOuterCurve().isEmpty()) {</span>
+<span class="fc" id="L473">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L475" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L476">                addDimension(p, builder);</span>
+            }
+<span class="fc" id="L478">            builder.append(&quot; (&quot;);</span>
+            // Outer ring
+<span class="fc" id="L480">            Curve outerCurve = p.getOuterCurve();</span>
+<span class="pc bpc" id="L481" title="1 of 2 branches missed.">            if (outerCurve instanceof LineString) {</span>
+<span class="nc" id="L482">                LineString line = (LineString) outerCurve;</span>
+<span class="nc" id="L483">                builder.append(&quot;(&quot;);</span>
+<span class="nc" id="L484">                addCoordinates(line.getCoordinates(), builder);</span>
+<span class="nc" id="L485">                builder.append(&quot;)&quot;);</span>
+<span class="pc bpc" id="L486" title="1 of 2 branches missed.">            } else if (outerCurve instanceof CircularString) {</span>
+<span class="fc" id="L487">                builder.append(write((CircularString) outerCurve, false, false));</span>
+<span class="nc bnc" id="L488" title="All 2 branches missed.">            } else if (outerCurve instanceof CompoundCurve) {</span>
+<span class="nc" id="L489">                builder.append(write((CompoundCurve) outerCurve, false, false));</span>
+            }
+            // Inner rings
+<span class="fc bfc" id="L492" title="All 2 branches covered.">            for (Curve curve : p.getInnerCurves()) {</span>
+<span class="fc" id="L493">                builder.append(&quot;, &quot;);</span>
+<span class="pc bpc" id="L494" title="1 of 2 branches missed.">                if (curve instanceof LineString) {</span>
+<span class="fc" id="L495">                    LineString line = (LineString) curve;</span>
+<span class="fc" id="L496">                    builder.append(&quot;(&quot;);</span>
+<span class="fc" id="L497">                    addCoordinates(line.getCoordinates(), builder);</span>
+<span class="fc" id="L498">                    builder.append(&quot;)&quot;);</span>
+<span class="pc bnc" id="L499" title="All 2 branches missed.">                } else if (curve instanceof CircularString) {</span>
+<span class="nc" id="L500">                    builder.append(write((CircularString) curve, false, false));</span>
+<span class="nc bnc" id="L501" title="All 2 branches missed.">                } else if (curve instanceof CompoundCurve) {</span>
+<span class="nc" id="L502">                    builder.append(write((CompoundCurve) curve, false, false));</span>
+                }
+<span class="fc" id="L504">            }</span>
+<span class="fc" id="L505">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L507">        return builder.toString();</span>
+    }
+
+    public String write(MultiCurve mc) {
+<span class="nc" id="L511">        return write(mc, true, true);</span>
+    }
+
+    public String write(MultiCurve mc, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L515">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L516" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L517">            addSrid(mc, builder);</span>
+        }
+<span class="fc" id="L519">        builder.append(&quot;MULTICURVE&quot;);</span>
+<span class="fc bfc" id="L520" title="All 2 branches covered.">        if (mc.isEmpty()) {</span>
+<span class="fc" id="L521">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L523" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L524">                addDimension(mc, builder);</span>
+            }
+<span class="fc" id="L526">            builder.append(&quot; (&quot;);</span>
+<span class="fc" id="L527">            boolean first = true;</span>
+<span class="fc bfc" id="L528" title="All 2 branches covered.">            for (Curve c : mc.getCurves()) {</span>
+<span class="fc bfc" id="L529" title="All 2 branches covered.">                if (first) {</span>
+<span class="fc" id="L530">                    first = false;</span>
+                } else {
+<span class="fc" id="L532">                    builder.append(&quot;, &quot;);</span>
+                }
+<span class="fc bfc" id="L534" title="All 2 branches covered.">                if (c instanceof LineString) {</span>
+<span class="fc" id="L535">                    LineString line = (LineString) c;</span>
+<span class="fc" id="L536">                    builder.append(&quot;(&quot;);</span>
+<span class="fc" id="L537">                    addCoordinates(line.getCoordinates(), builder);</span>
+<span class="fc" id="L538">                    builder.append(&quot;)&quot;);</span>
+<span class="pc bpc" id="L539" title="1 of 2 branches missed.">                } else if (c instanceof CircularString) {</span>
+<span class="fc" id="L540">                    builder.append(write((CircularString) c, false, false));</span>
+<span class="nc bnc" id="L541" title="All 2 branches missed.">                } else if (c instanceof CompoundCurve) {</span>
+<span class="nc" id="L542">                    builder.append(write((CompoundCurve) c, false, false));</span>
+                }
+<span class="fc" id="L544">            }</span>
+<span class="fc" id="L545">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L547">        return builder.toString();</span>
+    }
+
+    public String write(PolyHedralSurface phs) {
+<span class="nc" id="L551">        return write(phs, true, true);</span>
+    }
+
+    public String write(PolyHedralSurface phs, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L555">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L556" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L557">            addSrid(phs, builder);</span>
+        }
+<span class="fc" id="L559">        builder.append(&quot;POLYHEDRALSURFACE&quot;);</span>
+<span class="fc bfc" id="L560" title="All 2 branches covered.">        if (phs.getPolygons().isEmpty()) {</span>
+<span class="fc" id="L561">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L563" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L564">                addDimension(phs, builder);</span>
+            }
+<span class="fc" id="L566">            builder.append(&quot; (&quot;);</span>
+<span class="fc" id="L567">            boolean firstPoly = true;</span>
+<span class="fc bfc" id="L568" title="All 2 branches covered.">            for (Polygon polygon : phs.getPolygons()) {</span>
+<span class="fc bfc" id="L569" title="All 2 branches covered.">                if (!firstPoly) {</span>
+<span class="fc" id="L570">                    builder.append(&quot;, &quot;);</span>
+                } else {
+<span class="fc" id="L572">                    firstPoly = false;</span>
+                }
+<span class="fc" id="L574">                builder.append(&quot;((&quot;);</span>
+                // Outer ring
+<span class="fc" id="L576">                addCoordinates(polygon.getOuterLinearRing().getCoordinates(), builder);</span>
+<span class="fc" id="L577">                builder.append(&quot;)&quot;);</span>
+                // Inner rings
+<span class="fc bfc" id="L579" title="All 2 branches covered.">                for (LinearRing ring : polygon.getInnerLinearRings()) {</span>
+<span class="fc" id="L580">                    builder.append(&quot;, (&quot;);</span>
+<span class="fc" id="L581">                    addCoordinates(ring.getCoordinates(), builder);</span>
+<span class="fc" id="L582">                    builder.append(&quot;)&quot;);</span>
+<span class="fc" id="L583">                }</span>
+<span class="fc" id="L584">                builder.append(&quot;)&quot;);</span>
+<span class="fc" id="L585">            }</span>
+<span class="fc" id="L586">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L588">        return builder.toString();</span>
+    }
+
+    public String write(MultiSurface ms) {
+<span class="nc" id="L592">        return write(ms, true, true);</span>
+    }
+
+    public String write(MultiSurface ms, boolean includeSrid, boolean includeDimension) {
+<span class="fc" id="L596">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc bfc" id="L597" title="All 2 branches covered.">        if (includeSrid) {</span>
+<span class="fc" id="L598">            addSrid(ms, builder);</span>
+        }
+<span class="fc" id="L600">        builder.append(&quot;MULTISURFACE&quot;);</span>
+<span class="fc bfc" id="L601" title="All 2 branches covered.">        if (ms.isEmpty()) {</span>
+<span class="fc" id="L602">            builder.append(&quot; EMPTY&quot;);</span>
+        } else {
+<span class="fc bfc" id="L604" title="All 2 branches covered.">            if (includeDimension) {</span>
+<span class="fc" id="L605">                addDimension(ms, builder);</span>
+            }
+<span class="fc" id="L607">            builder.append(&quot; (&quot;);</span>
+<span class="fc" id="L608">            boolean first = true;</span>
+<span class="fc bfc" id="L609" title="All 2 branches covered.">            for (Surface s : ms.getSurfaces()) {</span>
+<span class="fc bfc" id="L610" title="All 2 branches covered.">                if (first) {</span>
+<span class="fc" id="L611">                    first = false;</span>
+                } else {
+<span class="fc" id="L613">                    builder.append(&quot;, &quot;);</span>
+                }
+<span class="fc bfc" id="L615" title="All 2 branches covered.">                if (s instanceof Polygon) {</span>
+<span class="fc" id="L616">                    addPolygonText((Polygon) s, builder);</span>
+<span class="pc bpc" id="L617" title="1 of 2 branches missed.">                } else if (s instanceof CurvePolygon) {</span>
+<span class="fc" id="L618">                    builder.append(write((CurvePolygon) s, false, false));</span>
+                }
+<span class="fc" id="L620">            }</span>
+<span class="fc" id="L621">            builder.append(&quot;)&quot;);</span>
+        }
+<span class="fc" id="L623">        return builder.toString();</span>
+    }
+
+    protected void addCoordinates(List&lt;Coordinate&gt; coordinates, StringBuilder builder) {
+<span class="fc" id="L627">        addCoordinates(coordinates, false, builder);</span>
+<span class="fc" id="L628">    }</span>
+
+    protected void addCoordinates(List&lt;Coordinate&gt; coordinates, boolean innerParens, StringBuilder builder) {
+<span class="fc" id="L631">        boolean first = true;</span>
+<span class="fc bfc" id="L632" title="All 2 branches covered.">        for (Coordinate coordinate : coordinates) {</span>
+<span class="fc bfc" id="L633" title="All 2 branches covered.">            if (!first) {</span>
+<span class="fc" id="L634">                builder.append(&quot;, &quot;);</span>
+            } else {
+<span class="fc" id="L636">                first = false;</span>
+            }
+<span class="pc bpc" id="L638" title="1 of 2 branches missed.">            if (innerParens) {</span>
+<span class="nc" id="L639">                builder.append(&quot;(&quot;);</span>
+            }
+<span class="fc" id="L641">            addCoordinate(coordinate, builder);</span>
+<span class="pc bpc" id="L642" title="1 of 2 branches missed.">            if (innerParens) {</span>
+<span class="nc" id="L643">                builder.append(&quot;)&quot;);</span>
+            }
+<span class="fc" id="L645">        }</span>
+<span class="fc" id="L646">    }</span>
+
+    /**
+     * Add a Coordinate to the StringBuilder
+     * @param coordinate The Coordinate
+     * @param builder The StringBuilder
+     */
+    protected void addCoordinate(Coordinate coordinate, StringBuilder builder) {
+<span class="fc" id="L654">        builder.append(coordinate.getX());</span>
+<span class="fc" id="L655">        builder.append(&quot; &quot;);</span>
+<span class="fc" id="L656">        builder.append(coordinate.getY());</span>
+<span class="fc bfc" id="L657" title="All 2 branches covered.">        if (coordinate.getDimension() == Dimension.TwoMeasured) {</span>
+<span class="fc" id="L658">            builder.append(&quot; &quot;).append(coordinate.getM());</span>
+<span class="fc bfc" id="L659" title="All 2 branches covered.">        } else if (coordinate.getDimension() == Dimension.Three) {</span>
+<span class="fc" id="L660">            builder.append(&quot; &quot;).append(coordinate.getZ());</span>
+<span class="fc bfc" id="L661" title="All 2 branches covered.">        } else if (coordinate.getDimension() == Dimension.ThreeMeasured) {</span>
+<span class="fc" id="L662">            builder.append(&quot; &quot;).append(coordinate.getZ());</span>
+<span class="fc" id="L663">            builder.append(&quot; &quot;).append(coordinate.getM());</span>
+        }
+<span class="fc" id="L665">    }</span>
+
+    /**
+     * Add the SRID to the StringBuilder
+     * @param g The Geometry
+     * @param builder The StringBuilder
+     */
+    protected void addSrid(Geometry g, StringBuilder builder) {
+<span class="fc bfc" id="L673" title="All 2 branches covered.">        if (g.getSrid() != null) {</span>
+<span class="fc" id="L674">            builder.append(&quot;SRID=&quot;).append(g.getSrid()).append(&quot;;&quot;);</span>
+        }
+<span class="fc" id="L676">    }</span>
+
+    /**
+     * Add the Dimension (Z, M, or ZM) to the StringBuilder
+     * @param g The Geometry
+     * @param builder The StringBuilder
+     */
+    protected void addDimension(Geometry g, StringBuilder builder) {
+<span class="fc bfc" id="L684" title="All 2 branches covered.">        if (g.getDimension() == Dimension.TwoMeasured) {</span>
+<span class="fc" id="L685">            builder.append(&quot; M&quot;);</span>
+<span class="fc bfc" id="L686" title="All 2 branches covered.">        } else if (g.getDimension() == Dimension.Three) {</span>
+<span class="fc" id="L687">            builder.append(&quot; Z&quot;);</span>
+<span class="fc bfc" id="L688" title="All 2 branches covered.">        } else if (g.getDimension() == Dimension.ThreeMeasured) {</span>
+<span class="fc" id="L689">            builder.append(&quot; ZM&quot;);</span>
+        }
+<span class="fc" id="L691">    }</span>
+
+    /**
+     * Add Polygon outer ring and inner rings to the StringBuilder
+     * @param polygon The Polygon
+     * @param builder The StringBuilder
+     */
+    protected void addPolygonText(Polygon polygon, StringBuilder builder) {
+<span class="fc" id="L699">        builder.append(&quot;((&quot;);</span>
+        // Outer ring
+<span class="fc" id="L701">        addCoordinates(polygon.getOuterLinearRing().getCoordinates(), builder);</span>
+<span class="fc" id="L702">        builder.append(&quot;)&quot;);</span>
+        // Inner rings
+<span class="fc bfc" id="L704" title="All 2 branches covered.">        for (LinearRing ring : polygon.getInnerLinearRings()) {</span>
+<span class="fc" id="L705">            builder.append(&quot;, (&quot;);</span>
+<span class="fc" id="L706">            addCoordinates(ring.getCoordinates(), builder);</span>
+<span class="fc" id="L707">            builder.append(&quot;)&quot;);</span>
+<span class="fc" id="L708">        }</span>
+<span class="fc" id="L709">        builder.append(&quot;)&quot;);</span>
+<span class="fc" id="L710">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

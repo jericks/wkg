@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WKB.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">WKB.java</span></div><h1>WKB.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+/**
+ * A holder for enums used in the WKBWriter and WKBReader
+ * @author Jared Erickson
+ */
+public interface WKB {
+
+    /**
+     * The WKB standard
+     */
+<span class="fc" id="L12">    public static enum Type {</span>
+<span class="fc" id="L13">        WKB, EWKB;</span>
+    }
+
+    /**
+     * The Byte Order
+     */
+<span class="fc" id="L19">    public static enum Endian {</span>
+<span class="fc" id="L20">        Big(0),</span>
+<span class="fc" id="L21">        Little(1);</span>
+
+        private final int value;
+
+<span class="fc" id="L25">        Endian(int value) {</span>
+<span class="fc" id="L26">            this.value = value;</span>
+<span class="fc" id="L27">        }</span>
+
+        public int getValue() {
+<span class="fc" id="L30">            return this.value;</span>
+        }
+
+        public static Endian get(int value) {
+<span class="fc bfc" id="L34" title="All 2 branches covered.">            for(Endian endian : values()) {</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">                if (endian.getValue() == value) {</span>
+<span class="fc" id="L36">                    return endian;</span>
+                }
+            }
+<span class="fc" id="L39">            return null;</span>
+        }
+    }
+
+    /**
+     * The Geometry Type
+     */
+<span class="fc" id="L46">    public static enum GeometryType {</span>
+<span class="fc" id="L47">        Point(1),</span>
+<span class="fc" id="L48">        LineString(2),</span>
+<span class="fc" id="L49">        Polygon(3),</span>
+<span class="fc" id="L50">        MultiPoint(4),</span>
+<span class="fc" id="L51">        MultiLineString(5),</span>
+<span class="fc" id="L52">        MultiPolygon(6),</span>
+<span class="fc" id="L53">        GeometryCollection(7),</span>
+<span class="fc" id="L54">        CircularString(8),</span>
+<span class="fc" id="L55">        CompoundCurve(9),</span>
+<span class="fc" id="L56">        CurvePolygon(10),</span>
+<span class="fc" id="L57">        MultiCurve(11),</span>
+<span class="fc" id="L58">        MultiSurface(12),</span>
+<span class="fc" id="L59">        Curve(13),</span>
+<span class="fc" id="L60">        Surface(14),</span>
+<span class="fc" id="L61">        PolyHedralSurface(15),</span>
+<span class="fc" id="L62">        Tin(16),</span>
+<span class="fc" id="L63">        Triangle(17);</span>
+
+        private final int value;
+
+<span class="fc" id="L67">        GeometryType(int value) {</span>
+<span class="fc" id="L68">            this.value = value;</span>
+<span class="fc" id="L69">        }</span>
+
+        public int getValue() {
+<span class="fc" id="L72">            return this.value;</span>
+        }
+
+        public static GeometryType get(int value) {
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            for(GeometryType gt : values()) {</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">                if (gt.getValue() == value) {</span>
+<span class="fc" id="L78">                    return gt;</span>
+                }
+            }
+<span class="fc" id="L81">            return null;</span>
+        }
+
+    }
+
+    /**
+     * The Geometry Type Flags
+     */
+<span class="fc" id="L89">    public static enum GeometryTypeFlag {</span>
+<span class="fc" id="L90">        Z(0x80000000),</span>
+<span class="fc" id="L91">        M(0x40000000),</span>
+<span class="fc" id="L92">        SRID(0x20000000);</span>
+
+        private final int value;
+
+<span class="fc" id="L96">        GeometryTypeFlag(int value) {</span>
+<span class="fc" id="L97">            this.value = value;</span>
+<span class="fc" id="L98">        }</span>
+
+        public int getValue() {
+<span class="fc" id="L101">            return this.value;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

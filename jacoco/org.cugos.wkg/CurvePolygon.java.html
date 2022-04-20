@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CurvePolygon.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">CurvePolygon.java</span></div><h1>CurvePolygon.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * A CurvePolygon is Surface made up of Curves.
+ * @author Jared Erickson
+ */
+public class CurvePolygon extends Surface {
+
+    /**
+     * The outer Curve
+     */
+    private final Curve outerCurve;
+
+    /**
+     * The List of inner Curves
+     */
+    private final List&lt;Curve&gt; innerCurves;
+
+    /**
+     * Create a new CurvePolygon
+     * @param outerCurve The outer Curve
+     * @param innerCurves The List of inner Curves
+     * @param dimension The Dimension
+     * @param srid The SRID
+     */
+    public CurvePolygon(Curve outerCurve, List&lt;Curve&gt; innerCurves, Dimension dimension, String srid) {
+<span class="fc" id="L31">        super(dimension, srid);</span>
+<span class="fc" id="L32">        this.outerCurve = outerCurve;</span>
+<span class="fc" id="L33">        this.innerCurves = Collections.unmodifiableList(innerCurves);</span>
+<span class="fc" id="L34">    }</span>
+
+    /**
+     * Create a new CurvePolygon
+     * @param outerCurve The outer Curve
+     * @param innerCurves The List of inner Curves
+     * @param dimension The Dimension
+     */
+    public CurvePolygon(Curve outerCurve, List&lt;Curve&gt; innerCurves, Dimension dimension) {
+<span class="fc" id="L43">        this(outerCurve, innerCurves, dimension, null);</span>
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * Get the outer Curve
+     * @return The outer Curve
+     */
+    public Curve getOuterCurve() {
+<span class="fc" id="L51">        return outerCurve;</span>
+    }
+
+    /**
+     * Get the List of inner Curves
+     * @return The List of inner Curves
+     */
+    public List&lt;Curve&gt; getInnerCurves() {
+<span class="fc" id="L59">        return innerCurves;</span>
+    }
+
+    @Override
+    public boolean isEmpty() {
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        return outerCurve == null | outerCurve.isEmpty();</span>
+    }
+
+    @Override
+    public int getNumberOfCoordinates() {
+<span class="fc" id="L69">        int numberOfCoordinates = outerCurve.getNumberOfCoordinates();</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        for(Curve curve : innerCurves) {</span>
+<span class="fc" id="L71">            numberOfCoordinates += curve.getNumberOfCoordinates();</span>
+<span class="fc" id="L72">        }</span>
+<span class="fc" id="L73">        return numberOfCoordinates;</span>
+    }
+
+    @Override
+    public List&lt;Coordinate&gt; getCoordinates() {
+<span class="fc" id="L78">        List&lt;Coordinate&gt; coordinates = new ArrayList&lt;Coordinate&gt;();</span>
+<span class="fc" id="L79">        coordinates.addAll(outerCurve.getCoordinates());</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        for(Curve curve : innerCurves) {</span>
+<span class="fc" id="L81">            coordinates.addAll(curve.getCoordinates());</span>
+<span class="fc" id="L82">        }</span>
+<span class="fc" id="L83">        return Collections.unmodifiableList(coordinates);</span>
+    }
+
+    /**
+     * Create an empty CurvePolygon
+     * @return An empty CurvePolygon
+     */
+    public static CurvePolygon createEmpty() {
+<span class="fc" id="L91">        return new CurvePolygon(</span>
+                new CircularString(new ArrayList&lt;Coordinate&gt;(), Dimension.Two, null),
+                new ArrayList&lt;Curve&gt;(),
+                Dimension.Two, null);
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

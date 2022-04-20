@@ -1,0 +1,1241 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WKBWriter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">WKBWriter.java</span></div><h1>WKBWriter.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+import org.cugos.wkg.WKB.Endian;
+import org.cugos.wkg.WKB.GeometryType;
+import org.cugos.wkg.WKB.GeometryTypeFlag;
+import org.cugos.wkg.WKB.Type;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.List;
+
+/**
+ * A Well Known Binary Writer.
+ * @author Jared Erickson
+ */
+public class WKBWriter implements Writer&lt;byte[]&gt; {
+
+    /**
+     * The WKB Type (WKB or EWKB)
+     */
+    private final Type wkbType;
+
+    /**
+     * Whether the byte order is big or little endian
+     */
+    private final Endian endian;
+
+    /**
+     * Create a WKBWriter with Type WKB and Big Endian byte order
+     */
+    public WKBWriter() {
+<span class="fc" id="L32">        this(Type.WKB, Endian.Big);</span>
+<span class="fc" id="L33">    }</span>
+
+    /**
+     * Create a WKBWriter
+     * @param wkbType The WKB.Type standard
+     * @param edian The WKB.Endian byte order
+     */
+<span class="fc" id="L40">    public WKBWriter(Type wkbType, Endian edian) {</span>
+<span class="fc" id="L41">        this.endian = edian;</span>
+<span class="fc" id="L42">        this.wkbType = wkbType;</span>
+<span class="fc" id="L43">    }</span>
+
+    /**
+     * Write the Geometry to a hex String
+     * @param geometry The Geometry
+     * @return A WKB hex String
+     */
+    public String writeToHex(Geometry geometry) {
+<span class="fc" id="L51">        return toHex(write(geometry));</span>
+    }
+
+    /**
+     * Write a Geometry to an array of bytes
+     * @param g The Geometry
+     * @return An array of bytes
+     */
+    @Override
+    public byte[] write(Geometry g) {
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (g instanceof Point) {</span>
+<span class="fc" id="L62">            return write((Point) g);</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        } else if (g instanceof LineString) {</span>
+<span class="fc" id="L64">            return write((LineString) g);</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        } else if (g instanceof LinearRing) {</span>
+<span class="nc" id="L66">            return write((LinearRing) g);</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        } else if (g instanceof Triangle) {</span>
+<span class="fc" id="L68">            return write((Triangle) g);</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        } else if (g instanceof Polygon) {</span>
+<span class="fc" id="L70">            return write((Polygon) g);</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        } else if (g instanceof MultiPoint) {</span>
+<span class="fc" id="L72">            return write((MultiPoint) g);</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        } else if (g instanceof MultiLineString) {</span>
+<span class="fc" id="L74">            return write((MultiLineString) g);</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        } else if (g instanceof MultiPolygon) {</span>
+<span class="fc" id="L76">            return write((MultiPolygon) g);</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        } else if (g instanceof GeometryCollection) {</span>
+<span class="fc" id="L78">            return write((GeometryCollection) g);</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        } else if (g instanceof CircularString) {</span>
+<span class="fc" id="L80">            return write((CircularString) g);</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        } else if (g instanceof CurvePolygon) {</span>
+<span class="fc" id="L82">            return write((CurvePolygon) g);</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        } else if (g instanceof CompoundCurve) {</span>
+<span class="fc" id="L84">            return write((CompoundCurve) g);</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        } else if (g instanceof MultiCurve) {</span>
+<span class="fc" id="L86">            return write((MultiCurve) g);</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        } else if (g instanceof PolyHedralSurface) {</span>
+<span class="fc" id="L88">            return write((PolyHedralSurface) g);</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        } else if (g instanceof MultiSurface) {</span>
+<span class="fc" id="L90">            return write((MultiSurface) g);</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">        } else if (g instanceof Tin) {</span>
+<span class="fc" id="L92">            return write((Tin) g);</span>
+        } else {
+<span class="nc" id="L94">            throw new IllegalArgumentException(&quot;Unsupported Geometry! &quot; + g.getClass().getName());</span>
+        }
+    }
+
+    @Override
+    public String getName() {
+<span class="fc" id="L100">        return &quot;WKB&quot;;</span>
+    }
+
+    /**
+     * Calculate the number of bytes for a given Geometry.
+     * @param g The Geometry
+     * @return The number of bytes necessary for the given Geometry
+     */
+    protected int calculateNumberOfBytes(Geometry g) {
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        if (g instanceof Point) {</span>
+<span class="fc" id="L110">            return calculateNumberOfBytes((Point) g);</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        } else if (g instanceof LineString) {</span>
+<span class="fc" id="L112">            return calculateNumberOfBytes((LineString) g);</span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">        } else if (g instanceof LinearRing) {</span>
+<span class="nc" id="L114">            return calculateNumberOfBytes((LinearRing) g);</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        } else if (g instanceof Triangle) {</span>
+<span class="fc" id="L116">            return calculateNumberOfBytes((Triangle) g);</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        } else if (g instanceof Polygon) {</span>
+<span class="fc" id="L118">            return calculateNumberOfBytes((Polygon) g);</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        } else if (g instanceof MultiPoint) {</span>
+<span class="fc" id="L120">            return calculateNumberOfBytes((MultiPoint) g);</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        } else if (g instanceof MultiLineString) {</span>
+<span class="fc" id="L122">            return calculateNumberOfBytes((MultiLineString) g);</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        } else if (g instanceof MultiPolygon) {</span>
+<span class="fc" id="L124">            return calculateNumberOfBytes((MultiPolygon) g);</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        } else if (g instanceof GeometryCollection) {</span>
+<span class="fc" id="L126">            return calculateNumberOfBytes((GeometryCollection) g);</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">        } else if (g instanceof CircularString) {</span>
+<span class="fc" id="L128">            return calculateNumberOfBytes((CircularString) g);</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        } else if (g instanceof CompoundCurve) {</span>
+<span class="fc" id="L130">            return calculateNumberOfBytes((CompoundCurve) g);</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        }  else if (g instanceof CurvePolygon) {</span>
+<span class="fc" id="L132">            return calculateNumberOfBytes((CurvePolygon) g);</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        } else if (g instanceof MultiCurve) {</span>
+<span class="fc" id="L134">            return calculateNumberOfBytes((MultiCurve) g);</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">        } else if (g instanceof PolyHedralSurface) {</span>
+<span class="fc" id="L136">            return calculateNumberOfBytes((PolyHedralSurface) g);</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        } else if (g instanceof MultiSurface) {</span>
+<span class="fc" id="L138">            return calculateNumberOfBytes((MultiSurface) g);</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">        } else if (g instanceof Tin) {</span>
+<span class="fc" id="L140">            return calculateNumberOfBytes((Tin) g);</span>
+        } else {
+<span class="nc" id="L142">            throw new IllegalArgumentException(&quot;Unsupported Geometry! &quot; + g.getClass().getName());</span>
+        }
+    }
+
+    /**
+     * Write the Geometry into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param g The Geometry
+     */
+    protected void putGeometry(ByteBuffer buffer, Geometry g) {
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (g instanceof Point) {</span>
+<span class="fc" id="L153">            putPoint(buffer, (Point) g);</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">        } else if (g instanceof LineString) {</span>
+<span class="fc" id="L155">            putLineString(buffer, (LineString) g);</span>
+<span class="pc bpc" id="L156" title="1 of 2 branches missed.">        } else if (g instanceof LinearRing) {</span>
+<span class="nc" id="L157">            putLinearRing(buffer, (LinearRing) g);</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">        } else if (g instanceof Triangle) {</span>
+<span class="fc" id="L159">            putTriangle(buffer, (Triangle) g);</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">        } else if (g instanceof Polygon) {</span>
+<span class="fc" id="L161">            putPolygon(buffer, (Polygon) g);</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">        } else if (g instanceof MultiPoint) {</span>
+<span class="fc" id="L163">            putMultiPoint(buffer, (MultiPoint) g);</span>
+<span class="fc bfc" id="L164" title="All 2 branches covered.">        } else if (g instanceof MultiLineString) {</span>
+<span class="fc" id="L165">            putMultiLineString(buffer, (MultiLineString) g);</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">        } else if (g instanceof MultiPolygon) {</span>
+<span class="fc" id="L167">            putMultiPolygon(buffer, (MultiPolygon) g);</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        } else if (g instanceof GeometryCollection) {</span>
+<span class="fc" id="L169">            putGeometryCollection(buffer, (GeometryCollection) g);</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">        } else if (g instanceof CircularString) {</span>
+<span class="fc" id="L171">            putCircularString(buffer, (CircularString) g);</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">        } else if (g instanceof CompoundCurve) {</span>
+<span class="fc" id="L173">            putCompoundCurve(buffer, (CompoundCurve) g);</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">        }  else if (g instanceof CurvePolygon) {</span>
+<span class="fc" id="L175">            putCurvePolygon(buffer, (CurvePolygon) g);</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">        } else if (g instanceof MultiCurve) {</span>
+<span class="fc" id="L177">           putMultiCurve(buffer, (MultiCurve) g);</span>
+<span class="fc bfc" id="L178" title="All 2 branches covered.">        } else if (g instanceof PolyHedralSurface) {</span>
+<span class="fc" id="L179">            putPolyHedralSurface(buffer, (PolyHedralSurface) g);</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">        } else if (g instanceof MultiSurface) {</span>
+<span class="fc" id="L181">            putMultiSurface(buffer, (MultiSurface) g);</span>
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">        } else if (g instanceof Tin) {</span>
+<span class="fc" id="L183">            putTin(buffer, (Tin) g);</span>
+        } else {
+<span class="nc" id="L185">            throw new IllegalArgumentException(&quot;Unsupported Geometry! &quot; + g.getClass().getName());</span>
+        }
+<span class="fc" id="L187">    }</span>
+
+    /**
+     * Calculate the number of bytes for header including an optional SRID.
+     * This includes the byte order and geometry type, so minimum of 5.
+     * @param srid The optional SRID
+     * @return
+     */
+    private int calculateNumberOfBytes(String srid) {
+<span class="fc" id="L196">        int numberOfBytes = 1 + 4;</span>
+<span class="fc bfc" id="L197" title="All 4 branches covered.">        if (wkbType == Type.EWKB &amp;&amp; srid != null) {</span>
+<span class="fc" id="L198">            numberOfBytes += 4;</span>
+        }
+<span class="fc" id="L200">        return numberOfBytes;</span>
+    }
+
+    /**
+     * Calculate the number of bytes for the given number of Coordinates with the given Dimension
+     * @param numberOfCoordinates The number of Coordinates
+     * @param dimension The Dimension of the Coordinates
+     * @return The number of bytes
+     */
+    private int calculateNumberOfBytes(int numberOfCoordinates, Dimension dimension) {
+<span class="fc" id="L210">        int multiplier = getMultiplier(dimension);</span>
+<span class="fc" id="L211">        return 8 * (numberOfCoordinates * multiplier);</span>
+    }
+
+    /**
+     * Get the multiplier for a Coordinate based on the Dimension.
+     * @param dimension The Dimension
+     * @return A multiplier
+     */
+    private int getMultiplier(Dimension dimension) {
+<span class="fc bfc" id="L220" title="All 2 branches covered.">        if (dimension == Dimension.Two) {</span>
+<span class="fc" id="L221">            return 2;</span>
+<span class="fc bfc" id="L222" title="All 4 branches covered.">        } else if (dimension == Dimension.TwoMeasured || dimension == Dimension.Three) {</span>
+<span class="fc" id="L223">            return 3;</span>
+<span class="pc bpc" id="L224" title="1 of 2 branches missed.">        } else if (dimension == Dimension.ThreeMeasured) {</span>
+<span class="fc" id="L225">            return 4;</span>
+        } else {
+<span class="nc" id="L227">            return 2;</span>
+        }
+    }
+
+    /**
+     * Write the byte order into the ByteBuffer and order the ByteBuffer
+     * @param buffer The ByteBuffer
+     */
+    private void putByteOrder(ByteBuffer buffer) {
+<span class="fc bfc" id="L236" title="All 2 branches covered.">        if (endian == Endian.Big) {</span>
+<span class="fc" id="L237">            buffer.order(ByteOrder.BIG_ENDIAN);</span>
+        } else {
+<span class="fc" id="L239">            buffer.order(ByteOrder.LITTLE_ENDIAN);</span>
+        }
+<span class="fc" id="L241">        buffer.put((byte) endian.getValue());</span>
+<span class="fc" id="L242">    }</span>
+
+    /**
+     * Write the geometry type into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param geometryType The WKB.GeometryType
+     * @param dimension The Dimension
+     * @param srid The SRID
+     */
+    private void putGeometryType(ByteBuffer buffer, GeometryType geometryType, Dimension dimension, String srid) {
+<span class="fc" id="L252">        int b = geometryType.getValue();</span>
+<span class="fc bfc" id="L253" title="All 2 branches covered.">        if (wkbType == Type.EWKB) {</span>
+<span class="fc bfc" id="L254" title="All 4 branches covered.">            if (dimension == Dimension.Three || dimension == Dimension.ThreeMeasured) {</span>
+<span class="fc" id="L255">                b = b | GeometryTypeFlag.Z.getValue();</span>
+            }
+<span class="fc bfc" id="L257" title="All 4 branches covered.">            if (dimension == Dimension.TwoMeasured || dimension == Dimension.ThreeMeasured) {</span>
+<span class="fc" id="L258">                b = b | GeometryTypeFlag.M.getValue();</span>
+            }
+<span class="fc bfc" id="L260" title="All 2 branches covered.">            if (srid != null) {</span>
+<span class="fc" id="L261">                b = b | GeometryTypeFlag.SRID.getValue();</span>
+            }
+        }
+<span class="fc" id="L264">        buffer.putInt(b);</span>
+<span class="fc" id="L265">    }</span>
+
+    /**
+     * Write an SRID into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param srid The SRID
+     */
+    private void putSrid(ByteBuffer buffer, String srid) {
+<span class="fc bfc" id="L273" title="All 4 branches covered.">        if (wkbType == Type.EWKB &amp;&amp; srid != null) {</span>
+<span class="fc" id="L274">            buffer.putInt(Integer.parseInt(srid));</span>
+        }
+<span class="fc" id="L276">    }</span>
+
+    /**
+     * Write a Coordinate into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param coord The Coordinates
+     */
+    private void putCoordinate(ByteBuffer buffer, Coordinate coord) {
+<span class="fc" id="L284">        Dimension dimension = coord.getDimension();</span>
+<span class="fc" id="L285">        buffer.putDouble(coord.getX());</span>
+<span class="fc" id="L286">        buffer.putDouble(coord.getY());</span>
+<span class="fc bfc" id="L287" title="All 4 branches covered.">        if (dimension == Dimension.Three || dimension == Dimension.ThreeMeasured) {</span>
+<span class="fc" id="L288">            buffer.putDouble(coord.getZ());</span>
+        }
+<span class="fc bfc" id="L290" title="All 4 branches covered.">        if (dimension == Dimension.TwoMeasured || dimension == Dimension.ThreeMeasured) {</span>
+<span class="fc" id="L291">            buffer.putDouble(coord.getM());</span>
+        }
+<span class="fc" id="L293">    }</span>
+
+    /**
+     * Write a List of Coordinates into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param coords The List of Coordinates
+     */
+    private void putCoordinates(ByteBuffer buffer, List&lt;Coordinate&gt; coords) {
+<span class="fc" id="L301">        buffer.putInt(coords.size());</span>
+<span class="fc bfc" id="L302" title="All 2 branches covered.">        for(Coordinate coord : coords) {</span>
+<span class="fc" id="L303">            putCoordinate(buffer, coord);</span>
+<span class="fc" id="L304">        }</span>
+<span class="fc" id="L305">    }</span>
+
+    // Point
+
+    /**
+     * Write a Point to a hex String
+     * @param point The Point
+     * @return A hex String
+     */
+    public String writeToHex(Point point) {
+<span class="nc" id="L315">        return toHex(write(point));</span>
+    }
+
+    /**
+     * Write a Point to a byte array
+     * @param point The Point
+     * @return A byte array
+     */
+    public byte[] write(Point point) {
+<span class="fc" id="L324">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(point));</span>
+<span class="fc" id="L325">        putPoint(buffer, point);</span>
+<span class="fc" id="L326">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the Point
+     * @param point The Point
+     * @return The number of bytes necessary for the Point
+     */
+    private int calculateNumberOfBytes(Point point) {
+<span class="fc" id="L335">        return calculateNumberOfBytes(point.getSrid()) +</span>
+<span class="fc" id="L336">                calculateNumberOfBytes(point.getNumberOfCoordinates(), point.getDimension());</span>
+    }
+
+    /**
+     * Write the Point into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param point The Point
+     */
+    private void putPoint(ByteBuffer buffer, Point point) {
+<span class="fc" id="L345">        putByteOrder(buffer);</span>
+<span class="fc" id="L346">        putGeometryType(buffer, GeometryType.Point, point.getDimension(), point.getSrid());</span>
+<span class="fc" id="L347">        putSrid(buffer, point.getSrid());</span>
+<span class="pc bpc" id="L348" title="1 of 2 branches missed.">        if (!point.isEmpty()) {</span>
+<span class="fc" id="L349">            putCoordinate(buffer, point.getCoordinate());</span>
+        }
+<span class="fc" id="L351">    }</span>
+
+    // LinearRing
+
+    /**
+     * Write a LinearRing to a hex String
+     * @param linearRing The LinearRing
+     * @return A hex String
+     */
+    public String writeToHex(LinearRing linearRing) {
+<span class="nc" id="L361">        return toHex(write(linearRing));</span>
+    }
+
+    /**
+     * Write a LinearRing to a byte array
+     * @param linearRing The LinearRing
+     * @return A byte array
+     */
+    public byte[] write(LinearRing linearRing) {
+<span class="nc" id="L370">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(linearRing));</span>
+<span class="nc" id="L371">        putLineString(buffer, linearRing);</span>
+<span class="nc" id="L372">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the LinearRing
+     * @param linearRing The LinearRing
+     * @return The number of bytes necessary for the LinearRing
+     */
+    private int calculateNumberOfBytes(LinearRing linearRing) {
+<span class="nc" id="L381">        return 4 + calculateNumberOfBytes(linearRing.getSrid()) +</span>
+<span class="nc" id="L382">                calculateNumberOfBytes(linearRing.getNumberOfCoordinates(), linearRing.getDimension());</span>
+    }
+
+    /**
+     * Write the LinearRing into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param linearRing The LinearRing
+     */
+    private void putLinearRing(ByteBuffer buffer, LinearRing linearRing) {
+<span class="nc" id="L391">        putByteOrder(buffer);</span>
+<span class="nc" id="L392">        putGeometryType(buffer, GeometryType.LineString, linearRing.getDimension(), linearRing.getSrid());</span>
+<span class="nc" id="L393">        putSrid(buffer, linearRing.getSrid());</span>
+<span class="nc bnc" id="L394" title="All 2 branches missed.">        if (!linearRing.isEmpty()) {</span>
+<span class="nc" id="L395">            putCoordinates(buffer, linearRing.getCoordinates());</span>
+        }
+<span class="nc" id="L397">    }</span>
+
+    // LineString
+
+    /**
+     * Write a LineString to a hex String
+     * @param lineString The LineString
+     * @return A hex String
+     */
+    public String writeToHex(LineString lineString) {
+<span class="nc" id="L407">        return toHex(write(lineString));</span>
+    }
+
+    /**
+     * Write a LineString to a byte array
+     * @param lineString The LineString
+     * @return A byte array
+     */
+    public byte[] write(LineString lineString) {
+<span class="fc" id="L416">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(lineString));</span>
+<span class="fc" id="L417">        putLineString(buffer, lineString);</span>
+<span class="fc" id="L418">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the LineString
+     * @param lineString The LineString
+     * @return The number of bytes necessary for the LineString
+     */
+    private int calculateNumberOfBytes(LineString lineString) {
+<span class="fc" id="L427">        return 4 + calculateNumberOfBytes(lineString.getSrid()) +</span>
+<span class="fc" id="L428">                calculateNumberOfBytes(lineString.getNumberOfCoordinates(), lineString.getDimension());</span>
+    }
+
+    /**
+     * Write the LineString into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param lineString The LineString
+     */
+    private void putLineString(ByteBuffer buffer, LineString lineString) {
+<span class="fc" id="L437">        putByteOrder(buffer);</span>
+<span class="fc" id="L438">        putGeometryType(buffer, GeometryType.LineString, lineString.getDimension(), lineString.getSrid());</span>
+<span class="fc" id="L439">        putSrid(buffer, lineString.getSrid());</span>
+<span class="pc bpc" id="L440" title="1 of 2 branches missed.">        if (!lineString.isEmpty()) {</span>
+<span class="fc" id="L441">            putCoordinates(buffer, lineString.getCoordinates());</span>
+        }
+<span class="fc" id="L443">    }</span>
+
+    // Polygon
+
+    /**
+     * Write a Polygon to a hex String
+     * @param polygon The Polygon
+     * @return A hex String
+     */
+    public String writeToHex(Polygon polygon) {
+<span class="nc" id="L453">        return toHex(write(polygon));</span>
+    }
+
+    /**
+     * Write a Polygon to a byte array
+     * @param polygon The Polygon
+     * @return A byte array
+     */
+    public byte[] write(Polygon polygon) {
+<span class="fc" id="L462">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(polygon));</span>
+<span class="fc" id="L463">        putPolygon(buffer, polygon);</span>
+<span class="fc" id="L464">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the Polygon
+     * @param polygon The Polygon
+     * @return The number of bytes necessary for the Polygon
+     */
+    private int calculateNumberOfBytes(Polygon polygon) {
+<span class="fc" id="L473">        int numberOfRings = 0;</span>
+<span class="pc bpc" id="L474" title="1 of 2 branches missed.">        if (!polygon.isEmpty()) {</span>
+<span class="fc" id="L475">            numberOfRings = 1 + polygon.getInnerLinearRings().size();</span>
+        }
+<span class="fc" id="L477">        return 4 +</span>
+            numberOfRings * 4 + // Number of coordinate for each ring
+<span class="fc" id="L479">            calculateNumberOfBytes(polygon.getSrid()) +</span>
+<span class="fc" id="L480">            calculateNumberOfBytes(polygon.getNumberOfCoordinates(), polygon.getDimension());</span>
+    }
+
+    /**
+     * Write the Polygon into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param polygon The Polygon
+     */
+    private void putPolygon(ByteBuffer buffer, Polygon polygon) {
+<span class="fc" id="L489">        putByteOrder(buffer);</span>
+<span class="fc" id="L490">        putGeometryType(buffer, GeometryType.Polygon, polygon.getDimension(), polygon.getSrid());</span>
+<span class="fc" id="L491">        putSrid(buffer, polygon.getSrid());</span>
+        // Number of Rings
+<span class="fc" id="L493">        int numberOfRings = 0;</span>
+<span class="pc bpc" id="L494" title="1 of 2 branches missed.">        if (!polygon.isEmpty()) {</span>
+<span class="fc" id="L495">            numberOfRings = 1 + polygon.getInnerLinearRings().size();</span>
+        }
+<span class="fc" id="L497">        buffer.putInt(numberOfRings);</span>
+        // Rings
+<span class="pc bpc" id="L499" title="1 of 2 branches missed.">        if (!polygon.isEmpty()) {</span>
+<span class="fc" id="L500">            putCoordinates(buffer, polygon.getOuterLinearRing().getCoordinates());</span>
+<span class="fc bfc" id="L501" title="All 2 branches covered.">            for(LinearRing ring : polygon.getInnerLinearRings()) {</span>
+<span class="fc" id="L502">                putCoordinates(buffer, ring.getCoordinates());</span>
+<span class="fc" id="L503">            }</span>
+        }
+<span class="fc" id="L505">    }</span>
+
+    // MultiPoint
+
+    /**
+     * Write a MultiPoint to a hex String
+     * @param multiPoint The MultiPoint
+     * @return A hex String
+     */
+    public String writeToHex(MultiPoint multiPoint) {
+<span class="nc" id="L515">        return toHex(write(multiPoint));</span>
+    }
+
+    /**
+     * Write a MultiPoint to a byte array
+     * @param multiPoint The MultiPoint
+     * @return A byte array
+     */
+    public byte[] write(MultiPoint multiPoint) {
+<span class="fc" id="L524">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(multiPoint));</span>
+<span class="fc" id="L525">        putMultiPoint(buffer, multiPoint);</span>
+<span class="fc" id="L526">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the MultiPoint
+     * @param multiPoint The MultiPoint
+     * @return The number of bytes necessary for the MultiPoint
+     */
+    private int calculateNumberOfBytes(MultiPoint multiPoint) {
+<span class="fc" id="L535">        return 4 +</span>
+            // Number of coordinates
+<span class="fc" id="L537">            calculateNumberOfBytes(multiPoint.getSrid()) +</span>
+            // Points
+<span class="fc" id="L539">            ((calculateNumberOfBytes(multiPoint.getSrid()) + calculateNumberOfBytes(1, multiPoint.getDimension())) * multiPoint.getPoints().size());</span>
+    }
+
+    /**
+     * Write the MultiPoint into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param multiPoint The MultiPoint
+     */
+    private void putMultiPoint(ByteBuffer buffer, MultiPoint multiPoint) {
+<span class="fc" id="L548">        putByteOrder(buffer);</span>
+<span class="fc" id="L549">        putGeometryType(buffer, GeometryType.MultiPoint, multiPoint.getDimension(), multiPoint.getSrid());</span>
+<span class="fc" id="L550">        putSrid(buffer, multiPoint.getSrid());</span>
+<span class="fc" id="L551">        buffer.putInt(multiPoint.getNumberOfCoordinates());</span>
+<span class="pc bpc" id="L552" title="1 of 2 branches missed.">        if (!multiPoint.isEmpty()) {</span>
+<span class="fc bfc" id="L553" title="All 2 branches covered.">            for (Point pt : multiPoint.getPoints()) {</span>
+<span class="fc" id="L554">                putPoint(buffer, pt);</span>
+<span class="fc" id="L555">            }</span>
+        }
+<span class="fc" id="L557">    }</span>
+
+    // MultiLineString
+
+    /**
+     * Write a MultiLineString to a hex String
+     * @param multiLineString The MultiLineString
+     * @return A hex String
+     */
+    public String writeToHex(MultiLineString multiLineString) {
+<span class="nc" id="L567">        return toHex(write(multiLineString));</span>
+    }
+
+    /**
+     * Write a MultiLineString to a byte array
+     * @param multiLineString The MultiLineString
+     * @return A byte array
+     */
+    public byte[] write(MultiLineString multiLineString) {
+<span class="fc" id="L576">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(multiLineString));</span>
+<span class="fc" id="L577">        putMultiLineString(buffer, multiLineString);</span>
+<span class="fc" id="L578">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the MultiLineString
+     * @param multiLineString The MultiLineString
+     * @return The number of bytes necessary for the MultiLineString
+     */
+    private int calculateNumberOfBytes(MultiLineString multiLineString) {
+<span class="fc" id="L587">        int numberOfBytes = 4 + calculateNumberOfBytes(multiLineString.getSrid());</span>
+<span class="fc bfc" id="L588" title="All 2 branches covered.">        for(LineString lineString : multiLineString.getLineStrings()) {</span>
+<span class="fc" id="L589">            numberOfBytes += calculateNumberOfBytes(lineString);</span>
+<span class="fc" id="L590">        }</span>
+<span class="fc" id="L591">        return numberOfBytes;</span>
+    }
+
+    /**
+     * Write the MultiLineString into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param multiLineString The MultiLineString
+     */
+    private void putMultiLineString(ByteBuffer buffer, MultiLineString multiLineString) {
+<span class="fc" id="L600">        putByteOrder(buffer);</span>
+<span class="fc" id="L601">        putGeometryType(buffer, GeometryType.MultiLineString, multiLineString.getDimension(), multiLineString.getSrid());</span>
+<span class="fc" id="L602">        putSrid(buffer, multiLineString.getSrid());</span>
+<span class="fc" id="L603">        buffer.putInt(multiLineString.getLineStrings().size());</span>
+<span class="pc bpc" id="L604" title="1 of 2 branches missed.">        if (!multiLineString.isEmpty()) {</span>
+<span class="fc bfc" id="L605" title="All 2 branches covered.">            for (LineString lineString : multiLineString.getLineStrings()) {</span>
+<span class="fc" id="L606">                putLineString(buffer, lineString);</span>
+<span class="fc" id="L607">            }</span>
+        }
+<span class="fc" id="L609">    }</span>
+
+    // MultiPolygon
+
+    /**
+     * Write a MultiPolygon to a hex String
+     * @param multiPolygon The MultiPolygon
+     * @return A hex String
+     */
+    public String writeToHex(MultiPolygon multiPolygon) {
+<span class="nc" id="L619">        return toHex(write(multiPolygon));</span>
+    }
+
+    /**
+     * Write a MultiPolygon to a byte array
+     * @param multiPolygon The MultiPolygon
+     * @return A byte array
+     */
+    public byte[] write(MultiPolygon multiPolygon) {
+<span class="fc" id="L628">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(multiPolygon));</span>
+<span class="fc" id="L629">        putMultiPolygon(buffer, multiPolygon);</span>
+<span class="fc" id="L630">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the MultiPolygon
+     * @param multiPolygon The MultiPolygon
+     * @return The number of bytes necessary for the MultiPolygon
+     */
+    private int calculateNumberOfBytes(MultiPolygon multiPolygon) {
+<span class="fc" id="L639">        int numberOfBytes = 4 + calculateNumberOfBytes(multiPolygon.getSrid());</span>
+<span class="fc bfc" id="L640" title="All 2 branches covered.">        for(Polygon polygon : multiPolygon.getPolygons()) {</span>
+<span class="fc" id="L641">            numberOfBytes += calculateNumberOfBytes(polygon);</span>
+<span class="fc" id="L642">        }</span>
+<span class="fc" id="L643">        return numberOfBytes;</span>
+    }
+
+    /**
+     * Write the MultiPolygon into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param multiPolygon The MultiPolygon
+     */
+    private void putMultiPolygon(ByteBuffer buffer, MultiPolygon multiPolygon) {
+<span class="fc" id="L652">        putByteOrder(buffer);</span>
+<span class="fc" id="L653">        putGeometryType(buffer, GeometryType.MultiPolygon, multiPolygon.getDimension(), multiPolygon.getSrid());</span>
+<span class="fc" id="L654">        putSrid(buffer, multiPolygon.getSrid());</span>
+<span class="fc" id="L655">        buffer.putInt(multiPolygon.getPolygons().size());</span>
+<span class="pc bpc" id="L656" title="1 of 2 branches missed.">        if (!multiPolygon.isEmpty()) {</span>
+<span class="fc bfc" id="L657" title="All 2 branches covered.">            for (Polygon polygon: multiPolygon.getPolygons()) {</span>
+<span class="fc" id="L658">                putPolygon(buffer, polygon);</span>
+<span class="fc" id="L659">            }</span>
+        }
+<span class="fc" id="L661">    }</span>
+
+    // GeometryCollection
+
+    /**
+     * Write a GeometryCollection to a hex String
+     * @param geometryCollection The GeometryCollection
+     * @return A hex String
+     */
+    public String writeToHex(GeometryCollection geometryCollection) {
+<span class="nc" id="L671">        return toHex(write(geometryCollection));</span>
+    }
+
+    /**
+     * Write a GeometryCollection to a byte array
+     * @param geometryCollection The GeometryCollection
+     * @return A byte array
+     */
+    public byte[] write(GeometryCollection geometryCollection) {
+<span class="fc" id="L680">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(geometryCollection));</span>
+<span class="fc" id="L681">        putGeometryCollection(buffer, geometryCollection);</span>
+<span class="fc" id="L682">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the GeometryCollection
+     * @param geometryCollection The GeometryCollection
+     * @return The number of bytes necessary for the GeometryCollection
+     */
+    private int calculateNumberOfBytes(GeometryCollection geometryCollection) {
+<span class="fc" id="L691">        int numberOfBytes = 4 + calculateNumberOfBytes(geometryCollection.getSrid());</span>
+<span class="fc bfc" id="L692" title="All 2 branches covered.">        for(Geometry geometry : geometryCollection.getGeometries()) {</span>
+<span class="fc" id="L693">            numberOfBytes += calculateNumberOfBytes(geometry);</span>
+<span class="fc" id="L694">        }</span>
+<span class="fc" id="L695">        return numberOfBytes;</span>
+    }
+
+    /**
+     * Write the GeometryCollection into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param geometryCollection The GeometryCollection
+     */
+    private void putGeometryCollection(ByteBuffer buffer, GeometryCollection geometryCollection) {
+<span class="fc" id="L704">        putByteOrder(buffer);</span>
+<span class="fc" id="L705">        putGeometryType(buffer, GeometryType.GeometryCollection, geometryCollection.getDimension(), geometryCollection.getSrid());</span>
+<span class="fc" id="L706">        putSrid(buffer, geometryCollection.getSrid());</span>
+<span class="fc" id="L707">        buffer.putInt(geometryCollection.getGeometries().size());</span>
+<span class="pc bpc" id="L708" title="1 of 2 branches missed.">        if (!geometryCollection.isEmpty()) {</span>
+<span class="fc bfc" id="L709" title="All 2 branches covered.">            for (Geometry geometry : geometryCollection.getGeometries()) {</span>
+<span class="fc" id="L710">                putGeometry(buffer, geometry);</span>
+<span class="fc" id="L711">            }</span>
+        }
+<span class="fc" id="L713">    }</span>
+
+    // CircularString
+
+    /**
+     * Write a CircularString to a hex String
+     * @param circularString The CircularString
+     * @return A hex String
+     */
+    public String writeToHex(CircularString circularString) {
+<span class="nc" id="L723">        return toHex(write(circularString));</span>
+    }
+
+    /**
+     * Write a CircularString to a byte array
+     * @param circularString The CircularString
+     * @return A byte array
+     */
+    public byte[] write(CircularString circularString) {
+<span class="fc" id="L732">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(circularString));</span>
+<span class="fc" id="L733">        putCircularString(buffer, circularString);</span>
+<span class="fc" id="L734">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the CircularString
+     * @param circularString The CircularString
+     * @return The number of bytes necessary for the CircularString
+     */
+    private int calculateNumberOfBytes(CircularString circularString) {
+<span class="fc" id="L743">        return 4 + calculateNumberOfBytes(circularString.getSrid()) +</span>
+<span class="fc" id="L744">                calculateNumberOfBytes(circularString.getNumberOfCoordinates(), circularString.getDimension());</span>
+    }
+
+    /**
+     * Write the CircularString into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param circularString The CircularString
+     */
+    private void putCircularString(ByteBuffer buffer, CircularString circularString) {
+<span class="fc" id="L753">        putByteOrder(buffer);</span>
+<span class="fc" id="L754">        putGeometryType(buffer, GeometryType.CircularString, circularString.getDimension(), circularString.getSrid());</span>
+<span class="fc" id="L755">        putSrid(buffer, circularString.getSrid());</span>
+<span class="pc bpc" id="L756" title="1 of 2 branches missed.">        if (!circularString.isEmpty()) {</span>
+<span class="fc" id="L757">            putCoordinates(buffer, circularString.getCoordinates());</span>
+        }
+<span class="fc" id="L759">    }</span>
+
+    // Curve
+
+    /**
+     * Calculate the number of bytes necessary for the Curve
+     * @param curve The GeometryCollection
+     * @return The number of bytes necessary for the Curve
+     */
+    private int calculateNumberOfBytes(Curve curve) {
+<span class="fc bfc" id="L769" title="All 2 branches covered.">        if (curve instanceof LineString) {</span>
+<span class="fc" id="L770">            return calculateNumberOfBytes((LineString) curve);</span>
+<span class="pc bpc" id="L771" title="1 of 2 branches missed.">        } else if (curve instanceof CircularString) {</span>
+<span class="fc" id="L772">            return calculateNumberOfBytes((CircularString) curve);</span>
+<span class="nc bnc" id="L773" title="All 2 branches missed.">        } else if (curve instanceof CompoundCurve) {</span>
+<span class="nc" id="L774">            return calculateNumberOfBytes((CompoundCurve) curve);</span>
+        } else {
+<span class="nc" id="L776">            throw new IllegalArgumentException(&quot;Unsupported Curve! &quot; + curve.getClass().getName());</span>
+        }
+    }
+
+    /**
+     * Write the Curve into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param curve The Curve
+     */
+    private void putCurve(ByteBuffer buffer, Curve curve) {
+<span class="fc bfc" id="L786" title="All 2 branches covered.">        if (curve instanceof LineString) {</span>
+<span class="fc" id="L787">            putLineString(buffer, (LineString) curve);</span>
+<span class="pc bpc" id="L788" title="1 of 2 branches missed.">        } else if (curve instanceof CircularString) {</span>
+<span class="fc" id="L789">            putCircularString(buffer, (CircularString) curve);</span>
+<span class="nc bnc" id="L790" title="All 2 branches missed.">        } else if (curve instanceof CompoundCurve) {</span>
+<span class="nc" id="L791">            putCompoundCurve(buffer, (CompoundCurve) curve);</span>
+        } else {
+<span class="nc" id="L793">            throw new IllegalArgumentException(&quot;Unsupported Curve! &quot; + curve.getClass().getName());</span>
+        }
+<span class="fc" id="L795">    }</span>
+
+    // CompoundCurve
+
+    /**
+     * Write a CompoundCurve to a hex String
+     * @param compoundCurve The CompoundCurve
+     * @return A hex String
+     */
+    public String writeToHex(CompoundCurve compoundCurve) {
+<span class="nc" id="L805">        return toHex(write(compoundCurve));</span>
+    }
+
+    /**
+     * Write a CompoundCurve to a byte array
+     * @param compoundCurve The CompoundCurve
+     * @return A byte array
+     */
+    public byte[] write(CompoundCurve compoundCurve) {
+<span class="fc" id="L814">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(compoundCurve));</span>
+<span class="fc" id="L815">        putCompoundCurve(buffer, compoundCurve);</span>
+<span class="fc" id="L816">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the CompoundCurve
+     * @param compoundCurve The CompoundCurve
+     * @return The number of bytes necessary for the CompoundCurve
+     */
+    private int calculateNumberOfBytes(CompoundCurve compoundCurve) {
+<span class="fc" id="L825">        int numberOfBytes = 4 + calculateNumberOfBytes(compoundCurve.getSrid());</span>
+<span class="fc bfc" id="L826" title="All 2 branches covered.">        for (Curve curve : compoundCurve.getCurves()) {</span>
+<span class="fc" id="L827">            numberOfBytes += calculateNumberOfBytes(curve);</span>
+<span class="fc" id="L828">        }</span>
+<span class="fc" id="L829">        return  numberOfBytes;</span>
+    }
+
+    /**
+     * Write the CompoundCurve into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param compoundCurve The CompoundCurve
+     */
+    private void putCompoundCurve(ByteBuffer buffer, CompoundCurve compoundCurve) {
+<span class="fc" id="L838">        putByteOrder(buffer);</span>
+<span class="fc" id="L839">        putGeometryType(buffer, GeometryType.CompoundCurve, compoundCurve.getDimension(), compoundCurve.getSrid());</span>
+<span class="fc" id="L840">        putSrid(buffer, compoundCurve.getSrid());</span>
+<span class="fc" id="L841">        buffer.putInt(compoundCurve.getCurves().size());</span>
+<span class="pc bpc" id="L842" title="1 of 2 branches missed.">        if (!compoundCurve.isEmpty()) {</span>
+<span class="fc bfc" id="L843" title="All 2 branches covered.">            for (Curve curve : compoundCurve.getCurves()) {</span>
+<span class="fc" id="L844">                putCurve(buffer, curve);</span>
+<span class="fc" id="L845">            }</span>
+        }
+<span class="fc" id="L847">    }</span>
+
+    // CurvePolygon
+
+    /**
+     * Write a CurvePolygon to a hex String
+     * @param curvePolygon The CurvePolygon
+     * @return A hex String
+     */
+    public String writeToHex(CurvePolygon curvePolygon) {
+<span class="nc" id="L857">        return toHex(write(curvePolygon));</span>
+    }
+
+    /**
+     * Write a CurvePolygon to a byte array
+     * @param curvePolygon The CurvePolygon
+     * @return A byte array
+     */
+    public byte[] write(CurvePolygon curvePolygon) {
+<span class="fc" id="L866">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(curvePolygon));</span>
+<span class="fc" id="L867">        putCurvePolygon(buffer, curvePolygon);</span>
+<span class="fc" id="L868">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the CurvePolygon
+     * @param curvePolygon The CurvePolygon
+     * @return The number of bytes necessary for the CurvePolygon
+     */
+    private int calculateNumberOfBytes(CurvePolygon curvePolygon) {
+<span class="fc" id="L877">        int numberOfBytes = 4 + calculateNumberOfBytes(curvePolygon.getSrid());</span>
+<span class="fc" id="L878">        numberOfBytes += calculateNumberOfBytes(curvePolygon.getOuterCurve());</span>
+<span class="fc bfc" id="L879" title="All 2 branches covered.">        for (Curve curve : curvePolygon.getInnerCurves()) {</span>
+<span class="fc" id="L880">            numberOfBytes += calculateNumberOfBytes(curve);</span>
+<span class="fc" id="L881">        }</span>
+<span class="fc" id="L882">        return  numberOfBytes;</span>
+    }
+
+    /**
+     * Write the CurvePolygon into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param curvePolygon The CurvePolygon
+     */
+    private void putCurvePolygon(ByteBuffer buffer, CurvePolygon curvePolygon) {
+<span class="fc" id="L891">        putByteOrder(buffer);</span>
+<span class="fc" id="L892">        putGeometryType(buffer, GeometryType.CurvePolygon, curvePolygon.getDimension(), curvePolygon.getSrid());</span>
+<span class="fc" id="L893">        putSrid(buffer, curvePolygon.getSrid());</span>
+<span class="fc" id="L894">        int numberOfCurves = 0;</span>
+<span class="pc bpc" id="L895" title="1 of 2 branches missed.">        if (!curvePolygon.isEmpty()) {</span>
+<span class="fc" id="L896">            numberOfCurves += 1 + curvePolygon.getInnerCurves().size();</span>
+        }
+<span class="fc" id="L898">        buffer.putInt(numberOfCurves);</span>
+<span class="pc bpc" id="L899" title="1 of 2 branches missed.">        if (!curvePolygon.isEmpty()) {</span>
+<span class="fc" id="L900">            putCurve(buffer, curvePolygon.getOuterCurve());</span>
+<span class="fc bfc" id="L901" title="All 2 branches covered.">            for (Curve curve : curvePolygon.getInnerCurves()) {</span>
+<span class="fc" id="L902">                putCurve(buffer, curve);</span>
+<span class="fc" id="L903">            }</span>
+        }
+<span class="fc" id="L905">    }</span>
+
+    // MultiCurve
+
+    /**
+     * Write a MultiCurve to a hex String
+     * @param multiCurve The MultiCurve
+     * @return A hex String
+     */
+    public String writeToHex(MultiCurve multiCurve) {
+<span class="nc" id="L915">        return toHex(write(multiCurve));</span>
+    }
+
+    /**
+     * Write a MultiCurve to a byte array
+     * @param multiCurve The MultiCurve
+     * @return A byte array
+     */
+    public byte[] write(MultiCurve multiCurve) {
+<span class="fc" id="L924">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(multiCurve));</span>
+<span class="fc" id="L925">        putMultiCurve(buffer, multiCurve);</span>
+<span class="fc" id="L926">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the MultiCurve
+     * @param multiCurve The MultiCurve
+     * @return The number of bytes necessary for the MultiCurve
+     */
+    private int calculateNumberOfBytes(MultiCurve multiCurve) {
+<span class="fc" id="L935">        int numberOfBytes = 4 + calculateNumberOfBytes(multiCurve.getSrid());</span>
+<span class="fc bfc" id="L936" title="All 2 branches covered.">        for (Curve curve : multiCurve.getCurves()) {</span>
+<span class="fc" id="L937">            numberOfBytes += calculateNumberOfBytes(curve);</span>
+<span class="fc" id="L938">        }</span>
+<span class="fc" id="L939">        return  numberOfBytes;</span>
+    }
+
+    /**
+     * Write the MultiCurve into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param multiCurve The MultiCurve
+     */
+    private void putMultiCurve(ByteBuffer buffer, MultiCurve multiCurve) {
+<span class="fc" id="L948">        putByteOrder(buffer);</span>
+<span class="fc" id="L949">        putGeometryType(buffer, GeometryType.MultiCurve, multiCurve.getDimension(), multiCurve.getSrid());</span>
+<span class="fc" id="L950">        putSrid(buffer, multiCurve.getSrid());</span>
+<span class="fc" id="L951">        buffer.putInt(multiCurve.getCurves().size());</span>
+<span class="pc bpc" id="L952" title="1 of 2 branches missed.">        if (!multiCurve.isEmpty()) {</span>
+<span class="fc bfc" id="L953" title="All 2 branches covered.">            for (Curve curve : multiCurve.getCurves()) {</span>
+<span class="fc" id="L954">                putCurve(buffer, curve);</span>
+<span class="fc" id="L955">            }</span>
+        }
+<span class="fc" id="L957">    }</span>
+
+    // Surface
+
+    /**
+     * Calculate the number of bytes necessary for the Surface
+     * @param surface The Surface
+     * @return The number of bytes necessary for the Surface
+     */
+    private int calculateNumberOfBytes(Surface surface) {
+<span class="pc bpc" id="L967" title="1 of 2 branches missed.">        if (surface instanceof Triangle) {</span>
+<span class="nc" id="L968">            return calculateNumberOfBytes((Triangle) surface);</span>
+<span class="fc bfc" id="L969" title="All 2 branches covered.">        } else if (surface instanceof Polygon) {</span>
+<span class="fc" id="L970">            return calculateNumberOfBytes((Polygon) surface);</span>
+<span class="pc bpc" id="L971" title="1 of 2 branches missed.">        } else if (surface instanceof PolyHedralSurface) {</span>
+<span class="nc" id="L972">            return calculateNumberOfBytes((PolyHedralSurface) surface);</span>
+<span class="pc bpc" id="L973" title="1 of 2 branches missed.">        } else if (surface instanceof Tin) {</span>
+<span class="nc" id="L974">            return calculateNumberOfBytes((Tin) surface);</span>
+<span class="pc bpc" id="L975" title="1 of 2 branches missed.">        } else if (surface instanceof CurvePolygon) {</span>
+<span class="fc" id="L976">            return calculateNumberOfBytes((CurvePolygon) surface);</span>
+        } else {
+<span class="nc" id="L978">            throw new IllegalArgumentException(&quot;Unknown Surface: &quot; + surface.getClass().getName());</span>
+        }
+    }
+
+    /**
+     * Write the Surface into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param surface The Surface
+     */
+    private void putSurface(ByteBuffer buffer, Surface surface) {
+<span class="pc bpc" id="L988" title="1 of 2 branches missed.">        if (surface instanceof Triangle) {</span>
+<span class="nc" id="L989">            putTriangle(buffer, (Triangle) surface);</span>
+<span class="fc bfc" id="L990" title="All 2 branches covered.">        } else if (surface instanceof Polygon) {</span>
+<span class="fc" id="L991">            putPolygon(buffer, (Polygon) surface);</span>
+<span class="pc bpc" id="L992" title="1 of 2 branches missed.">        } else if (surface instanceof PolyHedralSurface) {</span>
+<span class="nc" id="L993">            putPolyHedralSurface(buffer, (PolyHedralSurface) surface);</span>
+<span class="pc bpc" id="L994" title="1 of 2 branches missed.">        } else if (surface instanceof Tin) {</span>
+<span class="nc" id="L995">            putTin(buffer, (Tin) surface);</span>
+<span class="pc bpc" id="L996" title="1 of 2 branches missed.">        } else if (surface instanceof CurvePolygon) {</span>
+<span class="fc" id="L997">            putCurvePolygon(buffer, (CurvePolygon) surface);</span>
+        } else {
+<span class="nc" id="L999">            throw new IllegalArgumentException(&quot;Unknown Surface: &quot; + surface.getClass().getName());</span>
+        }
+<span class="fc" id="L1001">    }</span>
+
+    // MultiSurface
+
+    /**
+     * Write a MultiSurface to a hex String
+     * @param multiSurface The MultiSurface
+     * @return A hex String
+     */
+    public String writeToHex(MultiSurface multiSurface) {
+<span class="nc" id="L1011">        return toHex(write(multiSurface));</span>
+    }
+
+    /**
+     * Write a MultiSurface to a byte array
+     * @param multiSurface The MultiSurface
+     * @return A byte array
+     */
+    public byte[] write(MultiSurface multiSurface) {
+<span class="fc" id="L1020">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(multiSurface));</span>
+<span class="fc" id="L1021">        putMultiSurface(buffer, multiSurface);</span>
+<span class="fc" id="L1022">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the MultiSurface
+     * @param multiSurface The MultiSurface
+     * @return The number of bytes necessary for the MultiSurface
+     */
+    private int calculateNumberOfBytes(MultiSurface multiSurface) {
+<span class="fc" id="L1031">        int numberOfBytes = 4 + calculateNumberOfBytes(multiSurface.getSrid());</span>
+<span class="fc bfc" id="L1032" title="All 2 branches covered.">        for (Surface surface : multiSurface.getSurfaces()) {</span>
+<span class="fc" id="L1033">            numberOfBytes += calculateNumberOfBytes(surface);</span>
+<span class="fc" id="L1034">        }</span>
+<span class="fc" id="L1035">        return  numberOfBytes;</span>
+    }
+
+    /**
+     * Write the MultiSurface into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param multiSurface The MultiSurface
+     */
+    private void putMultiSurface(ByteBuffer buffer, MultiSurface multiSurface) {
+<span class="fc" id="L1044">        putByteOrder(buffer);</span>
+<span class="fc" id="L1045">        putGeometryType(buffer, GeometryType.MultiSurface, multiSurface.getDimension(), multiSurface.getSrid());</span>
+<span class="fc" id="L1046">        putSrid(buffer, multiSurface.getSrid());</span>
+<span class="fc" id="L1047">        buffer.putInt(multiSurface.getSurfaces().size());</span>
+<span class="pc bpc" id="L1048" title="1 of 2 branches missed.">        if (!multiSurface.isEmpty()) {</span>
+<span class="fc bfc" id="L1049" title="All 2 branches covered.">            for (Surface surface : multiSurface.getSurfaces()) {</span>
+<span class="fc" id="L1050">                putSurface(buffer, surface);</span>
+<span class="fc" id="L1051">            }</span>
+        }
+<span class="fc" id="L1053">    }</span>
+
+    // Tin
+
+    /**
+     * Write a Tin to a hex String
+     * @param tin The Tin
+     * @return A hex String
+     */
+    public String writeToHex(Tin tin) {
+<span class="nc" id="L1063">        return toHex(write(tin));</span>
+    }
+
+    /**
+     * Write a Tin to a byte array
+     * @param tin The Tin
+     * @return A byte array
+     */
+    public byte[] write(Tin tin) {
+<span class="fc" id="L1072">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(tin));</span>
+<span class="fc" id="L1073">        putTin(buffer, tin);</span>
+<span class="fc" id="L1074">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the Tin
+     * @param tin The Tin
+     * @return The number of bytes necessary for the Tin
+     */
+    private int calculateNumberOfBytes(Tin tin) {
+<span class="fc" id="L1083">        int numberOfBytes = 4 + calculateNumberOfBytes(tin.getSrid());</span>
+<span class="fc bfc" id="L1084" title="All 2 branches covered.">        for(Triangle triangle : tin.getTriangles()) {</span>
+<span class="fc" id="L1085">            numberOfBytes += calculateNumberOfBytes(triangle);</span>
+<span class="fc" id="L1086">        }</span>
+<span class="fc" id="L1087">        return  numberOfBytes;</span>
+    }
+
+    /**
+     * Write the Tin into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param tin The Tin
+     */
+    private void putTin(ByteBuffer buffer, Tin tin) {
+<span class="fc" id="L1096">        putByteOrder(buffer);</span>
+<span class="fc" id="L1097">        putGeometryType(buffer, GeometryType.Tin, tin.getDimension(), tin.getSrid());</span>
+<span class="fc" id="L1098">        putSrid(buffer, tin.getSrid());</span>
+<span class="fc" id="L1099">        buffer.putInt(tin.getTriangles().size());</span>
+<span class="pc bpc" id="L1100" title="1 of 2 branches missed.">        if (!tin.isEmpty()) {</span>
+<span class="fc bfc" id="L1101" title="All 2 branches covered.">            for(Triangle triangle : tin.getTriangles()) {</span>
+<span class="fc" id="L1102">                putTriangle(buffer, triangle);</span>
+<span class="fc" id="L1103">            }</span>
+        }
+<span class="fc" id="L1105">    }</span>
+
+    // Triangle
+
+    /**
+     * Write a Triangle to a hex String
+     * @param triangle The Triangle
+     * @return A hex String
+     */
+    public String writeToHex(Triangle triangle) {
+<span class="nc" id="L1115">        return toHex(write(triangle));</span>
+    }
+
+    /**
+     * Write a Triangle to a byte array
+     * @param triangle The Triangle
+     * @return A byte array
+     */
+    public byte[] write(Triangle triangle) {
+<span class="fc" id="L1124">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(triangle));</span>
+<span class="fc" id="L1125">        putTriangle(buffer, triangle);</span>
+<span class="fc" id="L1126">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the Triangle
+     * @param triangle The Triangle
+     * @return The number of bytes necessary for the Triangle
+     */
+    private int calculateNumberOfBytes(Triangle triangle) {
+<span class="fc" id="L1135">        int numberOfRings = 0;</span>
+<span class="pc bpc" id="L1136" title="1 of 2 branches missed.">        if (!triangle.isEmpty()) {</span>
+<span class="fc" id="L1137">            numberOfRings = 1 + triangle.getInnerLinearRings().size();</span>
+        }
+<span class="fc" id="L1139">        return 4 +</span>
+                numberOfRings * 4 + // Number of coordinate for each ring
+<span class="fc" id="L1141">                calculateNumberOfBytes(triangle.getSrid()) +</span>
+<span class="fc" id="L1142">                calculateNumberOfBytes(triangle.getNumberOfCoordinates(), triangle.getDimension());</span>
+    }
+
+    /**
+     * Write the Triangle into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param triangle The Triangle
+     */
+    private void putTriangle(ByteBuffer buffer, Triangle triangle) {
+<span class="fc" id="L1151">        putByteOrder(buffer);</span>
+<span class="fc" id="L1152">        putGeometryType(buffer, GeometryType.Triangle, triangle.getDimension(), triangle.getSrid());</span>
+<span class="fc" id="L1153">        putSrid(buffer, triangle.getSrid());</span>
+        // Number of Rings
+<span class="fc" id="L1155">        int numberOfRings = 0;</span>
+<span class="pc bpc" id="L1156" title="1 of 2 branches missed.">        if (!triangle.isEmpty()) {</span>
+<span class="fc" id="L1157">            numberOfRings = 1 + triangle.getInnerLinearRings().size();</span>
+        }
+<span class="fc" id="L1159">        buffer.putInt(numberOfRings);</span>
+        // Rings
+<span class="pc bpc" id="L1161" title="1 of 2 branches missed.">        if (!triangle.isEmpty()) {</span>
+<span class="fc" id="L1162">            putCoordinates(buffer, triangle.getOuterLinearRing().getCoordinates());</span>
+<span class="pc bpc" id="L1163" title="1 of 2 branches missed.">            for(LinearRing ring : triangle.getInnerLinearRings()) {</span>
+<span class="nc" id="L1164">                putCoordinates(buffer, ring.getCoordinates());</span>
+<span class="nc" id="L1165">            }</span>
+        }
+<span class="fc" id="L1167">    }</span>
+
+    // PolyhedralSurface
+
+    /**
+     * Write a PolyhedralSurface to a hex String
+     * @param polyHedralSurface The PolyhedralSurface
+     * @return A hex String
+     */
+    public String writeToHex(PolyHedralSurface polyHedralSurface) {
+<span class="nc" id="L1177">        return toHex(write(polyHedralSurface));</span>
+    }
+
+    /**
+     * Write a PolyhedralSurface to a byte array
+     * @param polyHedralSurface The PolyhedralSurface
+     * @return A byte array
+     */
+    public byte[] write(PolyHedralSurface polyHedralSurface) {
+<span class="fc" id="L1186">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(polyHedralSurface));</span>
+<span class="fc" id="L1187">        putPolyHedralSurface(buffer, polyHedralSurface);</span>
+<span class="fc" id="L1188">        return buffer.array();</span>
+    }
+
+    /**
+     * Calculate the number of bytes necessary for the PolyhedralSurface
+     * @param polyHedralSurface The PolyhedralSurface
+     * @return The number of bytes necessary for the PolyhedralSurface
+     */
+    private int calculateNumberOfBytes(PolyHedralSurface polyHedralSurface) {
+<span class="fc" id="L1197">        int numberOfBytes = 4 + calculateNumberOfBytes(polyHedralSurface.getSrid());</span>
+<span class="fc bfc" id="L1198" title="All 2 branches covered.">        for (Polygon polygon : polyHedralSurface.getPolygons()) {</span>
+<span class="fc" id="L1199">            numberOfBytes += calculateNumberOfBytes(polygon);</span>
+<span class="fc" id="L1200">        }</span>
+<span class="fc" id="L1201">        return  numberOfBytes;</span>
+    }
+
+    /**
+     * Write the PolyhedralSurface into the ByteBuffer
+     * @param buffer The ByteBuffer
+     * @param polyHedralSurface The PolyhedralSurface
+     */
+    private void putPolyHedralSurface(ByteBuffer buffer, PolyHedralSurface polyHedralSurface) {
+<span class="fc" id="L1210">        putByteOrder(buffer);</span>
+<span class="fc" id="L1211">        putGeometryType(buffer, GeometryType.PolyHedralSurface, polyHedralSurface.getDimension(), polyHedralSurface.getSrid());</span>
+<span class="fc" id="L1212">        putSrid(buffer, polyHedralSurface.getSrid());</span>
+<span class="fc" id="L1213">        buffer.putInt(polyHedralSurface.getPolygons().size());</span>
+<span class="pc bpc" id="L1214" title="1 of 2 branches missed.">        if (!polyHedralSurface.isEmpty()) {</span>
+<span class="fc bfc" id="L1215" title="All 2 branches covered.">            for (Polygon polygon : polyHedralSurface.getPolygons()) {</span>
+<span class="fc" id="L1216">                putPolygon(buffer, polygon);</span>
+<span class="fc" id="L1217">            }</span>
+        }
+<span class="fc" id="L1219">    }</span>
+
+    /**
+     * The hex array
+     */
+<span class="fc" id="L1224">    private final static char[] hexArray = &quot;0123456789ABCDEF&quot;.toCharArray();</span>
+
+    /**
+     * Convert an array of bytes to a hex String.
+     * @param bytes The array of bytes
+     * @return The hex String
+     */
+    private static String toHex(byte[] bytes) {
+<span class="fc" id="L1232">        char[] hexChars = new char[bytes.length * 2];</span>
+<span class="fc bfc" id="L1233" title="All 2 branches covered.">        for (int j = 0; j &lt; bytes.length; j++) {</span>
+<span class="fc" id="L1234">            int v = bytes[j] &amp; 0xFF;</span>
+<span class="fc" id="L1235">            hexChars[j * 2] = hexArray[v &gt;&gt;&gt; 4];</span>
+<span class="fc" id="L1236">            hexChars[j * 2 + 1] = hexArray[v &amp; 0x0F];</span>
+        }
+<span class="fc" id="L1238">        return new String(hexChars);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GeoJSONReader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">GeoJSONReader.java</span></div><h1>GeoJSONReader.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+import org.antlr.v4.runtime.*;
+import org.cugos.wkg.internal.JSONBaseListener;
+import org.cugos.wkg.internal.JSONLexer;
+import org.cugos.wkg.internal.JSONParser;
+
+import java.util.*;
+
+/**
+ * Read a Geometry from a GeoJSON String
+ * @author Jared Erickson
+ */
+<span class="fc" id="L14">public class GeoJSONReader implements Reader&lt;String&gt; {</span>
+
+    /**
+     * The default SRID for GeoJSON is EPSG:4326
+     */
+<span class="fc" id="L19">    private final String srid = &quot;4326&quot;;</span>
+
+    /**
+     * Read a Geometry from a GeoJSON String
+     * @param jsonStr The GeoJSON String
+     * @return The Geometry or null
+     */
+    @Override
+    public Geometry read(String jsonStr) {
+<span class="fc" id="L28">        JSON json = parse(jsonStr);</span>
+<span class="fc" id="L29">        Geometry geometry = null;</span>
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">        if (json instanceof JSONObject) {</span>
+<span class="fc" id="L31">            JSONObject jsonObject = (JSONObject) json;</span>
+<span class="fc" id="L32">            String type = jsonObject.get(&quot;type&quot;).toString();</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">            if (type.equalsIgnoreCase(&quot;feature&quot;)) {</span>
+<span class="fc" id="L34">                geometry = readGeometry((JSONObject) jsonObject.get(&quot;geometry&quot;)).setData(((JSONObject) jsonObject.get(&quot;properties&quot;)).values());</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">            } else if (type.equalsIgnoreCase(&quot;featurecollection&quot;)) {</span>
+<span class="fc" id="L36">                JSONArray jsonArray = (JSONArray) jsonObject.get(&quot;features&quot;);</span>
+<span class="fc" id="L37">                List&lt;Geometry&gt; geometries = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">                for (Object feature : jsonArray.values()) {</span>
+<span class="fc" id="L39">                    JSONObject featureJSONObject = (JSONObject) feature;</span>
+<span class="fc" id="L40">                    JSONObject geometryJSONObject = (JSONObject) (featureJSONObject.get(&quot;geometry&quot;));</span>
+<span class="fc" id="L41">                    geometries.add(readGeometry(geometryJSONObject).setData(((JSONObject) featureJSONObject.get(&quot;properties&quot;)).values()));</span>
+<span class="fc" id="L42">                }</span>
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">                geometry = new GeometryCollection(geometries, geometries.isEmpty() ? Dimension.Two : geometries.get(0).getDimension(), srid);</span>
+<span class="fc" id="L44">            } else {</span>
+<span class="fc" id="L45">                geometry = readGeometry(jsonObject);</span>
+            }
+        }
+<span class="fc" id="L48">        return geometry;</span>
+    }
+
+    @Override
+    public String getName() {
+<span class="fc" id="L53">        return &quot;GeoJSON&quot;;</span>
+    }
+
+    private Point readPoint(JSONObject jsonObject) {
+<span class="fc" id="L57">        Coordinate coordinate = getCoordinate((JSONArray) jsonObject.get(&quot;coordinates&quot;));</span>
+<span class="fc" id="L58">        return new Point(coordinate, coordinate.getDimension(), srid);</span>
+    }
+
+    private LineString readLineString(JSONObject jsonObject) {
+<span class="fc" id="L62">        List&lt;Coordinate&gt;coordinates = getCoordinates((JSONArray) jsonObject.get(&quot;coordinates&quot;));</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        return new LineString(coordinates, coordinates.size() &gt; 0 ? coordinates.get(0).getDimension() : Dimension.Two, srid);</span>
+    }
+
+    private Polygon readPolygon(JSONObject jsonObject) {
+<span class="fc" id="L67">        List&lt;List&lt;Coordinate&gt;&gt; coordinateSets = getCoordinateSets((JSONArray) jsonObject.get(&quot;coordinates&quot;));</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if (coordinateSets.size() &gt; 0) {</span>
+<span class="fc" id="L69">            LinearRing exteriorRing = getLinearRing(coordinateSets.get(0));</span>
+<span class="fc" id="L70">            List&lt;LinearRing&gt; interiorRings = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">            for (List&lt;Coordinate&gt; coordinates : coordinateSets.subList(1, coordinateSets.size())) {</span>
+<span class="fc" id="L72">                interiorRings.add(getLinearRing(coordinates));</span>
+<span class="fc" id="L73">            }</span>
+<span class="fc" id="L74">            return new Polygon(exteriorRing, interiorRings, exteriorRing.getDimension(), srid);</span>
+        } else {
+<span class="nc" id="L76">            return Polygon.createEmpty();</span>
+        }
+    }
+
+    private MultiPoint readMultiPoint(JSONObject jsonObject) {
+<span class="fc" id="L81">        List&lt;Point&gt; points = getPoints((JSONArray) jsonObject.get(&quot;coordinates&quot;));</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        return new MultiPoint(points, points.size() &gt; 0 ? points.get(0).getDimension() : Dimension.Two, srid);</span>
+    }
+
+    private MultiLineString readMultiLineString(JSONObject jsonObject) {
+<span class="fc" id="L86">        JSONArray coordinates = (JSONArray) jsonObject.get(&quot;coordinates&quot;);</span>
+<span class="fc" id="L87">        List&lt;LineString&gt; lineStrings = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        for(Object coords : coordinates.values()) {</span>
+<span class="fc" id="L89">            List&lt;Coordinate&gt; c = getCoordinates((JSONArray) coords);</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">            lineStrings.add(new LineString(c, c.size() &gt; 0 ? c.get(0).getDimension() : Dimension.Two, srid));</span>
+<span class="fc" id="L91">        }</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        return new MultiLineString(lineStrings, lineStrings.size() &gt; 0 ? lineStrings.get(0).getDimension() : Dimension.Two, srid);</span>
+    }
+
+    private MultiPolygon readMultiPolygon(JSONObject jsonObject) {
+<span class="fc" id="L96">        JSONArray coordinates = (JSONArray) jsonObject.get(&quot;coordinates&quot;);</span>
+<span class="fc" id="L97">        List&lt;Polygon&gt; polygons = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        for(Object polygonsCoords : coordinates.values()) {</span>
+<span class="fc" id="L99">            List&lt;List&lt;Coordinate&gt;&gt; coordinateSets = getCoordinateSets((JSONArray) polygonsCoords);</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">            if (coordinateSets.size() &gt; 0) {</span>
+<span class="fc" id="L101">                LinearRing exteriorRing = getLinearRing(coordinateSets.get(0));</span>
+<span class="fc" id="L102">                List&lt;LinearRing&gt; interiorRings = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">                for (List&lt;Coordinate&gt; coords : coordinateSets.subList(1, coordinateSets.size())) {</span>
+<span class="fc" id="L104">                    interiorRings.add(getLinearRing(coords));</span>
+<span class="fc" id="L105">                }</span>
+<span class="fc" id="L106">                polygons.add(new Polygon(exteriorRing, interiorRings, exteriorRing.getDimension(), srid));</span>
+<span class="fc" id="L107">            } else {</span>
+<span class="nc" id="L108">                polygons.add(Polygon.createEmpty());</span>
+            }
+<span class="fc" id="L110">        }</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">        return new MultiPolygon(polygons, polygons.size() &gt; 0 ? polygons.get(0).getDimension() : Dimension.Two, srid);</span>
+    }
+
+    private GeometryCollection readGeometryCollection(JSONObject jsonObject) {
+<span class="fc" id="L115">        JSONArray geometriesJsonArray = (JSONArray) jsonObject.get(&quot;geometries&quot;);</span>
+<span class="fc" id="L116">        List&lt;Geometry&gt; geometries = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        for(Object geometryJsonObject : geometriesJsonArray.values()) {</span>
+<span class="fc" id="L118">            geometries.add(readGeometry((JSONObject) geometryJsonObject));</span>
+<span class="fc" id="L119">        }</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        return new GeometryCollection(geometries, geometries.size() &gt; 0 ? geometries.get(0).getDimension() : Dimension.Two, srid);</span>
+    }
+
+    private Geometry readGeometry(JSONObject jsonObject) {
+<span class="fc" id="L124">        String type = (String) jsonObject.get(&quot;type&quot;);</span>
+<span class="fc" id="L125">        Geometry geometry = null;</span>
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">        if (type != null) {</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">            if (type.equalsIgnoreCase(&quot;point&quot;)) {</span>
+<span class="fc" id="L128">                geometry = readPoint(jsonObject);</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">            } else if (type.equalsIgnoreCase(&quot;LineString&quot;)) {</span>
+<span class="fc" id="L130">                geometry = readLineString(jsonObject);</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">            } else if (type.equalsIgnoreCase(&quot;Polygon&quot;)) {</span>
+<span class="fc" id="L132">                geometry = readPolygon(jsonObject);</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">            } else if (type.equalsIgnoreCase(&quot;MultiPoint&quot;)) {</span>
+<span class="fc" id="L134">                geometry = readMultiPoint(jsonObject);</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">            } else if (type.equalsIgnoreCase(&quot;MultiLineString&quot;)) {</span>
+<span class="fc" id="L136">                geometry = readMultiLineString(jsonObject);</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">            } else if (type.equalsIgnoreCase(&quot;MultiPolygon&quot;)) {</span>
+<span class="fc" id="L138">                geometry = readMultiPolygon(jsonObject);</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">            } else if (type.equalsIgnoreCase(&quot;GeometryCollection&quot;)) {</span>
+<span class="fc" id="L140">                geometry = readGeometryCollection(jsonObject);</span>
+            }
+        }
+<span class="fc" id="L143">        return geometry;</span>
+    }
+
+    private LinearRing getLinearRing(List&lt;Coordinate&gt; coordinates) {
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">       return new LinearRing(coordinates, coordinates.size() &gt; 0 ? coordinates.get(0).getDimension() : Dimension.Two, srid);</span>
+    }
+
+    private Coordinate getCoordinate(JSONArray jsonArray) {
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        if (jsonArray.values().size() &gt; 2) {</span>
+<span class="fc" id="L152">            return Coordinate.create3D(getDouble(jsonArray.get(0)), getDouble(jsonArray.get(1)), getDouble(jsonArray.get(2)));</span>
+<span class="fc bfc" id="L153" title="All 2 branches covered.">        } else if (jsonArray.values().size() == 2) {</span>
+<span class="fc" id="L154">            return Coordinate.create2D(getDouble(jsonArray.get(0)), getDouble(jsonArray.get(1)));</span>
+        } else {
+<span class="fc" id="L156">            return Coordinate.createEmpty();</span>
+        }
+    }
+
+    private Double getDouble(Object value) {
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        if (value instanceof Double) {</span>
+<span class="fc" id="L162">            return (Double) value;</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">        } else if (value instanceof Integer) {</span>
+<span class="fc" id="L164">            return ((Integer) value).doubleValue();</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">        } else if (value != null) {</span>
+<span class="nc" id="L166">            return Double.parseDouble(value.toString());</span>
+        } else {
+<span class="nc" id="L168">            return Double.NaN;</span>
+        }
+    }
+
+    private List&lt;Coordinate&gt; getCoordinates(JSONArray jsonArray) {
+<span class="fc" id="L173">        List&lt;Coordinate&gt; coordinates = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">        for(Object value : jsonArray.values()) {</span>
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">            if (value instanceof JSONArray) {</span>
+<span class="fc" id="L176">                coordinates.add(getCoordinate((JSONArray)value));</span>
+            }
+<span class="fc" id="L178">        }</span>
+<span class="fc" id="L179">        return coordinates;</span>
+    }
+
+    private List&lt;Point&gt; getPoints(JSONArray jsonArray) {
+<span class="fc" id="L183">        List&lt;Point&gt; points = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">        for(Object value : jsonArray.values()) {</span>
+<span class="pc bpc" id="L185" title="1 of 2 branches missed.">            if (value instanceof JSONArray) {</span>
+<span class="fc" id="L186">                Coordinate coordinate = getCoordinate((JSONArray)value);</span>
+<span class="fc" id="L187">                points.add(new Point(coordinate, coordinate.getDimension()));</span>
+            }
+<span class="fc" id="L189">        }</span>
+<span class="fc" id="L190">        return points;</span>
+    }
+
+    private List&lt;List&lt;Coordinate&gt;&gt; getCoordinateSets(JSONArray jsonArray) {
+<span class="fc" id="L194">        List&lt;List&lt;Coordinate&gt;&gt; coordinateSets = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L195" title="All 2 branches covered.">        for(Object value : jsonArray.values()) {</span>
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">            if (value instanceof JSONArray) {</span>
+<span class="fc" id="L197">                coordinateSets.add(getCoordinates((JSONArray)value));</span>
+            }
+<span class="fc" id="L199">        }</span>
+<span class="fc" id="L200">        return coordinateSets;</span>
+    }
+
+    private JSON parse(String jsonStr) {
+
+<span class="fc" id="L205">        JSONLexer lexer = new JSONLexer(new ANTLRInputStream(jsonStr));</span>
+<span class="fc" id="L206">        JSONParser parser = new JSONParser(new CommonTokenStream(lexer));</span>
+<span class="fc" id="L207">        parser.addErrorListener(new BaseErrorListener() {</span>
+            @Override
+            public void syntaxError(Recognizer&lt;?, ?&gt; recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+<span class="nc" id="L210">                throw new IllegalStateException(&quot;failed to parse at line &quot; + line + &quot; due to &quot; + msg, e);</span>
+            }
+        });
+
+<span class="fc" id="L214">        final Stack&lt;JSON&gt; json = new Stack&lt;&gt;();</span>
+
+<span class="fc" id="L216">        parser.addParseListener(new JSONBaseListener() {</span>
+
+            @Override
+            public void enterObj(JSONParser.ObjContext ctx) {
+<span class="fc" id="L220">                json.push(new JSONObject());</span>
+<span class="fc" id="L221">            }</span>
+
+            @Override
+            public void exitPair(JSONParser.PairContext ctx) {
+<span class="fc" id="L225">                Object value = getValueFromValueContent(ctx.value());</span>
+<span class="fc" id="L226">                JSONObject jsonObject = (JSONObject) json.peek();</span>
+<span class="fc" id="L227">                jsonObject.values().put(removeDoubleQuotes(ctx.STRING().getText()), value);</span>
+<span class="fc" id="L228">            }</span>
+
+            @Override
+            public void enterArray(JSONParser.ArrayContext ctx) {
+<span class="fc" id="L232">               json.push(new JSONArray());</span>
+<span class="fc" id="L233">            }</span>
+
+            @Override
+            public void exitArray(JSONParser.ArrayContext ctx) {
+<span class="fc" id="L237">                List&lt;Object&gt; values = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L238" title="All 2 branches covered.">                for(JSONParser.ValueContext valueContext : ctx.value()) {</span>
+<span class="fc" id="L239">                    Object value = getValueFromValueContent(valueContext);</span>
+<span class="fc bfc" id="L240" title="All 2 branches covered.">                    if (value instanceof JSON) {</span>
+<span class="fc" id="L241">                        values.add(0, value);</span>
+                    } else {
+<span class="fc" id="L243">                        values.add(value);</span>
+                    }
+<span class="fc" id="L245">                }</span>
+<span class="fc" id="L246">                JSONArray jsonArray = (JSONArray) json.peek();</span>
+<span class="fc" id="L247">                jsonArray.values().addAll(values);</span>
+<span class="fc" id="L248">            }</span>
+
+            private String removeDoubleQuotes(String str) {
+<span class="pc bpc" id="L251" title="1 of 2 branches missed.">                if (str != null) {</span>
+<span class="fc" id="L252">                    return str.replaceAll(&quot;\&quot;&quot;, &quot;&quot;);</span>
+                } else {
+<span class="nc" id="L254">                    return null;</span>
+                }
+            }
+
+            private Number parseNumber(String value) {
+<span class="fc bfc" id="L259" title="All 2 branches covered.">                if (value.contains(&quot;.&quot;)) {</span>
+<span class="fc" id="L260">                    return Double.parseDouble(value);</span>
+                } else {
+<span class="fc" id="L262">                    return Integer.parseInt(value);</span>
+                }
+            }
+
+            private Object getValueFromValueContent(JSONParser.ValueContext ctx) {
+<span class="fc bfc" id="L267" title="All 2 branches covered.">                if (ctx.obj() != null) {</span>
+<span class="fc" id="L268">                    return json.pop();</span>
+<span class="fc bfc" id="L269" title="All 2 branches covered.">                } else if (ctx.array() != null) {</span>
+<span class="fc" id="L270">                    return json.pop();</span>
+<span class="fc bfc" id="L271" title="All 2 branches covered.">                } else if (ctx.STRING() != null) {</span>
+<span class="fc" id="L272">                    return removeDoubleQuotes(ctx.STRING().getText());</span>
+<span class="pc bpc" id="L273" title="1 of 2 branches missed.">                } else if (ctx.NUMBER() != null) {</span>
+<span class="fc" id="L274">                    return parseNumber(removeDoubleQuotes(ctx.NUMBER().getText()));</span>
+                } else {
+<span class="nc" id="L276">                    return null;</span>
+                }
+            }
+
+
+        });
+<span class="fc" id="L282">        parser.json();</span>
+
+<span class="fc" id="L284">        return json.pop();</span>
+    }
+
+    private static interface JSON {
+    }
+
+<span class="fc" id="L290">    private static class JSONObject implements JSON {</span>
+<span class="fc" id="L291">        private Map&lt;String,Object&gt; values = new LinkedHashMap&lt;&gt;();</span>
+        public Map&lt;String,Object&gt; values() {
+<span class="fc" id="L293">            return values;</span>
+        }
+        public Object get(String key) {
+<span class="fc" id="L296">            return values.get(key);</span>
+        }
+        @Override
+        public String toString() {
+<span class="nc" id="L300">            return values.toString();</span>
+        }
+    }
+
+<span class="fc" id="L304">    private static class JSONArray implements JSON {</span>
+<span class="fc" id="L305">        private List&lt;Object&gt; values = new ArrayList&lt;&gt;();</span>
+        public List&lt;Object&gt; values() {
+<span class="fc" id="L307">            return values;</span>
+        }
+        public Object get(int index) {
+<span class="fc" id="L310">            return values.get(index);</span>
+        }
+        @Override
+        public String toString() {
+<span class="nc" id="L314">            return values.toString();</span>
+        }
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

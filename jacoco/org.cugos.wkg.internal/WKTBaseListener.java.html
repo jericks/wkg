@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WKTBaseListener.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg.internal</a> &gt; <span class="el_source">WKTBaseListener.java</span></div><h1>WKTBaseListener.java</h1><pre class="source lang-java linenums">// Generated from org/cugos/wkg/internal/WKT.g4 by ANTLR 4.7.1
+package org.cugos.wkg.internal;
+
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.TerminalNode;
+
+/**
+ * This class provides an empty implementation of {@link WKTListener},
+ * which can be extended to create a listener which only needs to handle a subset
+ * of the available methods.
+ */
+<span class="fc" id="L13">public class WKTBaseListener implements WKTListener {</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L19">	@Override public void enterWkt(WKTParser.WktContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L25">	@Override public void exitWkt(WKTParser.WktContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L31">	@Override public void enterPoint(WKTParser.PointContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L37">	@Override public void exitPoint(WKTParser.PointContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L43">	@Override public void enterLineString(WKTParser.LineStringContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L49">	@Override public void exitLineString(WKTParser.LineStringContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L55">	@Override public void enterPolygon(WKTParser.PolygonContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L61">	@Override public void exitPolygon(WKTParser.PolygonContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L67">	@Override public void enterTriangle(WKTParser.TriangleContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L73">	@Override public void exitTriangle(WKTParser.TriangleContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L79">	@Override public void enterMultiPoint(WKTParser.MultiPointContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L85">	@Override public void exitMultiPoint(WKTParser.MultiPointContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L91">	@Override public void enterMultiLineString(WKTParser.MultiLineStringContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L97">	@Override public void exitMultiLineString(WKTParser.MultiLineStringContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L103">	@Override public void enterCircularString(WKTParser.CircularStringContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L109">	@Override public void exitCircularString(WKTParser.CircularStringContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L115">	@Override public void enterTin(WKTParser.TinContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L121">	@Override public void exitTin(WKTParser.TinContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L127">	@Override public void enterPolyHedralSurface(WKTParser.PolyHedralSurfaceContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L133">	@Override public void exitPolyHedralSurface(WKTParser.PolyHedralSurfaceContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L139">	@Override public void enterMultiPolygon(WKTParser.MultiPolygonContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L145">	@Override public void exitMultiPolygon(WKTParser.MultiPolygonContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L151">	@Override public void enterCurvePolygon(WKTParser.CurvePolygonContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L157">	@Override public void exitCurvePolygon(WKTParser.CurvePolygonContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L163">	@Override public void enterCurvePolygonItems(WKTParser.CurvePolygonItemsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L169">	@Override public void exitCurvePolygonItems(WKTParser.CurvePolygonItemsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L175">	@Override public void enterCurvePolygonElements(WKTParser.CurvePolygonElementsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L181">	@Override public void exitCurvePolygonElements(WKTParser.CurvePolygonElementsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L187">	@Override public void enterCompoundCurve(WKTParser.CompoundCurveContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L193">	@Override public void exitCompoundCurve(WKTParser.CompoundCurveContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L199">	@Override public void enterCompoundCurveItems(WKTParser.CompoundCurveItemsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L205">	@Override public void exitCompoundCurveItems(WKTParser.CompoundCurveItemsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L211">	@Override public void enterCompoundCurveElements(WKTParser.CompoundCurveElementsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L217">	@Override public void exitCompoundCurveElements(WKTParser.CompoundCurveElementsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L223">	@Override public void enterMultiCurve(WKTParser.MultiCurveContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L229">	@Override public void exitMultiCurve(WKTParser.MultiCurveContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L235">	@Override public void enterMultiCurveItems(WKTParser.MultiCurveItemsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L241">	@Override public void exitMultiCurveItems(WKTParser.MultiCurveItemsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L247">	@Override public void enterMultiCurveElements(WKTParser.MultiCurveElementsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L253">	@Override public void exitMultiCurveElements(WKTParser.MultiCurveElementsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L259">	@Override public void enterMultiSurface(WKTParser.MultiSurfaceContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L265">	@Override public void exitMultiSurface(WKTParser.MultiSurfaceContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L271">	@Override public void enterMultiSurfaceItems(WKTParser.MultiSurfaceItemsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L277">	@Override public void exitMultiSurfaceItems(WKTParser.MultiSurfaceItemsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L283">	@Override public void enterMultiSurfaceElements(WKTParser.MultiSurfaceElementsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L289">	@Override public void exitMultiSurfaceElements(WKTParser.MultiSurfaceElementsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L295">	@Override public void enterGeometryCollection(WKTParser.GeometryCollectionContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L301">	@Override public void exitGeometryCollection(WKTParser.GeometryCollectionContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L307">	@Override public void enterGeometryCollectionItems(WKTParser.GeometryCollectionItemsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L313">	@Override public void exitGeometryCollectionItems(WKTParser.GeometryCollectionItemsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L319">	@Override public void enterGeometryCollectionElements(WKTParser.GeometryCollectionElementsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L325">	@Override public void exitGeometryCollectionElements(WKTParser.GeometryCollectionElementsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L331">	@Override public void enterLineStringCoordinates(WKTParser.LineStringCoordinatesContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L337">	@Override public void exitLineStringCoordinates(WKTParser.LineStringCoordinatesContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L343">	@Override public void enterPolygonCoordinates(WKTParser.PolygonCoordinatesContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L349">	@Override public void exitPolygonCoordinates(WKTParser.PolygonCoordinatesContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L355">	@Override public void enterCoordinate(WKTParser.CoordinateContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L361">	@Override public void exitCoordinate(WKTParser.CoordinateContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L367">	@Override public void enterCoordinates(WKTParser.CoordinatesContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L373">	@Override public void exitCoordinates(WKTParser.CoordinatesContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L379">	@Override public void enterCoordinatesets(WKTParser.CoordinatesetsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L385">	@Override public void exitCoordinatesets(WKTParser.CoordinatesetsContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L391">	@Override public void enterCoordinatesetsset(WKTParser.CoordinatesetssetContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L397">	@Override public void exitCoordinatesetsset(WKTParser.CoordinatesetssetContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L403">	@Override public void enterEmpty(WKTParser.EmptyContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L409">	@Override public void exitEmpty(WKTParser.EmptyContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L415">	@Override public void enterSrid(WKTParser.SridContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L421">	@Override public void exitSrid(WKTParser.SridContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L427">	@Override public void enterDimension(WKTParser.DimensionContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L433">	@Override public void exitDimension(WKTParser.DimensionContext ctx) { }</span>
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L440">	@Override public void enterEveryRule(ParserRuleContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L446">	@Override public void exitEveryRule(ParserRuleContext ctx) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="fc" id="L452">	@Override public void visitTerminal(TerminalNode node) { }</span>
+	/**
+	 * {@inheritDoc}
+	 *
+	 * &lt;p&gt;The default implementation does nothing.&lt;/p&gt;
+	 */
+<span class="nc" id="L458">	@Override public void visitErrorNode(ErrorNode node) { }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Writers.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">Writers.java</span></div><h1>Writers.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ServiceLoader;
+
+/**
+ * Get a list of Writers or find a Writer by name.
+ * Writers uses the Service Provider Interface (SPI) to look up registered Writers
+ * @author Jared Erickson
+ */
+<span class="nc" id="L13">public class Writers {</span>
+
+    /**
+     * Get a list of all registered Writers
+     * @return A List of Writers
+     */
+    public static List&lt;Writer&gt; list() {
+<span class="fc" id="L20">        List&lt;Writer&gt; writers = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L21">        ServiceLoader&lt;Writer&gt; serviceLoader = ServiceLoader.load(Writer.class);</span>
+<span class="fc" id="L22">        Iterator&lt;Writer&gt; iterator = serviceLoader.iterator();</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        while(iterator.hasNext()) {</span>
+<span class="fc" id="L24">            writers.add(iterator.next());</span>
+        }
+<span class="fc" id="L26">        return writers;</span>
+    }
+
+    /**
+     * Find a Writer by name or return null
+     * @param name The name
+     * @return A Writer or null
+     */
+    public static Writer find(String name) {
+<span class="fc" id="L35">        List&lt;Writer&gt; writers = list();</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        for(Writer writer : writers) {</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">            if (writer.getName().equalsIgnoreCase(name)) {</span>
+<span class="fc" id="L38">                return writer;</span>
+            }
+<span class="fc" id="L40">        }</span>
+<span class="fc" id="L41">        return null;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

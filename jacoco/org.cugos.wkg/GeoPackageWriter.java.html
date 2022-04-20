@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GeoPackageWriter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">GeoPackageWriter.java</span></div><h1>GeoPackageWriter.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+import java.nio.ByteBuffer;
+
+/**
+ * Write GeoPackage encoded Geometry
+ * @author Jared Erickson
+ */
+public class GeoPackageWriter implements Writer&lt;byte[]&gt; {
+
+    /**
+     * The GeoPackage version
+     */
+<span class="fc" id="L14">    private int version = 0;</span>
+
+    /**
+     * The GeoPackage binary type
+     */
+<span class="fc" id="L19">    private GeoPackage.BinaryType binaryType = GeoPackage.BinaryType.Standard;</span>
+
+    /**
+     * The GeoPackage Envelope Type
+     */
+<span class="fc" id="L24">    private GeoPackage.EnvelopeType envelopType = GeoPackage.EnvelopeType.NoEnvelope;</span>
+
+    /**
+     * The Endian flag
+     */
+<span class="fc" id="L29">    private WKB.Endian endian = WKB.Endian.Big;</span>
+
+    /**
+     * The WKBWriter
+     */
+    private WKBWriter wkbWriter;
+
+    /**
+     * Create a new GeoPackageWriter that uses Big Endian and encodes the Envelope without MZ values
+     */
+    public GeoPackageWriter() {
+<span class="fc" id="L40">        this(WKB.Endian.Big, GeoPackage.EnvelopeType.Envelope);</span>
+<span class="fc" id="L41">    }</span>
+
+    /**
+     * Create a new GeopackageWriter
+     * @param endian The Endian flag
+     * @param envelopeType The EnvelopeType
+     */
+<span class="fc" id="L48">    public GeoPackageWriter(WKB.Endian endian, GeoPackage.EnvelopeType envelopeType) {</span>
+<span class="fc" id="L49">        this.endian = endian;</span>
+<span class="fc" id="L50">        this.envelopType = envelopeType;</span>
+<span class="fc" id="L51">        this.wkbWriter = new WKBWriter(WKB.Type.EWKB, endian);</span>
+<span class="fc" id="L52">    }</span>
+
+    /**
+     * Write the Geometry to a hex String
+     * @param geometry The Geometry
+     * @return A WKB hex String
+     */
+    public String writeToHex(Geometry geometry) {
+<span class="fc" id="L60">        return toHex(write(geometry));</span>
+    }
+
+    /**
+     * Write a Geometry to an array of bytes
+     * @param g The Geometry
+     * @return An array of bytes
+     */
+    @Override
+    public byte[] write(Geometry g) {
+        //System.out.println(calculateNumberOfBytes(g));
+<span class="fc" id="L71">        ByteBuffer buffer = ByteBuffer.allocate(calculateNumberOfBytes(g));</span>
+        // Magic (2)
+<span class="fc" id="L73">        buffer.put((byte)'G');</span>
+<span class="fc" id="L74">        buffer.put((byte)'P');</span>
+        // Version (1)
+<span class="fc" id="L76">        buffer.put((byte)version);</span>
+        // Flags (1)
+<span class="fc" id="L78">        byte flag = 0;</span>
+<span class="fc" id="L79">        flag |= ((((byte) envelopType.getValue() &lt;&lt; 1) &amp; GeoPackage.Flag.EnvelopeIndicator.getValue()));</span>
+<span class="fc" id="L80">        flag |= ((byte) binaryType.getValue()) &amp; GeoPackage.Flag.BinaryType.getValue();</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        flag |= ((byte) (g.isEmpty() ? GeoPackage.GeometryEmptyType.Empty.getValue() : GeoPackage.GeometryEmptyType.NotEmpty.getValue())) &amp; GeoPackage.Flag.GeometryEmpty.getValue();</span>
+<span class="fc" id="L82">        flag |= ((byte) endian.getValue()) &amp; GeoPackage.Flag.Endianess.getValue();</span>
+<span class="fc" id="L83">        buffer.put(flag);</span>
+        // SRS ID (4)
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">        buffer.putInt(g.getSrid() != null ? Integer.parseInt(g.getSrid()) : -1);</span>
+        // Envelope (8 * 4)
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (envelopType != GeoPackage.EnvelopeType.NoEnvelope) {</span>
+<span class="fc" id="L88">            Envelope envelope = g.getEnvelope();</span>
+<span class="fc" id="L89">            buffer.putDouble(envelope.getMinX());</span>
+<span class="fc" id="L90">            buffer.putDouble(envelope.getMaxX());</span>
+<span class="fc" id="L91">            buffer.putDouble(envelope.getMinY());</span>
+<span class="fc" id="L92">            buffer.putDouble(envelope.getMaxY());</span>
+<span class="fc bfc" id="L93" title="All 4 branches covered.">            if (envelopType == GeoPackage.EnvelopeType.EnvelopeZ || envelopType == GeoPackage.EnvelopeType.EnvelopeZM) {</span>
+<span class="fc" id="L94">                buffer.putDouble(envelope.getMinZ());</span>
+<span class="fc" id="L95">                buffer.putDouble(envelope.getMaxZ());</span>
+            }
+<span class="fc bfc" id="L97" title="All 4 branches covered.">            if (envelopType == GeoPackage.EnvelopeType.EnvelopeM || envelopType == GeoPackage.EnvelopeType.EnvelopeZM) {</span>
+<span class="fc" id="L98">                buffer.putDouble(envelope.getMinM());</span>
+<span class="fc" id="L99">                buffer.putDouble(envelope.getMaxM());</span>
+            }
+        }
+        // WKBGeometry
+<span class="fc" id="L103">        wkbWriter.putGeometry(buffer, g);</span>
+<span class="fc" id="L104">        return buffer.array();</span>
+    }
+
+    @Override
+    public String getName() {
+<span class="fc" id="L109">        return &quot;GeoPackage&quot;;</span>
+    }
+
+    protected int calculateNumberOfBytes(Geometry g) {
+<span class="fc" id="L113">        return wkbWriter.calculateNumberOfBytes(g)</span>
+            + 2 // magic
+            + 1 // version
+            + 1 // flags
+            + 4 // srid
+<span class="fc" id="L118">            + calculateNumberOfBytes(envelopType);</span>
+    }
+
+    private int calculateNumberOfBytes(GeoPackage.EnvelopeType envelopeType) {
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        if (envelopeType == GeoPackage.EnvelopeType.NoEnvelope) {</span>
+<span class="fc" id="L123">            return 0;</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        } else if (envelopeType == GeoPackage.EnvelopeType.Envelope) {</span>
+<span class="fc" id="L125">            return 8 * 4;</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        } else if (envelopeType == GeoPackage.EnvelopeType.EnvelopeZ) {</span>
+<span class="fc" id="L127">            return 8 * 6;</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        } else if (envelopeType == GeoPackage.EnvelopeType.EnvelopeM) {</span>
+<span class="fc" id="L129">            return 8 * 6;</span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">        } else if (envelopeType == GeoPackage.EnvelopeType.EnvelopeZM) {</span>
+<span class="fc" id="L131">            return 8 * 8;</span>
+        } else {
+<span class="nc" id="L133">            return 0;</span>
+        }
+    }
+
+    /**
+     * The hex array
+     */
+<span class="fc" id="L140">    private final static char[] hexArray = &quot;0123456789ABCDEF&quot;.toCharArray();</span>
+
+    /**
+     * Convert an array of bytes to a hex String.
+     * @param bytes The array of bytes
+     * @return The hex String
+     */
+    private static String toHex(byte[] bytes) {
+<span class="fc" id="L148">        char[] hexChars = new char[bytes.length * 2];</span>
+<span class="fc bfc" id="L149" title="All 2 branches covered.">        for (int j = 0; j &lt; bytes.length; j++) {</span>
+<span class="fc" id="L150">            int v = bytes[j] &amp; 0xFF;</span>
+<span class="fc" id="L151">            hexChars[j * 2] = hexArray[v &gt;&gt;&gt; 4];</span>
+<span class="fc" id="L152">            hexChars[j * 2 + 1] = hexArray[v &amp; 0x0F];</span>
+        }
+<span class="fc" id="L154">        return new String(hexChars);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

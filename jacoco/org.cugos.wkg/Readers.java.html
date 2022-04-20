@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Readers.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">Readers.java</span></div><h1>Readers.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ServiceLoader;
+
+/**
+ * Get a list of Readers or find a Reader by name.
+ * Readers uses the Service Provider Interface (SPI) to look up registered Readers
+ * @author Jared Erickson
+ */
+
+<span class="nc" id="L14">public class Readers {</span>
+  
+    /**
+     * Get a list of all registered Readers
+     * @return A List of Readers
+     */
+    public static List&lt;Reader&gt; list() {
+<span class="fc" id="L21">        List&lt;Reader&gt; readers = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L22">        ServiceLoader&lt;Reader&gt; serviceLoader = ServiceLoader.load(Reader.class);</span>
+<span class="fc" id="L23">        Iterator&lt;Reader&gt; iterator = serviceLoader.iterator();</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        while(iterator.hasNext()) {</span>
+<span class="fc" id="L25">            readers.add(iterator.next());</span>
+        }
+<span class="fc" id="L27">        return readers;</span>
+    }
+
+    /**
+     * Find a Reader by name or return null
+     * @param name The name
+     * @return A Reader or null
+     */
+    public static Reader find(String name) {
+<span class="fc" id="L36">        List&lt;Reader&gt; readers = list();</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        for(Reader reader : readers) {</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">            if (reader.getName().equalsIgnoreCase(name)) {</span>
+<span class="fc" id="L39">                return reader;</span>
+            }
+<span class="fc" id="L41">        }</span>
+<span class="fc" id="L42">        return null;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

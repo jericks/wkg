@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Geometry.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg</a> &gt; <span class="el_source">Geometry.java</span></div><h1>Geometry.java</h1><pre class="source lang-java linenums">package org.cugos.wkg;
+
+import java.util.List;
+
+/**
+ * The Abstract base class for all Geometries
+ * @author Jared Erickson
+ */
+public abstract class Geometry {
+
+    /**
+     * The SRID
+     */
+    protected String srid;
+
+    /**
+     * The Dimension
+     */
+    protected final Dimension dimension;
+
+    /**
+     * The data property
+     */
+    protected Object data;
+
+    /**
+     * Create a new Geometry with Dimension and SRID
+     * @param dimension The Dimension
+     * @param srid The SRID
+     */
+<span class="fc" id="L31">    protected Geometry(Dimension dimension, String srid) {</span>
+<span class="fc" id="L32">        this.dimension = dimension;</span>
+<span class="fc" id="L33">        this.srid = srid;</span>
+<span class="fc" id="L34">    }</span>
+
+    /**
+     * Is this Geometry empty?
+     * @return Whether the Geometry is empty
+     */
+    public abstract boolean isEmpty();
+
+    /**
+     * Get the number of coordinates
+     * @return The number of coordinates
+     */
+    public abstract int getNumberOfCoordinates();
+
+    /**
+     * Get a List of all coordinates
+     * @return A List of all coordinates
+     */ 
+    public abstract List&lt;Coordinate&gt; getCoordinates();
+
+    /**
+     * Get the bounding Envelope
+     * @return The bounding Envelope
+     */
+    public Envelope getEnvelope() {
+<span class="fc" id="L59">        double minX = Double.NaN;</span>
+<span class="fc" id="L60">        double minY = Double.NaN;</span>
+<span class="fc" id="L61">        double maxX = Double.NaN;</span>
+<span class="fc" id="L62">        double maxY = Double.NaN;</span>
+<span class="fc" id="L63">        double minZ = Double.NaN;</span>
+<span class="fc" id="L64">        double maxZ = Double.NaN;</span>
+<span class="fc" id="L65">        double minM = Double.NaN;</span>
+<span class="fc" id="L66">        double maxM = Double.NaN;</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        for(Coordinate coordinate : getCoordinates()) {</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">            if (Double.isNaN(minX)) {</span>
+<span class="fc" id="L69">                minX = coordinate.getX();</span>
+            } else {
+<span class="fc" id="L71">                minX = Math.min(coordinate.getX(), minX);</span>
+            }
+<span class="fc bfc" id="L73" title="All 2 branches covered.">            if (Double.isNaN(minY)) {</span>
+<span class="fc" id="L74">                minY = coordinate.getY();</span>
+            } else {
+<span class="fc" id="L76">                minY = Math.min(coordinate.getY(), minY);</span>
+            }
+<span class="fc bfc" id="L78" title="All 2 branches covered.">            if (Double.isNaN(maxX)) {</span>
+<span class="fc" id="L79">                maxX = coordinate.getX();</span>
+            } else {
+<span class="fc" id="L81">                maxX = Math.max(coordinate.getX(), maxX);</span>
+            }
+<span class="fc bfc" id="L83" title="All 2 branches covered.">            if (Double.isNaN(maxY)) {</span>
+<span class="fc" id="L84">                maxY = coordinate.getY();</span>
+            } else {
+<span class="fc" id="L86">                maxY = Math.max(coordinate.getY(), maxY);</span>
+            }
+            // Z
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">            if (Double.isNaN(minZ)) {</span>
+<span class="fc" id="L90">                minZ = coordinate.getZ();</span>
+            } else {
+<span class="nc" id="L92">                minZ = Math.min(coordinate.getZ(), minZ);</span>
+            }
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">            if (Double.isNaN(maxZ)) {</span>
+<span class="fc" id="L95">                maxZ = coordinate.getZ();</span>
+            } else {
+<span class="nc" id="L97">                maxZ = Math.max(coordinate.getZ(), maxZ);</span>
+            }
+            // M
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">            if (Double.isNaN(minM)) {</span>
+<span class="fc" id="L101">                minM = coordinate.getM();</span>
+            } else {
+<span class="nc" id="L103">                minM = Math.min(coordinate.getM(), minM);</span>
+            }
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">            if (Double.isNaN(maxM)) {</span>
+<span class="fc" id="L106">                maxM = coordinate.getM();</span>
+            } else {
+<span class="nc" id="L108">                maxM = Math.max(coordinate.getM(), maxM);</span>
+            }
+
+<span class="fc" id="L111">        }</span>
+<span class="fc" id="L112">        return Envelope.create3DM(minX, minY, minZ, minM, maxX, maxY, maxZ, maxM);</span>
+    }
+
+    /**
+     * Get the SRID which often is null
+     * @return The SRID
+     */
+    public String getSrid() {
+<span class="fc" id="L120">        return srid;</span>
+    }
+    
+    /**
+     * Set the SRID for this GeometryType
+     * @param srid The SRID
+     * @return This Geometry
+     */ 
+    public Geometry setSrid(String srid) {
+<span class="fc" id="L129">        this.srid = srid;</span>
+<span class="fc" id="L130">        return this;</span>
+    }
+
+    /**
+     * Get the data
+     * @return The data
+     */
+    public Object getData() {
+<span class="fc" id="L138">        return data;</span>
+    }
+
+    /**
+     * Set the data
+     * @param data The data
+     * @return This Geometry
+     */
+    public Geometry setData(Object data) {
+<span class="fc" id="L147">        this.data = data;</span>
+<span class="fc" id="L148">        return this;</span>
+    }
+
+    /**
+     * Get the Dimension
+     * @return The Dimension
+     */
+    public Dimension getDimension() {
+<span class="fc" id="L156">        return dimension;</span>
+    }
+
+    /**
+     * Write the Geometry to WKT
+     * @return The WKT of the Geometry
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L165">        return new WKTWriter().write(this);</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
