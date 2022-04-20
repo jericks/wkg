@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/jericks/wkg.svg?branch=master)](https://travis-ci.org/jericks/wkg)
+[![Github Action](https://github.com/jericks/wkg/workflows/Build/badge.svg)](https://github.com/jericks/wkg/actions)
 
 Well Known Geometry
 ===================
