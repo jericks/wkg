@@ -1,4 +1,4 @@
-[![Github Action](https://github.com/jericks/wkg/workflows/Build/badge.svg)](https://github.com/jericks/wkg/actions)
+[![Github Action](https://github.com/jericks/wkg/actions/workflows/build.yml/badge.svg)](https://github.com/jericks/wkg/actions/workflows/build.yml)
 
 Well Known Geometry
 ===================
