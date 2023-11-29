@@ -14,7 +14,7 @@ public interface Reader<T> {
 
     /**
      * Read a Geometry from the input
-     * @param T The input
+     * @param input The input
      * @return A Geometry
      */
     Geometry read(T input);
