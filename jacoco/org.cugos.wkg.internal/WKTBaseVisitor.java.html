@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WKTBaseVisitor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg.internal</a> &gt; <span class="el_source">WKTBaseVisitor.java</span></div><h1>WKTBaseVisitor.java</h1><pre class="source lang-java linenums">// Generated from org/cugos/wkg/internal/WKT.g4 by ANTLR 4.7.1
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WKTBaseVisitor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wkg</a> &gt; <a href="index.source.html" class="el_package">org.cugos.wkg.internal</a> &gt; <span class="el_source">WKTBaseVisitor.java</span></div><h1>WKTBaseVisitor.java</h1><pre class="source lang-java linenums">// Generated from org/cugos/wkg/internal/WKT.g4 by ANTLR 4.13.1
 package org.cugos.wkg.internal;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -10,251 +10,252 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * @param &lt;T&gt; The return type of the visit operation. Use {@link Void} for
  * operations with no return type.
  */
-<span class="nc" id="L13">public class WKTBaseVisitor&lt;T&gt; extends AbstractParseTreeVisitor&lt;T&gt; implements WKTVisitor&lt;T&gt; {</span>
+@SuppressWarnings(&quot;CheckReturnValue&quot;)
+<span class="nc" id="L14">public class WKTBaseVisitor&lt;T&gt; extends AbstractParseTreeVisitor&lt;T&gt; implements WKTVisitor&lt;T&gt; {</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L20">	@Override public T visitWkt(WKTParser.WktContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L21">	@Override public T visitWkt(WKTParser.WktContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L27">	@Override public T visitPoint(WKTParser.PointContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L28">	@Override public T visitPoint(WKTParser.PointContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L34">	@Override public T visitLineString(WKTParser.LineStringContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L35">	@Override public T visitLineString(WKTParser.LineStringContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L41">	@Override public T visitPolygon(WKTParser.PolygonContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L42">	@Override public T visitPolygon(WKTParser.PolygonContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L48">	@Override public T visitTriangle(WKTParser.TriangleContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L49">	@Override public T visitTriangle(WKTParser.TriangleContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L55">	@Override public T visitMultiPoint(WKTParser.MultiPointContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L56">	@Override public T visitMultiPoint(WKTParser.MultiPointContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L62">	@Override public T visitMultiLineString(WKTParser.MultiLineStringContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L63">	@Override public T visitMultiLineString(WKTParser.MultiLineStringContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L69">	@Override public T visitCircularString(WKTParser.CircularStringContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L70">	@Override public T visitCircularString(WKTParser.CircularStringContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L76">	@Override public T visitTin(WKTParser.TinContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L77">	@Override public T visitTin(WKTParser.TinContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L83">	@Override public T visitPolyHedralSurface(WKTParser.PolyHedralSurfaceContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L84">	@Override public T visitPolyHedralSurface(WKTParser.PolyHedralSurfaceContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L90">	@Override public T visitMultiPolygon(WKTParser.MultiPolygonContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L91">	@Override public T visitMultiPolygon(WKTParser.MultiPolygonContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L97">	@Override public T visitCurvePolygon(WKTParser.CurvePolygonContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L98">	@Override public T visitCurvePolygon(WKTParser.CurvePolygonContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L104">	@Override public T visitCurvePolygonItems(WKTParser.CurvePolygonItemsContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L105">	@Override public T visitCurvePolygonItems(WKTParser.CurvePolygonItemsContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L111">	@Override public T visitCurvePolygonElements(WKTParser.CurvePolygonElementsContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L112">	@Override public T visitCurvePolygonElements(WKTParser.CurvePolygonElementsContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L118">	@Override public T visitCompoundCurve(WKTParser.CompoundCurveContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L119">	@Override public T visitCompoundCurve(WKTParser.CompoundCurveContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L125">	@Override public T visitCompoundCurveItems(WKTParser.CompoundCurveItemsContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L126">	@Override public T visitCompoundCurveItems(WKTParser.CompoundCurveItemsContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L132">	@Override public T visitCompoundCurveElements(WKTParser.CompoundCurveElementsContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L133">	@Override public T visitCompoundCurveElements(WKTParser.CompoundCurveElementsContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L139">	@Override public T visitMultiCurve(WKTParser.MultiCurveContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L140">	@Override public T visitMultiCurve(WKTParser.MultiCurveContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L146">	@Override public T visitMultiCurveItems(WKTParser.MultiCurveItemsContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L147">	@Override public T visitMultiCurveItems(WKTParser.MultiCurveItemsContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L153">	@Override public T visitMultiCurveElements(WKTParser.MultiCurveElementsContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L154">	@Override public T visitMultiCurveElements(WKTParser.MultiCurveElementsContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L160">	@Override public T visitMultiSurface(WKTParser.MultiSurfaceContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L161">	@Override public T visitMultiSurface(WKTParser.MultiSurfaceContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L167">	@Override public T visitMultiSurfaceItems(WKTParser.MultiSurfaceItemsContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L168">	@Override public T visitMultiSurfaceItems(WKTParser.MultiSurfaceItemsContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L174">	@Override public T visitMultiSurfaceElements(WKTParser.MultiSurfaceElementsContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L175">	@Override public T visitMultiSurfaceElements(WKTParser.MultiSurfaceElementsContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L181">	@Override public T visitGeometryCollection(WKTParser.GeometryCollectionContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L182">	@Override public T visitGeometryCollection(WKTParser.GeometryCollectionContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L188">	@Override public T visitGeometryCollectionItems(WKTParser.GeometryCollectionItemsContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L189">	@Override public T visitGeometryCollectionItems(WKTParser.GeometryCollectionItemsContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L195">	@Override public T visitGeometryCollectionElements(WKTParser.GeometryCollectionElementsContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L196">	@Override public T visitGeometryCollectionElements(WKTParser.GeometryCollectionElementsContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L202">	@Override public T visitLineStringCoordinates(WKTParser.LineStringCoordinatesContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L203">	@Override public T visitLineStringCoordinates(WKTParser.LineStringCoordinatesContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L209">	@Override public T visitPolygonCoordinates(WKTParser.PolygonCoordinatesContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L210">	@Override public T visitPolygonCoordinates(WKTParser.PolygonCoordinatesContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L216">	@Override public T visitCoordinate(WKTParser.CoordinateContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L217">	@Override public T visitCoordinate(WKTParser.CoordinateContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L223">	@Override public T visitCoordinates(WKTParser.CoordinatesContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L224">	@Override public T visitCoordinates(WKTParser.CoordinatesContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L230">	@Override public T visitCoordinatesets(WKTParser.CoordinatesetsContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L231">	@Override public T visitCoordinatesets(WKTParser.CoordinatesetsContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L237">	@Override public T visitCoordinatesetsset(WKTParser.CoordinatesetssetContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L238">	@Override public T visitCoordinatesetsset(WKTParser.CoordinatesetssetContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L244">	@Override public T visitEmpty(WKTParser.EmptyContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L245">	@Override public T visitEmpty(WKTParser.EmptyContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L251">	@Override public T visitSrid(WKTParser.SridContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L252">	@Override public T visitSrid(WKTParser.SridContext ctx) { return visitChildren(ctx); }</span>
 	/**
 	 * {@inheritDoc}
 	 *
 	 * &lt;p&gt;The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.&lt;/p&gt;
 	 */
-<span class="nc" id="L258">	@Override public T visitDimension(WKTParser.DimensionContext ctx) { return visitChildren(ctx); }</span>
+<span class="nc" id="L259">	@Override public T visitDimension(WKTParser.DimensionContext ctx) { return visitChildren(ctx); }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

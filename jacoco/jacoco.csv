@@ -1,29 +1,29 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 wkg,org.cugos.wkg,GeometryCollection,0,24,0,0,0,6,0,4,0,4
-wkg,org.cugos.wkg,Writers,3,43,0,6,1,12,1,5,1,2
-wkg,org.cugos.wkg,GeoJSONReader.new BaseErrorListener() {...},17,6,0,0,1,1,1,1,1,1
-wkg,org.cugos.wkg,GeoJSONReader.new JSONBaseListener() {...},4,144,2,14,2,32,2,14,0,8
+wkg,org.cugos.wkg,Writers,3,44,0,6,1,12,1,5,1,2
+wkg,org.cugos.wkg,GeoJSONReader.new BaseErrorListener() {...},8,6,0,0,1,1,1,1,1,1
+wkg,org.cugos.wkg,GeoJSONReader.new JSONBaseListener() {...},4,142,2,14,2,32,2,14,0,8
 wkg,org.cugos.wkg,Point,0,51,1,5,0,10,1,9,0,7
 wkg,org.cugos.wkg,Polygon,2,114,1,5,0,25,1,12,0,10
-wkg,org.cugos.wkg,Coordinate,8,269,6,24,0,49,6,25,0,16
+wkg,org.cugos.wkg,Coordinate,8,240,6,24,0,49,6,25,0,16
 wkg,org.cugos.wkg,WKTReader.Var,0,13,0,0,0,5,0,3,0,3
 wkg,org.cugos.wkg,GeoPackage,3,0,0,0,1,0,1,0,1,0
-wkg,org.cugos.wkg,WKTWriter,249,1532,28,200,48,377,34,123,13,30
+wkg,org.cugos.wkg,WKTWriter,243,1532,28,200,48,377,34,123,13,30
 wkg,org.cugos.wkg,LinearRing,0,25,0,0,0,6,0,4,0,4
 wkg,org.cugos.wkg,MultiPolygon,0,24,0,0,0,6,0,4,0,4
-wkg,org.cugos.wkg,GeoPackageReader,0,214,1,13,0,55,1,12,0,6
+wkg,org.cugos.wkg,GeoPackageReader,0,213,1,13,0,55,1,12,0,6
 wkg,org.cugos.wkg,Curve,0,5,0,0,0,2,0,1,0,1
 wkg,org.cugos.wkg,PolyHedralSurface,0,70,0,4,0,16,0,8,0,6
 wkg,org.cugos.wkg,WKB.GeometryType,0,226,0,4,0,26,0,6,0,4
 wkg,org.cugos.wkg,LineString,0,35,0,0,0,9,0,6,0,6
 wkg,org.cugos.wkg,MultiCurve,0,24,0,0,0,6,0,4,0,4
-wkg,org.cugos.wkg,WKBWriter,307,1881,44,210,50,424,60,152,19,66
-wkg,org.cugos.wkg,WKTReader,25,415,2,26,2,58,2,25,0,13
-wkg,org.cugos.wkg,Triangle,0,24,0,0,0,5,0,3,0,3
+wkg,org.cugos.wkg,WKBWriter,265,1881,44,210,50,424,60,152,19,66
+wkg,org.cugos.wkg,WKTReader,25,413,2,26,2,58,2,25,0,13
 wkg,org.cugos.wkg,GeoPackage.Flag,0,59,0,0,0,9,0,3,0,3
+wkg,org.cugos.wkg,Triangle,0,24,0,0,0,5,0,3,0,3
 wkg,org.cugos.wkg,WKBReader,2,744,1,89,1,154,1,51,0,7
-wkg,org.cugos.wkg,GeoJSONReader.JSONArray,4,16,0,0,1,4,1,3,1,3
 wkg,org.cugos.wkg,Surface,0,5,0,0,0,2,0,1,0,1
+wkg,org.cugos.wkg,GeoJSONReader.JSONArray,4,16,0,0,1,4,1,3,1,3
 wkg,org.cugos.wkg,GeoJSONReader.JSONObject,4,16,0,0,1,4,1,3,1,3
 wkg,org.cugos.wkg,WKB.Type,0,24,0,0,0,2,0,1,0,1
 wkg,org.cugos.wkg,MultiLineString,0,24,0,0,0,6,0,4,0,4
@@ -31,25 +31,25 @@ wkg,org.cugos.wkg,Coordinate.Builder,0,172,8,24,0,29,8,15,0,7
 wkg,org.cugos.wkg,Dimension,0,44,0,0,0,5,0,1,0,1
 wkg,org.cugos.wkg,MultiSurface,0,24,0,0,0,6,0,4,0,4
 wkg,org.cugos.wkg,GeoPackageReader.GeoPackageGeometry,21,35,0,0,7,17,7,9,7,9
-wkg,org.cugos.wkg,WKTReader.new WKTBaseListener() {...},18,800,19,79,3,143,18,49,0,18
+wkg,org.cugos.wkg,WKTReader.new WKTBaseListener() {...},18,801,19,79,3,143,18,49,0,18
 wkg,org.cugos.wkg,Tin,0,76,0,4,0,18,0,9,0,7
-wkg,org.cugos.wkg,WKTReader.new BaseErrorListener() {...},17,6,0,0,1,1,1,1,1,1
+wkg,org.cugos.wkg,WKTReader.new BaseErrorListener() {...},8,6,0,0,1,1,1,1,1,1
 wkg,org.cugos.wkg,GeoPackageWriter,6,288,3,23,1,57,3,19,0,9
 wkg,org.cugos.wkg,GeoPackage.BinaryType,0,61,0,4,0,11,0,6,0,4
 wkg,org.cugos.wkg,Geometry,20,148,4,14,4,43,4,13,0,8
 wkg,org.cugos.wkg,MultiPoint,0,24,0,0,0,6,0,4,0,4
 wkg,org.cugos.wkg,CompoundCurve,0,76,0,4,0,18,0,9,0,7
-wkg,org.cugos.wkg,Readers,3,43,0,6,1,12,1,5,1,2
+wkg,org.cugos.wkg,Readers,3,44,0,6,1,12,1,5,1,2
 wkg,org.cugos.wkg,CurvePolygon,2,104,1,5,0,21,1,10,0,8
 wkg,org.cugos.wkg,WKB.GeometryTypeFlag,0,48,0,0,0,8,0,3,0,3
 wkg,org.cugos.wkg,CircularString,0,36,0,0,0,9,0,6,0,6
 wkg,org.cugos.wkg,GeoPackage.EnvelopeType,0,94,0,4,0,14,0,6,0,4
 wkg,org.cugos.wkg,GeoPackage.GeometryEmptyType,0,61,0,4,0,11,0,6,0,4
-wkg,org.cugos.wkg,GeoJSONReader,24,682,18,58,5,117,17,39,0,18
+wkg,org.cugos.wkg,GeoJSONReader,24,681,18,58,5,117,17,39,0,18
 wkg,org.cugos.wkg,WKB.Endian,0,61,0,4,0,11,0,6,0,4
 wkg,org.cugos.wkg,AbstractGeometryCollection,0,64,0,4,0,15,0,7,0,5
 wkg,org.cugos.wkg,GeoJSONWriter,10,593,3,49,3,147,3,37,0,14
-wkg,org.cugos.wkg,Envelope,15,387,12,24,0,53,10,28,0,20
+wkg,org.cugos.wkg,Envelope,15,315,12,24,0,53,10,28,0,20
 wkg,org.cugos.wkg.internal,WKTParser.SridContext,14,26,4,2,3,7,5,4,2,4
 wkg,org.cugos.wkg.internal,JSONParser.PairContext,14,32,4,2,3,8,5,5,2,5
 wkg,org.cugos.wkg.internal,JSONParser.ValueContext,14,43,4,2,3,10,5,7,2,7
@@ -60,16 +60,16 @@ wkg,org.cugos.wkg.internal,WKTParser.PointContext,35,27,4,2,7,7,9,4,6,4
 wkg,org.cugos.wkg.internal,WKTParser.EmptyContext,35,0,6,0,9,0,8,0,5,0
 wkg,org.cugos.wkg.internal,WKTParser.LineStringContext,35,27,4,2,7,7,9,4,6,4
 wkg,org.cugos.wkg.internal,WKTParser.MultiCurveContext,35,27,4,2,7,7,9,4,6,4
-wkg,org.cugos.wkg.internal,JSONParser,139,576,7,19,43,121,12,18,5,8
-wkg,org.cugos.wkg.internal,WKTLexer,16,439,0,8,8,24,8,6,8,2
+wkg,org.cugos.wkg.internal,JSONParser,139,582,7,19,43,124,12,21,5,11
+wkg,org.cugos.wkg.internal,WKTLexer,16,445,0,8,8,27,8,9,8,5
 wkg,org.cugos.wkg.internal,WKTParser.DimensionContext,23,36,4,2,5,9,7,6,4,6
 wkg,org.cugos.wkg.internal,JSONParser.JsonContext,20,21,4,2,4,6,6,3,3,3
 wkg,org.cugos.wkg.internal,WKTParser.MultiSurfaceItemsContext,29,25,4,2,6,7,8,4,5,4
 wkg,org.cugos.wkg.internal,WKTParser.CompoundCurveItemsContext,29,25,4,2,6,7,8,4,5,4
 wkg,org.cugos.wkg.internal,WKTParser.CurvePolygonItemsContext,29,25,4,2,6,7,8,4,5,4
-wkg,org.cugos.wkg.internal,WKTParser.GeometryCollectionItemsContext,29,25,4,2,6,7,8,4,5,4
 wkg,org.cugos.wkg.internal,WKTParser.CompoundCurveContext,35,27,4,2,7,7,9,4,6,4
-wkg,org.cugos.wkg.internal,JSONLexer,16,279,0,8,8,24,8,6,8,2
+wkg,org.cugos.wkg.internal,WKTParser.GeometryCollectionItemsContext,29,25,4,2,6,7,8,4,5,4
+wkg,org.cugos.wkg.internal,JSONLexer,16,285,0,8,8,27,8,9,8,5
 wkg,org.cugos.wkg.internal,WKTParser.MultiLineStringContext,35,27,4,2,7,7,9,4,6,4
 wkg,org.cugos.wkg.internal,WKTBaseVisitor,143,0,0,0,36,0,36,0,36,0
 wkg,org.cugos.wkg.internal,WKTParser.CircularStringContext,35,27,4,2,7,7,9,4,6,4
@@ -86,10 +86,10 @@ wkg,org.cugos.wkg.internal,WKTParser.CoordinateContext,23,30,4,2,5,8,7,5,4,5
 wkg,org.cugos.wkg.internal,WKTParser.LineStringCoordinatesContext,23,27,4,2,5,7,7,4,4,4
 wkg,org.cugos.wkg.internal,WKTParser.CurvePolygonContext,35,27,4,2,7,7,9,4,6,4
 wkg,org.cugos.wkg.internal,WKTParser.MultiSurfaceContext,35,27,4,2,7,7,9,4,6,4
+wkg,org.cugos.wkg.internal,WKTParser,1239,4995,101,245,315,1214,91,146,6,40
 wkg,org.cugos.wkg.internal,WKTParser.MultiPointContext,35,33,4,2,7,8,9,5,6,5
-wkg,org.cugos.wkg.internal,WKTParser,1239,4989,101,245,315,1211,91,143,6,37
-wkg,org.cugos.wkg.internal,WKTParser.GeometryCollectionElementsContext,20,21,4,2,4,6,6,3,3,3
 wkg,org.cugos.wkg.internal,WKTParser.MultiCurveElementsContext,20,33,4,2,4,8,6,5,3,5
+wkg,org.cugos.wkg.internal,WKTParser.GeometryCollectionElementsContext,20,21,4,2,4,6,6,3,3,3
 wkg,org.cugos.wkg.internal,WKTParser.TriangleContext,35,27,4,2,7,7,9,4,6,4
 wkg,org.cugos.wkg.internal,WKTParser.PolygonContext,35,27,4,2,7,7,9,4,6,4
 wkg,org.cugos.wkg.internal,WKTBaseListener,20,57,0,0,20,55,20,55,20,55
